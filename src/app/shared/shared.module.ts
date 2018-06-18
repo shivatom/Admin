@@ -4,6 +4,7 @@ import { MenuItems } from './menu-items/menu-items';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { ToggleFullscreenDirective } from './fullscreen/toggle-fullscreen.directive';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
