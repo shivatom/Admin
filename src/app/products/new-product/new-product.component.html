@@ -1,0 +1,79 @@
+
+<div class="card" >
+  <div class="row">
+    <div class="col-md-7">
+        <div class="card-header">
+          New Product
+        </div>
+        <div class="card-body">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
+          <form [formGroup]="product">
+            <fieldset >
+              <div class="form-group">
+                <label for="disabledTextInput">Project Name</label>
+                <input type="text"  class="form-control" placeholder="Project Name">
+              </div>
+              <div class="form-group">
+                <label for="disabledSelect">Project Description </label>
+                <textarea type="text"  class="form-control" placeholder="Project Description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="disabledSelect">Category </label>
+                <select class="form-control">
+                  <option>Project 1</option>
+                  <option>Project 2</option>
+                  <option>Project 3</option>
+                  <option>Project 4</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="disabledSelect">Branch </label>
+                <select class="form-control">
+                  <option>Group 1</option>
+                  <option>Group 2</option>
+                  <option>Group 3</option>
+                  <option>Group 4</option>
+                </select>
+              </div>
+              <div class="form-row align-items-center">
+                <div class="form-group mr-4">
+                  <label >Pricing method </label>
+                  <div class="panel" >
+                      <label for="simple" class="radio-btn selected" [ngClass]="{'selected' : product.value.payment == 'simple' }" >
+                        Simple
+                      </label>
+                      <label for="other" class="radio-btn " [ngClass]="{'selected' : product.value.payment == 'other' }">
+                        Others 
+                      </label>
+                      <input type="radio"  id="simple"  formControlName="payment"  name="payment"    value="simple"  />
+                      <input type="radio" id="other" formControlName="payment"   name="payment"  value="other"  />
+                  </div>
+                </div>
+                <div class="form-group mr-3">
+                  <label for="disabledSelect">Price </label>
+                  <div class="input-group ">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">$</div>
+                    </div>
+                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" placeholder="Price">
+                  </div>
+                </div>
+              
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <label class="center-div" for="file">
+            <div class="wraper_upload">
+              <i class="fa fa-upload" aria-hidden="true"></i>
+            </div>
+            <button class="btn btn-default">Upload Product image</button>
+        </label>
+        <input type="file" hidden id="file" />
+      </div>
+    </div>
+</div>

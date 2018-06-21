@@ -5,10 +5,11 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
 import { ToggleFullscreenDirective } from './fullscreen/toggle-fullscreen.directive';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
-  exports:      [ AccordionAnchorDirective, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
+  exports:      [ AccordionAnchorDirective,    FormsModule,    ReactiveFormsModule, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
   providers: 	[ MenuItems ]
 })
 export class SharedModule { }

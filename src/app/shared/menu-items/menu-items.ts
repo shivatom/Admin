@@ -28,8 +28,8 @@ const MENUITEMS = [
     icon: 'basic-accelerator'
   },
   {
-    state: 'projects',
-    name: 'Projects',
+    state: 'products',
+    name: 'Products',
     type: 'link',
     icon: 'basic-accelerator'
   },

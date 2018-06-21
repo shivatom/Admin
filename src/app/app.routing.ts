@@ -16,8 +16,8 @@ export const AppRoutes: Routes = [{
     path: 'category',
     loadChildren: './category/category.module#CategoryModule'
   },{
-    path: 'projects',
-    loadChildren: './projects/projects.module#ProjectsModule'
+    path: 'products',
+    loadChildren: './products/products.module#ProductsModule'
   }]
 }, {
   path: '',

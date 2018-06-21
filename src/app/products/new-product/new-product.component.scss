@@ -1,0 +1,51 @@
+.center-div{
+    margin: 0px auto;
+    top: 80px;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    left: 120px;
+}
+.wraper_upload{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.wraper_upload i{
+    font-size: 60px;
+    left: 46px;
+    color: #929191;
+    top: 40px;
+    position: absolute;
+}
+
+.radio-btn{
+    padding: 8px 20px;
+    background-color: #efefef;
+    color: #171717;
+    cursor: pointer;
+    border: #e2e2e2 solid 1px;
+    border-radius: 3px;
+}
+
+.radio-btn.selected{
+    background-color: #0a2ffe;
+    color: #fff;
+}
+.panel{
+    margin-bottom: -8px;
+}
+.customWidth{
+    width: 80px;
+}
+
+.input-group-prepend{
+    background-color: #efefef !important;
+    border-radius: 2px 0px 0px 2px;
+    padding: 8px 12px;
+    border: #e2e2e2 solid 1px;
+}
