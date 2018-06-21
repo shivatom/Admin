@@ -1,5 +1,6 @@
-
+<form [formGroup]="product">
 <div class="card" >
+   
   <div class="row">
     <div class="col-md-7">
         <div class="card-header">
@@ -7,7 +8,7 @@
         </div>
         <div class="card-body">
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
-          <form [formGroup]="product">
+         
             <fieldset >
               <div class="form-group">
                 <label for="disabledTextInput">Project Name</label>
@@ -45,8 +46,8 @@
                       <label for="other" class="radio-btn " [ngClass]="{'selected' : product.value.payment == 'other' }">
                         Others 
                       </label>
-                      <input type="radio"  id="simple"  formControlName="payment"  name="payment"    value="simple"  />
-                      <input type="radio" id="other" formControlName="payment"   name="payment"  value="other"  />
+                      <input type="radio"  id="simple"  formControlName="payment"  name="payment"    value="simple" hidden  />
+                      <input type="radio" id="other" formControlName="payment"   name="payment"  value="other"  hidden />
                   </div>
                 </div>
                 <div class="form-group mr-3">
@@ -63,7 +64,7 @@
               
               <button type="submit" class="btn btn-primary">Submit</button>
             </fieldset>
-          </form>
+          
         </div>
       </div>
       <div class="col-md-5">
@@ -73,7 +74,10 @@
             </div>
             <button class="btn btn-default">Upload Product image</button>
         </label>
-        <input type="file" hidden id="file" />
+        <input type="file" formControlName="files" hidden id="file" (change)="onSelectImage($event)" />
+          <img [src] ="image" width="30px" height="50px">
       </div>
     </div>
+ 
 </div>
+</form>

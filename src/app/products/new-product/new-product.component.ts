@@ -9,12 +9,27 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class NewProductComponent implements OnInit {
   product:FormGroup;
+  image
   constructor(private fb:FormBuilder) { 
     this.product= fb.group(
      {  
-       payment:[]
+       payment:['simple'],
+       files:[]
      }
     );
+  }
+
+  onSelectImage(event){
+    this.image=event.target.files[0];
+   // var file:File = inputValue.files[0]; 
+    var myReader:FileReader = new FileReader();
+
+    myReader.onloadend = function(e){
+      // you can perform an action with readed data here
+      console.log(myReader.result);
+    }
+
+    myReader.readAsText(this.image);
   }
 
   ngOnInit() {
