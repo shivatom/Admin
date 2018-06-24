@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
   rows = [];
-  constructor() { 
+  constructor(private router:Router) { 
     this.fetch((data) => {
       this.rows = data.splice(0, 5);
     });
@@ -25,5 +26,9 @@ export class ProductComponent implements OnInit {
     };
     req.send();
   } 
+
+  editProduct(){
+    this.router.navigate(['products/edit-product'])
+  }
 
 }

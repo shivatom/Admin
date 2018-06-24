@@ -1,52 +1,52 @@
 <div class="row">
   <div class="col-md-12">
-   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="edit-product">
+   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="new-product">
      <span >+ New Project</span>
     </button>
   </div>
 </div>
 <div >
 <ngx-datatable 
-        class="material"
-        [columnMode]="'force'"
-        [headerHeight]="40"
-        [footerHeight]="40"
-        [rowHeight]="'auto'"
-        [rows]="rows">
-        <ngx-datatable-column name="Project name" prop="project">
-          <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-            {{value}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Description" >
-          <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-            {{value}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="branch" >
-          <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-            {{value}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Created">
-          <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-            {{value}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Edit" >
-          <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-            <span  class="fa fa-edit text-primary cursor-pointer" (click)="rowEditMode(rowIndex,true)"></span>
-            <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
-              <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
-              <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
-            </div> -->
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Delete" >
-          <ng-template let-value="value"  ngx-datatable-cell-template>
-            <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
-          </ng-template>
-        </ngx-datatable-column>
-      </ngx-datatable>
+  class="material"
+  [columnMode]="'force'"
+  [headerHeight]="40"
+  [footerHeight]="40"
+  [rowHeight]="'auto'"
+  [rows]="rows">
+  <ngx-datatable-column name="Project name" prop="project">
+    <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+      {{value}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Description" >
+    <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+      {{value}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="branch" >
+    <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+      {{value}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Created">
+    <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+      {{value}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Edit" >
+    <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct()"></span>
+      <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
+        <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
+        <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
+      </div> -->
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Delete" >
+    <ng-template let-value="value"  ngx-datatable-cell-template>
+      <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
     </div>
      

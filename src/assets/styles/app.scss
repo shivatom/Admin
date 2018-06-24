@@ -7,7 +7,48 @@
 @import "scss/custom-bootstrap";
 @import "scss/core";
 
-
+.transparentbtn{
+    border: none;
+    border-radius: 0px;
+    background-color: transparent;
+}
 .cursor-pointer{
     cursor: pointer;
+}
+
+input[type="text"].ng-touched.ng-invalid , select.ng-touched.ng-invalid , textarea.ng-touched.ng-invalid{
+    border: #ffabab solid 1px;
+}
+
+.tab-content{
+    padding: 10px;
+}
+
+.theme-light .card .nav-tabs .nav-link.active, .theme-light .card .nav-tabs .nav-item.show .nav-link{
+    border: none;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+    border-bottom: #304ffe solid 2px !important;
+}
+
+
+
+.f12{
+    font-size: 10px;
+}
+
+.Available{
+    color: #82caa5;
+}
+
+.Reserved{
+    color: #003151;
+}
+
+.Started{
+    color: #fcb316;
+}
+
+.Archived{
+    color: #bc2031;
 }
