@@ -1,0 +1,42 @@
+[
+    {
+        "id": "#1",
+        "Customer": "UI Prototyping",
+        "status": "Available",
+        "pickup": "06-22-2018 09:00 AM",
+        "return": "06-22-2018 09:00 AM",
+        "price": "$123"
+    },
+    {
+        "id": "#2",
+        "Customer": "UI Develop",
+        "status": "Available",
+        "pickup": "06-22-2018 09:00 AM",
+        "return": "06-22-2018 09:00 AM",
+        "price": "$123"
+    },
+    {
+        "id": "#3",
+        "Customer": "UI Design",
+        "status": "Available",
+        "pickup": "06-22-2018 09:00 AM",
+        "return": "06-22-2018 09:00 AM",
+        "price": "$123"
+    },
+    {
+        "id": "#4",
+        "Customer": "UI Prototyping",
+        "status": "Available",
+        "pickup": "06-22-2018 09:00 AM",
+        "return": "06-22-2018 09:00 AM",
+        "price": "$123"
+    },
+    {
+        "id": "#5",
+        "Customer": "UI Prototyping",
+        "status": "Available",
+        "pickup": "06-22-2018 09:00 AM",
+        "return": "06-22-2018 09:00 AM",
+        "price": "$123"
+    }
+]

@@ -40,6 +40,13 @@ const MENUITEMS = [
     icon: 'basic-accelerator'
   },
   {
+    state: 'customers',
+    name: 'Customers',
+    type: 'link',
+    icon: 'basic-accelerator'
+  },
+  
+  {
     state: 'category',
     name: 'Category',
     type: 'link',

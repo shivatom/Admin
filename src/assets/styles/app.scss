@@ -32,6 +32,45 @@ input[type="text"].ng-touched.ng-invalid , select.ng-touched.ng-invalid , textar
 }
 
 
+.tagBtn{
+    background-color: #ffffff;
+    color: #304ffe;
+    font-size: 20px;
+    margin-left: 3px;
+}
+
+.tag {
+    white-space: nowrap;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 20px;
+    cursor: default;
+    background: #657780;
+    border-radius: 3px;
+    color: #FFF;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 2px 9px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    float: left;
+    margin-left: 10px;
+}
+
+.tag .delete-tag{
+    float: right;
+    font-size: 13px;
+    margin-top: -1px;
+    margin-left: 4px;
+    margin-right: -4px;
+}
+
+.icon-cross:before {
+    content: '\f2d3';
+    font-family: FontAwesome;
+}
 
 .f12{
     font-size: 10px;
