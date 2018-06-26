@@ -38,34 +38,39 @@
                 </div>
               </div>
               <div class="form-row align-items-center">
-                <div class="form-group mr-4">
-                  <label >Pricing method </label>
-                  <div class="panel" >
-                      <label for="simple" class="radio-btn selected" [ngClass]="{'selected' : product.value.payment == 'simple' }" >
-                        Simple
-                      </label>
-                      <label for="other" class="radio-btn " [ngClass]="{'selected' : product.value.payment == 'other' }">
-                        Others 
-                      </label>
-                      <input type="radio"  id="simple"  formControlName="payment"  name="payment"    value="simple" hidden  />
-                      <input type="radio" id="other" formControlName="payment"   name="payment"  value="other"  hidden />
-                  </div>
-                </div>
-                <div class="form-group mr-3" *ngIf="product.value.payment == 'simple'">
-                  <label for="disabledSelect">Price </label>
+        
+                <div class="form-group mr-3">
+                  <label for="disabledSelect">Price/hour </label>
                   <div class="input-group ">
                     <div class="input-group-prepend">
                       <div class="input-group-text">$</div>
                     </div>
-                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="project_price" placeholder="Price">
-                    
+                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="price_hour" placeholder="Price">
+                   </div>
+                </div>
+
+                <div class="form-group mr-3">
+                  <label for="disabledSelect">Price/day </label>
+                  <div class="input-group ">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">$</div>
+                    </div>
+                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="price_day" placeholder="Price">
+                   </div>
+                </div>
+
+
+                <div class="form-group mr-3">
+                  <label for="disabledSelect">Price/weekly </label>
+                  <div class="input-group ">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">$</div>
+                    </div>
+                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="price_weekly" placeholder="Price">
                   </div>
                 </div>
-                <div class="form-group mr-3" *ngIf="product.value.payment != 'simple'">
-                  <label for="disabledSelect" class="mt-4">You can set up advanced pricing later. </label>
-                  
-                </div>
-                <small class="text-danger" *ngIf="productPrice.errors && productPrice.touched && product.value.payment == 'simple'">Please enter the project price</small>
+               
+                <small class="text-danger" *ngIf="productPrice.errors && productPrice.touched ">Please enter the project price</small>
               </div>
               <div class="form-row align-items-center">
                 <label for="radio_1" class="custom_radio_btn mr-4" [ngClass]="{'selected' : product.value.tack_type == 'individual'}">
@@ -97,14 +102,14 @@
         </div>
       </div>
       <div class="col-md-4">
-        <label class="center-div" for="file">
-            <div class="wraper_upload">
-              <i class="fa fa-upload" aria-hidden="true"></i>
-            </div>
-            <button class="btn btn-default">Upload Product image</button>
-        </label>
-        <input type="file" formControlName="files" hidden id="file" (change)="onSelectImage($event)" />
-          <img [src] ="image" width="30px" height="50px">
+        <div class="img_wraper mt-5">
+          <label for="file" class="img-hover">
+            <div class="img-prop"  [ngStyle]="{'background': 'url('+image+')'  }"></div>
+          </label>
+        </div>
+        <input type="file" accept="image/*" (change)="onSelectImage($event)"   name="file" class="form-control" hidden id="file">
+      
+       
       </div>
     </div>
  
