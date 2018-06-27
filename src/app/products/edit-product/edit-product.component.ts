@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProductComponent implements OnInit {
   rows = [];
-  editing={}
+  editing={};
+  total_stock=0;
   temp;
   constructor() { 
     this.fetch((data) => {
@@ -32,6 +33,14 @@ export class EditProductComponent implements OnInit {
       return d.identifier.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows = temp;
+  }
+
+  addStock(input){
+    this.total_stock=this.total_stock+Number(input.value);
+  }
+
+  removeStock(input){
+    this.total_stock=this.total_stock-Number(input.value);
   }
 
   statusFilter(event){
