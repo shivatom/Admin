@@ -149,33 +149,32 @@
           <ng-template ngbTabContent>
             <div class="row">
               <div class="d-flex flex-column col-md-4">
-                <div class="p-2">
-                  <label for="none" class="list-btn p-3">
-                    <input type="radio" id="none" name="price" value="None"/> <b>None</b>
-                    <small class="d-block pl-3">Do not use prices for this product.</small>
-                  </label>
+                <label for="basic-url">Price/hour</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Price/hour" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
-                <div class="p-2">
-                  <label for="fixed" class="list-btn p-3">
-                    <input type="radio" id="fixed" name="price" value="None"/> <b>Fixed</b>
-                    <small class="d-block pl-3">Fixed pricing regardless of order duration.</small>
-                  </label>
-                </div>
-                <div class="p-2">
-                  <label for="flat-free" class="list-btn p-3">
-                    <input type="radio" id="flat-free" name="price" value="None"/> <b>Flat-fee</b>
-                    <small class="d-block pl-3">Use a simple flat-fee price. For example $50 per day.</small>
-                  </label>
-                </div>
-              </div>
-              <div class="d-flex flex-column col-md-4">
-                  <label for="basic-url">Price</label>
+
+                <label for="basic-url">Price/day</label>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">$</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="Price/day" aria-label="Username" aria-describedby="basic-addon1">
                   </div>
+
+                  <label for="basic-url">Price/Weekly</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">$</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Price/Weekly" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+              </div>
+              <div class="d-flex flex-column col-md-4">
+                  
               </div>
             </div>
           </ng-template>

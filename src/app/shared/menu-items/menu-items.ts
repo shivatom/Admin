@@ -28,6 +28,12 @@ const MENUITEMS = [
     icon: 'basic-accelerator'
   },
   {
+    state: 'calender',
+    name: 'calender',
+    type: 'link',
+    icon: 'basic-accelerator'
+  },
+  {
     state: 'products',
     name: 'Products',
     type: 'link',
