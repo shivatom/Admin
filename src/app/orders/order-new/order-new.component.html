@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card p-3">
+      <div ngbDropdown class="d-inline-block">
+        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+        <div class="input-group mb-2 col-md-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-user-plus" aria-hidden="true"></i></div>
+          </div>
+          <input type="text" class="form-control"  id="dropdownBasic1" ngbDropdownToggle  id="inlineFormInputGroup" placeholder="Add Customer">
+        </div>
+        <div class="ml-3 mt-3" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item">Coustmer 1 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+          <button class="dropdown-item">Coustmer 2 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+          <button class="dropdown-item">Coustmer 3 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+          <button class="dropdown-item">Coustmer 4 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3 mt-2">
+      <div ngbDropdown class="d-inline-block">
+        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+        <div class="input-group mb-2 col-md-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-user-plus" aria-hidden="true"></i></div>
+          </div>
+          <input type="text" class="form-control"  id="dropdownBasic1" ngbDropdownToggle  id="inlineFormInputGroup" placeholder="Add Product">
+        </div>
+        <div class="ml-3 mt-3" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item">Coustmer 1 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+          <button class="dropdown-item">Coustmer 2 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+          <button class="dropdown-item">Coustmer 3 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+          <button class="dropdown-item">Coustmer 4 <i class="fa fa-plus pull-right mt-1" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Available	</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price each</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th >Product name Product nam Product nam</th>
+            <td><span class="tag bg-success"><i class="fa fa-calendar" aria-hidden="true"></i> 9 day</span></td>
+            <td>
+            
+                <input type="number" style="width:100px;" class="form-control"/>
+              
+            </td>
+            <td><div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item">Action - 1</button>
+                <button class="dropdown-item">Another Action</button>
+                <button class="dropdown-item">Something else is here</button>
+              </div>
+            </div></td>
+            <td>$123</td>
+          </tr>
+         
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col align-self-end">
+          <div class="d-block text-right p-2">
+            <b>Subtotal</b>	₹1,800.00	
+          </div>
+          <div class="d-block  text-right p-2">
+            <b>Total excl. taxes</b>	₹1,800.00	
+          </div>
+          <div class="d-block  text-right p-2">
+           <b> Total incl. taxes</b>	₹1,800.00	
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,10 @@ export const AppRoutes: Routes = [{
     path: 'order',
     loadChildren: './orders/orders.module#OrdersModule'
   },{
+    path: 'customers',
+    loadChildren: './customers/customers.module#CustomersModule'
+  },
+  {
     path: 'category',
     loadChildren: './category/category.module#CategoryModule'
   },{

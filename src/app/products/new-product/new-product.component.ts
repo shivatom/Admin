@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class NewProductComponent implements OnInit {
   product:FormGroup;
-  image
+  image;
   constructor(private fb:FormBuilder) { 
     this.product= fb.group(
      {  
@@ -17,8 +17,9 @@ export class NewProductComponent implements OnInit {
        project_description:['',Validators.required],
        project_cat:['',Validators.required],
        project_branch:['',Validators.required],
-       project_price:['',Validators.required],
-       payment:['simple',Validators.required],
+       price_hour:['',Validators.required],
+       price_day:['',Validators.required],
+       price_weekly:['',Validators.required],
        quantity:['',Validators.required],
        tack_type:['',Validators.required],
        files:['']
@@ -27,8 +28,14 @@ export class NewProductComponent implements OnInit {
   }
 
   onSelectImage(event){
-   
+    var myReader: FileReader = new FileReader();
+    myReader.onloadend = (e) => {
+      this.image=myReader.result;
+    }
+    myReader.readAsDataURL(event.target.files[0]);
   }
+  
+  
 
   ngOnInit() {
     
@@ -50,7 +57,7 @@ export class NewProductComponent implements OnInit {
     return this.product.get('project_branch');
   }
   get productPrice(){
-    return this.product.get('project_price');
+    return this.product.get('price_weekly');
   }
   get tackType(){
     return this.product.get('tack_type');
