@@ -28,7 +28,7 @@
     "@ngx-translate/http-loader": "2.0.0",
     "@swimlane/ngx-charts": "6.1.0",
     "@swimlane/ngx-datatable": "11.0.4",
-    "angular-calendar": "0.21.3",
+    "angular-calendar": "^0.21.3",
     "angular-tree-component": "5.2.1",
     "angular2-text-mask": "8.0.4",
     "bootstrap": "4.0.0-beta",

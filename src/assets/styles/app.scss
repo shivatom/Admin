@@ -6,7 +6,7 @@
 @import "scss/theming";
 @import "scss/custom-bootstrap";
 @import "scss/core";
-
+@import "../../../node_modules/angular-calendar/scss/angular-calendar.scss";
 .transparentbtn{
     border: none;
     border-radius: 0px;
