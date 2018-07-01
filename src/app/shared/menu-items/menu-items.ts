@@ -25,7 +25,7 @@ const MENUITEMS = [
     state: '/',
     name: 'HOME',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'basic-home'
   },
   {
     state: 'calender',
@@ -37,24 +37,27 @@ const MENUITEMS = [
     state: 'products',
     name: 'Products',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'basic-webpage'
   },
   {
     state: 'order',
     name: 'Order',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'ecommerce-cart'
   },
   {
     state: 'customers',
     name: 'Customers',
     type: 'link',
     icon: 'basic-accelerator'
-  },
-  
-  {
+  },{
     state: 'category',
     name: 'Category',
+    type: 'link',
+    icon: 'basic-accelerator'
+  },{
+    state: 'branch',
+    name: 'Branch',
     type: 'link',
     icon: 'basic-accelerator'
   },

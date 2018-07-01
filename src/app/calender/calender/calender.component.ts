@@ -38,7 +38,8 @@ export class CalenderComponent implements OnInit {
     this.bookprice= fb.group({
       mode:[],
       day:[],
-      price :[]
+      price_day :[],
+      price_hour :[]
     })
   }
 
@@ -66,7 +67,7 @@ export class CalenderComponent implements OnInit {
     let self=this;
     this.events.push({ 
       "start" :  self.bookprice.get('day').value,
-      title: self.bookprice.get('price').value,
+      title: self.bookprice.get('price_day').value + '|'+self.bookprice.get('price_hour').value,
       color: colors.yellow,
     });
     this.refresh.next();

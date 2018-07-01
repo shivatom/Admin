@@ -1,0 +1,59 @@
+<form [formGroup]="product">
+  <div class="card" >
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card-header">
+          New Branch
+        </div>
+        <div class="card-body">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
+            <fieldset >
+              <div class="form-row align-items-center">
+                <div class="form-group mr-4">
+                  <label for="disabledSelect">Branch Code </label>
+                  <input type="number" formControlName="branchCode"  class="form-control" placeholder="Branch Code">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="disabledTextInput">Branch Name</label>
+                <input type="text" formControlName="branchName"  class="form-control" placeholder="Branch Name">
+              </div>
+
+              <div class="form-group">
+                <label for="disabledSelect">Branch Description </label>
+                <textarea type="text" formControlName="branchDescription"  class="form-control" placeholder="Branch Description"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="disabledSelect"> Address </label>
+                <textarea type="text" formControlName="address"  class="form-control" placeholder=" Address"></textarea>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="disabledSelect"> latitude </label>
+                    <input type="text" formControlName="latitude"  class="form-control" placeholder=" latitude"  />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="disabledSelect"> longitude </label>
+                    <input type="text" formControlName="longitude"  class="form-control" placeholder=" longitude" />
+                  </div>
+                </div>
+              </div>
+             
+          
+              <button type="submit" [disabled]="!product.valid" class="btn btn-primary">Submit</button>
+            </fieldset>
+          
+        </div>
+      </div>
+    </div>
+ 
+</div>
+</form>
+
+{{product.value | json}}

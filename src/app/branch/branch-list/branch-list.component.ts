@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  selector: 'app-group-list',
+  templateUrl: './branch-list.component.html',
+  styleUrls: ['./branch-list.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class BranchListComponent implements OnInit {
   rows = [];
   constructor(private router:Router) { 
     this.fetch((data) => {
@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
   fetch(data){
     //API Call
     const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/category.json`);
+    req.open('GET', `assets/data/branch.json`);
     req.onload = () => {
       data(JSON.parse(req.response));
     };
@@ -27,7 +27,6 @@ export class CategoryComponent implements OnInit {
   } 
 
   editProduct(){
-    this.router.navigate(['category/edit'])
+    this.router.navigate(['branch/branch-edit'])
   }
-
 }

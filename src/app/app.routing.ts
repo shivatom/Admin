@@ -22,6 +22,9 @@ export const AppRoutes: Routes = [{
   },{
     path: 'calender',
     loadChildren: './calender/calender.module#CalenderModule'
+  },{
+    path: 'branch',
+    loadChildren: './branch/branch.module#BranchModule'
   },
   {
     path: 'category',

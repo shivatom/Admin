@@ -29,28 +29,19 @@
     <h3>{{ viewDate | date }}</h3>
   </div>
   <div class="col-md-4">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        (click)="view = 'month'"
-        [class.active]="view === 'month'">
-        Month
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="view = 'week'"
-        [class.active]="view === 'week'">
-        Week
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="view = 'day'"
-        [class.active]="view === 'day'">
-        Day
-      </div>
-    </div>
+    
   </div>
 </div>
+
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+  </div>
+  <small style="margin: 5px" *ngIf="day.events.length>0" >Price/Day :  ${{ day.events[0].title.split('|')[0] }}</small>
+  <small style="margin: 5px" *ngIf="day.events.length>0" >Price/Hour :  ${{ day.events[0].title.split('|')[1] }}</small>
+</ng-template>
 
 <div [ngSwitch]="view">
   <mwl-calendar-month-view
@@ -61,7 +52,8 @@
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
     (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)">
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [cellTemplate]="customCellTemplate">
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
     *ngSwitchCase="'week'"
@@ -92,19 +84,30 @@
     </button>
   </div>
   <div class="modal-body">
+    {{ bookprice.value | json}}
     <form [formGroup]="bookprice">
       <small class="text-info">Booking Price on : {{bookprice.get('day').value | date}}</small>
          
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-append">
-            <label for="basic-url">Price/{{bookprice.get('mode').value}}</label>
+            <label for="basic-url">Price/day</label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">$</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Price/hour" formControlName="price" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_day" aria-label="Username" aria-describedby="basic-addon1">
             </div>
+
+
+            <label for="basic-url">Price/hour</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">$</span>
+                </div>
+                <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_hour"  aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+
             <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
               <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
             </button>

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
-   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="new">
-     <span >+ New Category</span>
+   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="branch-new">
+     <span >+ New Group</span>
     </button>
   </div>
 </div>
@@ -13,17 +13,17 @@
   [footerHeight]="40"
   [rowHeight]="'auto'"
   [rows]="rows">
-  <ngx-datatable-column name="Category Name" prop="categoryName">
+  <ngx-datatable-column name="Branch name" prop="branch_name">
     <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Category Description" prop="categoryDescription" >
+  <ngx-datatable-column name="Description" prop="branch_desc">
     <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="active"  prop="isActive">
+  <ngx-datatable-column name="Branch code" prop="branch_code" >
     <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
       {{value}}
     </ng-template>

@@ -4,7 +4,7 @@
       <ngb-tabset>
         <ngb-tab title="Inventory">
           <ng-template ngbTabContent>
-            <div class="row">
+            <div class="row" style="display: none;"  >
               <div class="col card">
                 <h4>TOTAL STOCK:</h4>
                 <p class="count">{{total_stock}}</p>
@@ -46,6 +46,8 @@
                       <span >jkjk</span>
                     </div>
               </label>
+              <h6>Humphrey Curtis</h6>
+              <p>Change the view date to the previous view. For example Change the view date to the previous view. For example: Change the view date to the previous view. For example::</p>
               <ng-template #popContent>
                   <div class="form-inline">
                     <div class="form-group col-sm-9">
@@ -179,7 +181,139 @@
             </div>
           </ng-template>
         </ngb-tab>
-        
+        <ngb-tab>
+            <ng-template ngbTabTitle>Calendar</ng-template>
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="d-flex flex-column col-md-12">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                          <div class="btn-group">
+                            <div
+                              class="btn btn-primary"
+                              mwlCalendarPreviousView
+                              [view]="view"
+                              [(viewDate)]="viewDate"
+                              (viewDateChange)="activeDayIsOpen = false">
+                              Previous
+                            </div>
+                            <div
+                              class="btn btn-outline-secondary"
+                              mwlCalendarToday
+                              [(viewDate)]="viewDate">
+                              Today
+                            </div>
+                            <div
+                              class="btn btn-primary"
+                              mwlCalendarNextView
+                              [view]="view"
+                              [(viewDate)]="viewDate"
+                              (viewDateChange)="activeDayIsOpen = false">
+                              Next
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <h3>{{ viewDate | date }}</h3>
+                        </div>
+                        <div class="col-md-4">
+                          
+                        </div>
+                      </div>
+                      
+                      
+                      <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                        <div class="cal-cell-top">
+                          <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+                          <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+                        </div>
+                        <small style="margin: 5px" *ngIf="day.events.length>0" >Price/Day :  ${{ day.events[0].title.split('|')[0] }}</small>
+                        <small style="margin: 5px" *ngIf="day.events.length>0" >Price/Hour :  ${{ day.events[0].title.split('|')[1] }}</small>
+                      </ng-template>
+                      
+                      <div [ngSwitch]="view">
+                        <mwl-calendar-month-view
+                          *ngSwitchCase="'month'"
+                          [viewDate]="viewDate"
+                          [events]="events"
+                          [refresh]="refresh"
+                          [activeDayIsOpen]="activeDayIsOpen"
+                          (dayClicked)="dayClicked($event.day)"
+                          (eventClicked)="handleEvent('Clicked', $event.event)"
+                          (eventTimesChanged)="eventTimesChanged($event)"
+                          [cellTemplate]="customCellTemplate">
+                        </mwl-calendar-month-view>
+                        <mwl-calendar-week-view
+                          *ngSwitchCase="'week'"
+                          [viewDate]="viewDate"
+                          [events]="events"
+                          [refresh]="refresh"
+                          (eventClicked)="handleEvent('Clicked', $event.event)"
+                          (eventTimesChanged)="eventTimesChanged($event)">
+                        </mwl-calendar-week-view>
+                        <mwl-calendar-day-view
+                          *ngSwitchCase="'day'"
+                          [viewDate]="viewDate"
+                          [events]="events"
+                          [refresh]="refresh"
+                          (eventClicked)="handleEvent('Clicked', $event.event)"
+                          (eventTimesChanged)="eventTimesChanged($event)">
+                        </mwl-calendar-day-view>
+                      </div>
+                      
+                      
+                      
+                      
+                      <ng-template #content let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                          <h6 class="modal-title" id="modal-basic-title">Book by day</h6>
+                          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          {{ bookprice.value | json}}
+                          <form [formGroup]="bookprice">
+                            <small class="text-info">Booking Price on : {{bookprice.get('day').value | date}}</small>
+                               
+                            <div class="form-group">
+                              <div class="input-group">
+                                <div class="input-group-append">
+                                  <label for="basic-url">Price/day</label>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                      </div>
+                                      <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_day" aria-label="Username" aria-describedby="basic-addon1">
+                                  </div>
+                      
+                      
+                                  <label for="basic-url">Price/hour</label>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                      </div>
+                                      <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_hour"  aria-label="Username" aria-describedby="basic-addon1">
+                                  </div>
+                      
+                                  <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                                    <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-dark" (click)="bookSlot() ; c('Save click')">Save</button>
+                        </div>
+                      </ng-template>
+                       
+                 
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
       </ngb-tabset>
    </div>
   </div>
