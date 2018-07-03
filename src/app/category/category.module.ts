@@ -5,7 +5,7 @@ import { CategoryRoutingModule } from './category-routing.module';
 import { CategoryComponent } from './category/category.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategoryNewComponent } from './category-new/category-new.component';
-import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { CategoryService } from '../services/category.service';
 
 @NgModule({
   imports: [
@@ -13,6 +13,7 @@ import { CategoryEditComponent } from './category-edit/category-edit.component';
     SharedModule,
     CategoryRoutingModule
   ],
-  declarations: [CategoryComponent, CategoryNewComponent, CategoryEditComponent]
+  declarations: [CategoryComponent, CategoryNewComponent],
+  providers:[CategoryService]
 })
 export class CategoryModule { }

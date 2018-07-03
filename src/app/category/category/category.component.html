@@ -12,7 +12,7 @@
   [headerHeight]="40"
   [footerHeight]="40"
   [rowHeight]="'auto'"
-  [rows]="rows">
+  [rows]="categoryList">
   <ngx-datatable-column name="Category Name" prop="categoryName">
     <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
       {{value}}
@@ -25,17 +25,13 @@
   </ngx-datatable-column>
   <ngx-datatable-column name="active"  prop="isActive">
     <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      {{value}}
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="Created">
-    <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-      {{value}}
+     <p  *ngIf="value"><i aria-hidden="true" class="fa fa-circle f12 Available"></i> Active</p> 
+     <p  *ngIf="!value"><i  aria-hidden="true" class="fa fa-circle f12 Archived"></i> Inactive </p> 
     </ng-template>
   </ngx-datatable-column>
   <ngx-datatable-column name="Edit" >
-    <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct()"></span>
+    <ng-template let-value="value" let-row="row"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
       <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
         <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
         <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>

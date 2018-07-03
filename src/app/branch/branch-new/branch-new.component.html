@@ -1,4 +1,5 @@
 <form [formGroup]="product">
+
   <div class="card" >
     <div class="row">
       <div class="col-md-6">
@@ -6,6 +7,10 @@
           New Branch
         </div>
         <div class="card-body">
+          <div class="alert d-table" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
+              <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+          </div>
+
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
             <fieldset >
               <div class="form-row align-items-center">
@@ -44,9 +49,28 @@
                   </div>
                 </div>
               </div>
+              <!-- <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <label class="switch-light switch-material" onclick="">
+                          <input type="checkbox" formControlName="isActive"  >
+                        
+                          <strong>
+                            Status
+                          </strong>
+                        
+                          <span>
+                            <span>Off</span>
+                            <span>On</span>
+                            <a></a>
+                          </span>
+                        </label>
+                  </div>
+                </div>
+              </div> -->
              
           
-              <button type="submit" [disabled]="!product.valid" class="btn btn-primary">Submit</button>
+              <button type="submit" [disabled]="!product.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
             </fieldset>
           
         </div>
@@ -55,5 +79,4 @@
  
 </div>
 </form>
-
 {{product.value | json}}

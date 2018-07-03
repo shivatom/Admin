@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BranchNewComponent } from './branch-new/branch-new.component';
 import { BranchListComponent } from './branch-list/branch-list.component';
 import { BranchRoutingModule } from './branch-routing.module';
+import { BranchService } from '../services/branch.service';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { BranchRoutingModule } from './branch-routing.module';
     SharedModule,
     BranchRoutingModule
   ],
-  declarations: [BranchListComponent, BranchNewComponent]
+  declarations: [BranchListComponent, BranchNewComponent],
+  providers:[BranchService]
 })
 export class BranchModule { }

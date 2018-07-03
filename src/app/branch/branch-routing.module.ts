@@ -6,7 +6,7 @@ import { BranchNewComponent } from './branch-new/branch-new.component';
 const routes: Routes = [
   {path:"" , component:BranchListComponent},
   {path:"branch-new" , component:BranchNewComponent},
-  {path:"branch-edit" , component:BranchNewComponent}
+  {path:"branch-edit/:id" , component:BranchNewComponent}
 ];
 
 @NgModule({
