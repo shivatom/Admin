@@ -28,12 +28,6 @@ const MENUITEMS = [
     icon: 'basic-home'
   },
   {
-    state: 'calender',
-    name: 'calender',
-    type: 'link',
-    icon: 'basic-accelerator'
-  },
-  {
     state: 'products',
     name: 'Products',
     type: 'link',
@@ -60,36 +54,6 @@ const MENUITEMS = [
     name: 'Branch',
     type: 'link',
     icon: 'basic-accelerator'
-  },
-  {
-    state: 'authentication',
-    name: 'AUTHENTICATION',
-    type: 'sub',
-    icon: 'basic-lock-open',
-    children: [
-      {
-        state: 'signin',
-        name: 'SIGNIN'
-      },
-      {
-        state: 'signup',
-        name: 'SIGNUP'
-      },
-      {
-        state: 'forgot',
-        name: 'FORGOT'
-      },
-      {
-        state: 'lockscreen',
-        name: 'LOCKSCREEN'
-      },
-    ]
-  },
-  {
-    state: 'docs',
-    name: 'DOCS',
-    type: 'link',
-    icon: 'basic-sheet-txt'
   }
 ];
 

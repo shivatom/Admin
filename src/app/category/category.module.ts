@@ -14,6 +14,6 @@ import { CategoryService } from '../services/category.service';
     CategoryRoutingModule
   ],
   declarations: [CategoryComponent, CategoryNewComponent],
-  providers:[CategoryService]
+  providers:[]
 })
 export class CategoryModule { }

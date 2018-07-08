@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -7,14 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  rows = [];
-  constructor(private router:Router) { 
-    this.fetch((data) => {
-      this.rows = data.splice(0, 5);
-    });
+  productList ;
+  constructor(private router:Router, private productService:ProductService) { 
+    this.getProductList();
   }
 
   ngOnInit() {
+  }
+
+  getProductList(){
+    this.productService.getByURL('product/basic-list').subscribe(response=>{
+      this.productList=response;
+      console.log(this.productList);
+      
+    })
   }
 
   fetch(data){
@@ -27,8 +34,8 @@ export class ProductComponent implements OnInit {
     req.send();
   } 
 
-  editProduct(){
-    this.router.navigate(['products/edit-product'])
+  editProduct(id){
+    this.router.navigate(['products/edit-product/'+id],{skipLocationChange:true})
   }
 
 }

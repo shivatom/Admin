@@ -16,7 +16,6 @@ export class DataService {
   }
 
   create(formData){
-    console.log(this.token)
     return this.http.post<StatusResponse>(this.apiUrl+this.url, formData ,this.token);
   }
 
@@ -27,9 +26,13 @@ export class DataService {
   delete(id){
     return this.http.delete<StatusResponse>(this.apiUrl+this.url+"/"+id);
   }
-
+  
   getBy(id){
     return this.http.get(this.apiUrl+this.url+"/"+id,this.token);
+  }
+
+  getByURL(url){
+    return this.http.get(this.apiUrl+url,this.token);
   }
   
   createFormData(object: Object, form?: FormData, namespace?: string): FormData {

@@ -13,6 +13,6 @@ import { BranchService } from '../services/branch.service';
     BranchRoutingModule
   ],
   declarations: [BranchListComponent, BranchNewComponent],
-  providers:[BranchService]
+  providers:[]
 })
 export class BranchModule { }

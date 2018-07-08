@@ -9,40 +9,45 @@
 <ngx-datatable 
   class="material"
   [columnMode]="'force'"
-  [headerHeight]="40"
-  [footerHeight]="40"
+  [headerHeight]="50"
+  [footerHeight]="50"
   [rowHeight]="'auto'"
-  [rows]="rows">
-  <ngx-datatable-column name="Project name" prop="project">
+  [rows]="productList">
+  <ngx-datatable-column name="Product name" prop="productName" [width]="100">
     <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Description" >
+  <ngx-datatable-column name="Description"  [width]="400">
     <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="branch" >
+  <ngx-datatable-column name="Branches" prop="branches" [width]="50" >
     <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      {{value}}
+      {{value.branchName}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Created">
+  <ngx-datatable-column name="Category" prop="category" [width]="50">
+      <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+        {{value.categoryName}}
+      </ng-template>
+    </ngx-datatable-column>
+  <ngx-datatable-column name="Product Type" prop="productType" [width]="100">
     <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Edit" >
-    <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct()"></span>
+  <ngx-datatable-column name="Edit" [width]="50">
+    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row.id)"></span>
       <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
         <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
         <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
       </div> -->
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Delete" >
+  <ngx-datatable-column name="Delete" [width]="50">
     <ng-template let-value="value"  ngx-datatable-cell-template>
       <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
     </ng-template>

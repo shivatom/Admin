@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { startOfDay } from 'date-fns';
 import { CalendarEvent } from 'angular-calendar';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { BranchService } from '../../services/branch.service';
+import { CategoryService } from '../../services/category.service';
+import { environment } from '../../../environments/environment';
 
 const colors: any = {
   red: {
@@ -16,43 +21,147 @@ const colors: any = {
   },
   yellow: {
     primary: '#e3bc08',
+
     secondary: '#FDF1BA'
   }
 };
-
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.scss']
+  styleUrls: ['./edit-product.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 
 
 export class EditProductComponent implements OnInit {
   rows = [];
   editing={};
-  total_stock=0;
   temp;
 
-  // Calendar
-  viewDate: Date = new Date();
+  settingForm:FormGroup;
   bookprice:FormGroup;
+  pricingForm:FormGroup;
+
+  imageUrl=environment.imageUrl;
+
+  product_id;
+  image;
+  product;
+  cat_list;
+  branch_list;
+  viewDate: Date = new Date();
   activeDayIsOpen=false;
   view: string = 'month';
   refresh: Subject<any> = new Subject();
+  error={
+    show:false,
+    text:"",
+    status:""
+  };
   @ViewChild('content') content;
-  
-  constructor(private modalService: NgbModal , private fb:FormBuilder) { 
-    this.fetch((data) => {
-      this.temp =data;
-      this.rows = data;
-    });
-
+  constructor(
+    private modalService: NgbModal, 
+    private productService:ProductService ,
+    private branchService:BranchService,
+    private catService:CategoryService,
+    private router:ActivatedRoute, 
+    private productservice:ProductService,
+    private fb:FormBuilder) 
+    {
+    this.product_id=router.snapshot.paramMap.get('id');
+    //Price book form
     this.bookprice= fb.group({
       mode:[],
       day:[],
       price_day :[],
       price_hour :[]
     })
+    //Product edit form
+    this.settingForm= fb.group(
+    {  
+      id:[this.product_id],
+      productName:['',Validators.required],
+      description:['',Validators.required],
+      categoryId:['',Validators.required],
+      branchId:['',Validators.required],
+      imageFile:['']
+    });
+
+    this.pricingForm = fb.group(
+    {  
+      id:[this.product_id],
+      perHour:['',Validators.required],
+      perDay:['',Validators.required],
+    });
+  }
+
+  ngOnInit() {
+      this.getProduct(this.product_id);
+      this.fetch((data) => {
+        this.temp =data;
+        this.rows = data;
+      });
+
+      this.branchService.get().subscribe(response=>{
+        this.branch_list=response;
+      })
+  
+      this.catService.get().subscribe(response=>{
+        this.cat_list=response;
+      })
+      
+  }
+
+  updateProduct(){
+    this.productservice.updateProduct(this.productservice.createFormData(this.settingForm.value)).subscribe(response=>{
+      this.error.show=true;
+      this.error.status='success';
+      this.error.text="Product is updated successfully!!";
+     
+    },error=>{
+      console.log(error)
+      this.error.show=true;
+      this.error.status='danger';
+      this.error.text="Product name already exits";
+    })
+  }
+
+  updatePrice(){
+    this.productservice.updatePrice(this.pricingForm.value).subscribe(response=>{
+      this.error.show=true;
+      this.error.status='success';
+      this.error.text="Updated successfully!!";
+     
+    },error=>{
+      console.log(error)
+      this.error.show=true;
+      this.error.status='danger';
+      this.error.text="Error";
+    })
+  }
+  getProduct(id){
+    this.productService.getProductById(id).subscribe(Response=>{
+      this.product=Response;
+      this.settingForm.get('productName').setValue(this.product.productName);
+      this.settingForm.get('description').setValue(this.product.description);
+      this.settingForm.get('categoryId').setValue(this.product.category.id);
+      this.settingForm.get('branchId').setValue(this.product.branches.id);
+      this.settingForm.get('imageFile').setValue(this.product.logo);
+      this.image=this.imageUrl+"product/images/"+this.product.logo;
+      
+      this.pricingForm.get('perHour').setValue(this.product.perHour);
+      this.pricingForm.get('perDay').setValue(this.product.perDay);
+     
+    })
+  }
+
+  onSelectImage(event){
+    var myReader: FileReader = new FileReader();
+    this.settingForm.get('imageFile').setValue(event.target.files[0]);
+    myReader.onloadend = (e) => {
+      this.image=myReader.result;
+    }
+    myReader.readAsDataURL(event.target.files[0]);
   }
 
   fetch(data){
@@ -71,14 +180,6 @@ export class EditProductComponent implements OnInit {
       return d.identifier.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows = temp;
-  }
-
-  addStock(input){
-    this.total_stock=this.total_stock+Number(input.value);
-  }
-
-  removeStock(input){
-    this.total_stock=this.total_stock-Number(input.value);
   }
 
   statusFilter(event){
@@ -108,8 +209,6 @@ export class EditProductComponent implements OnInit {
     this.editing[0 + '-identifier']=true;
   }
 
-  ngOnInit() {
-  }
 
   events: CalendarEvent[] = [
   

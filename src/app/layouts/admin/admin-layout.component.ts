@@ -56,9 +56,11 @@ export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // if(!this.auth.token){
-    //   this.router.navigate ( [ 'authentication' ] );
-    // }
+    
+    if(!this.auth.token){
+      console.log(this.auth.token)
+      this.router.navigate ( [ 'authentication' ] );
+    }
     if (this.isOver()) {
       this._mode = 'over';
       this.isOpened = false;

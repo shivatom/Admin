@@ -1,3 +1,7 @@
+
+<div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
+  <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+</div>
 <form [formGroup]="product">
   <div class="card" >
     <div class="row">
@@ -9,31 +13,25 @@
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
             <fieldset >
               <div class="form-group">
-                <label for="disabledTextInput">Project Name</label>
-                <input type="text" formControlName="project_name"  class="form-control" placeholder="Project Name">
+                <label for="disabledTextInput">Product Name</label>
+                <input type="text" formControlName="productName"  class="form-control" placeholder="Product Name">
               </div>
               <div class="form-group">
-                <label for="disabledSelect">Project Description </label>
-                <textarea type="text" formControlName="project_description"  class="form-control" placeholder="Project Description"></textarea>
+                <label for="disabledSelect">Product Description </label>
+                <textarea type="text" formControlName="description"  class="form-control" placeholder="Product Description"></textarea>
               </div>
               <div class="form-row align-items-center">
                 <div class="form-group mr-4">
                   <label for="disabledSelect">Category </label>
-                  <select class="form-control" formControlName="project_cat">
-                    <option>Project 1</option>
-                    <option>Project 2</option>
-                    <option>Project 3</option>
-                    <option>Project 4</option>
+                  <select class="form-control" formControlName="categoryId">
+                    <option *ngFor="let item of cat_list" [value]="item.id">{{item.categoryName}}</option>
                   </select>
                   
                 </div>
                 <div class="form-group">
                   <label for="disabledSelect">Branch </label>
-                  <select class="form-control" formControlName="project_branch">
-                    <option>Group 1</option>
-                    <option>Group 2</option>
-                    <option>Group 3</option>
-                    <option>Group 4</option>
+                  <select class="form-control" formControlName="branchId">
+                    <option *ngFor="let item of branch_list" [value]="  item.id">{{item.branchName}}</option>
                   </select>
                 </div>
               </div>
@@ -45,7 +43,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">$</div>
                     </div>
-                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="price_hour" placeholder="Price">
+                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="perHour" placeholder="Price">
                    </div>
                 </div>
 
@@ -55,65 +53,56 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">$</div>
                     </div>
-                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="price_day" placeholder="Price">
+                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="perDay" placeholder="Price">
                    </div>
                 </div>
 
 
-                <div class="form-group mr-3">
-                  <label for="disabledSelect">Price/weekly </label>
-                  <div class="input-group ">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">$</div>
-                    </div>
-                    <input type="text" class="form-control customWidth" id="inlineFormInputGroup" formControlName="price_weekly" placeholder="Price">
-                  </div>
-                </div>
+           
                
-                <small class="text-danger" *ngIf="productPrice.errors && productPrice.touched ">Please enter the project price</small>
-              </div>
+               </div>
               <div class="form-row align-items-center">
-                <label for="radio_1" class="custom_radio_btn mr-4" [ngClass]="{'selected' : product.value.tack_type == 'individual'}">
-                  <input type="radio" id="radio_1" formControlName="tack_type" value="individual"  name="tack_type">
+                <label for="radio_1" class="custom_radio_btn mr-4" [ngClass]="{'selected' : product.value.productType == 'track'}">
+                  <input type="radio" id="radio_1" formControlName="productType" value="track"  name="productType">
                   <div class="col-md-8 pl-4 pt-4">
                     <h6>Track individual items</h6>
                     <p>Keep track of individual items by using identifiers, like serial numbers.</p>
                   </div>
-                  <div class="form-group input-groups pt-4" *ngIf="product.value.tack_type == 'individual' ">
-                    <label for="exampleInputEmail1">Quantity to add:</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1"  formControlName="quantity" aria-describedby="emailHelp" placeholder="Quantity">
+                  <div class="form-group input-groups pt-4" *ngIf="product.value.productType == 'track' ">
+                    <label for="exampleInputEmail1">Stock to add:</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1"  formControlName="stock" aria-describedby="emailHelp" placeholder="stock">
                   </div>
                 </label>
-                <label for="radio_2" class="custom_radio_btn" [ngClass]="{'selected' : product.value.tack_type == 'bulk' }">
-                  <input type="radio" id="radio_2" name="tack_type" formControlName="tack_type" value="bulk" >
+                <label for="radio_2" class="custom_radio_btn" [ngClass]="{'selected' : product.value.productType == 'bulk' }">
+                  <input type="radio" id="radio_2" name="productType" formControlName="productType" value="bulk" >
                   <div class="col-md-8 pl-4 pt-4">
                     <h6>Bulk</h6>
                     <p> Don't serialize stock items to easily handle a large number of items.</p>
                   </div>
-                  <div class="form-group input-groups pt-4" *ngIf="product.value.tack_type == 'bulk' ">
-                    <label for="exampleInputEmail1">Quantity to add:</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" formControlName="quantity" aria-describedby="emailHelp" placeholder="Quantity">
+                  <div class="form-group input-groups pt-4" *ngIf="product.value.productType == 'bulk' ">
+                    <label for="exampleInputEmail1">stock to add:</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" formControlName="stock" aria-describedby="emailHelp" placeholder="stock">
                   </div>
                 </label>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!product.valid" (click)="addProduct()"> Submit</button>
             </fieldset>
           
         </div>
       </div>
       <div class="col-md-4">
         <div class="img_wraper mt-5">
+          <label class="mt-4">Product Image</label>
           <label for="file" class="img-hover">
-            <div class="img-prop"  [ngStyle]="{'background': 'url('+image+')'  }"></div>
+            <div class="img-prop" *ngIf="image"  [ngStyle]="{'background': 'url('+image+')'  }"></div>
+            <div class="img-prop" *ngIf="!image"  [ngStyle]="{'background': 'url(../assets/images/placeholder.png)'  }"></div>
           </label>
         </div>
         <input type="file" accept="image/*" (change)="onSelectImage($event)"   name="file" class="form-control" hidden id="file">
       
-       
       </div>
     </div>
  
 </div>
 </form>
 
-{{product.value | json}}

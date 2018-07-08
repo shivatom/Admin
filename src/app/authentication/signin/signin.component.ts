@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class SigninComponent implements OnInit {
 
   public form: FormGroup;
+  hasError=false;
   constructor(private fb: FormBuilder, private router: Router, private auth:AuthService) {}
 
   ngOnInit() {
@@ -23,6 +24,14 @@ export class SigninComponent implements OnInit {
     this.auth.login(this.form.value).subscribe(x=>{
       if(x){
        this.router.navigate ( [ '/' ] );
+      }else{
+        this.hasError=true;
+      }
+    },error=>{
+      console.log(error);
+      
+      if(error.code==402){
+        this.hasError=true;
       }
     })
     //

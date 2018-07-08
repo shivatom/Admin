@@ -1,11 +1,12 @@
-<div class="d-flex align-items-stretch min-height-100 h-100">
-  <div class="bg-cover bg-1 d-none d-md-inline-flex col-md-6 col-lg-8"></div>
-  <div class="card card-body mb-0 rounded-0 p-5 col-sm-12 col-md-6 col-lg-4">
+<div class="d-flex  min-height-100 h-100">
+ 
+  <div class="card card-body mb-0 rounded-0 p-5 m-auto col-sm-12 col-md-6 col-lg-4">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <img src="assets/images/logo.png" class="avatar-xs mb-1" alt="">
         <p class="ff-headers text-uppercase">Sign in to your account</p>
       </div>
+      <p *ngIf="hasError" class="text-danger"> Invalid Username/Password</p>
       <fieldset class="form-group" [ngClass]="{'has-danger': form.controls['_username'].hasError('required') && form.controls['_username'].touched}">
         <label for="username" class="form-control-label">
           Enter your username
