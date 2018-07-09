@@ -40,14 +40,15 @@
 
   <button class="btn btn-primary pull-right" (click)="addNewItem()">Add Stock Item</button>
               <ngx-datatable 
+               *ngIf="trackableProduct"
                 class="material"
                 [columnMode]="'force'"
                 [headerHeight]="40"
                 [footerHeight]="40"
                 [rowHeight]="'auto'"
-                [rows]="rows">
+                [rows]="trackableProduct">
               
-                <ngx-datatable-column name="Identifier" prop="identifier">
+                <ngx-datatable-column name="Identifier" prop="stockId">
                   <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span
                       *ngIf="!editing[rowIndex + '-identifier']">
@@ -55,6 +56,7 @@
                     </span>
                     <input
                       autofocus
+                      #stock
                       class="form-control"
                       *ngIf="editing[rowIndex + '-identifier']"
                       type="text"
@@ -69,11 +71,11 @@
                 </ngx-datatable-column>
                
                 <ngx-datatable-column name="Edit" >
-                  <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                  <ng-template let-value="value"  let-rowIndex="rowIndex" let-row="row"  ngx-datatable-cell-template>
                       <span  class="fa fa-edit text-primary cursor-pointer" *ngIf="!editing[rowIndex + '-identifier']" (click)="rowEditMode(rowIndex,true)"></span>
                      <div class="row" *ngIf="editing[rowIndex + '-identifier']">
                       <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
-                      <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
+                      <button class="btn btn-primary cursor-pointer" (click)="addStock(rowIndex ,row.id )">Save</button>
                     </div> 
                   </ng-template>
                 </ngx-datatable-column>

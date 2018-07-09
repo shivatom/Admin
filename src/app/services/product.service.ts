@@ -16,6 +16,10 @@ export class ProductService  extends DataService {
     return this.http.post(this.apiUrl+'product/bulk-product/add-stock',formData,this.token)
   }
 
+  addTrackProductStock(formData){
+    return this.http.post(this.apiUrl+'product/track-product/add-stock',formData,this.token)
+  }
+
   removeStock(formData){
     return this.http.post(this.apiUrl+'product/bulk-product/remove-stock',formData,this.token)
   }

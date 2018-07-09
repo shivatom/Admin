@@ -21,7 +21,6 @@ const colors: any = {
   },
   yellow: {
     primary: '#e3bc08',
-
     secondary: '#FDF1BA'
   }
 };
@@ -35,7 +34,7 @@ const colors: any = {
 
 export class EditProductComponent implements OnInit {
   rows = [];
-  editing={};
+  
   temp;
 
   settingForm:FormGroup;
@@ -190,24 +189,7 @@ export class EditProductComponent implements OnInit {
     this.rows = temp;
   }
 
-  rowEditMode(index,status){
-    for (var key in this.rows[0]) {
-      this.editing[index + '-'+key]=status;
-    }
-   
-    if(!status && this.rows[index].status=='new'){
-      console.log(index)
-      this.rows.splice(index,1)
-    }
-  }
-
-  addNewItem(){
-    this.rows.unshift({
-      "identifier": "Humphrey Curtis",
-      "status": "new"
-    })
-    this.editing[0 + '-identifier']=true;
-  }
+  
 
 
   events: CalendarEvent[] = [

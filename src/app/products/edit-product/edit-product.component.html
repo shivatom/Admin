@@ -9,7 +9,7 @@
           <ng-template ngbTabContent>
             <h6>{{product.productName}}</h6>
             <app-edit-bulk *ngIf="product.productType=='bulk'" [product]="product"></app-edit-bulk>
-            <app-edit-track *ngIf="product.productType=='track'" ></app-edit-track>
+            <app-edit-track *ngIf="product.productType=='track'"  [product]="product"></app-edit-track>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
