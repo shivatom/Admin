@@ -7,6 +7,7 @@ import { MenuItems } from '../../shared/menu-items/menu-items';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../services/auth.service';
 
 const SMALL_WIDTH_BREAKPOINT = 991;
 
@@ -47,6 +48,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     public translate: TranslateService,
     private modalService: NgbModal,
     private titleService: Title,
+    private auth:AuthService,
     private zone: NgZone) {
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
@@ -54,7 +56,11 @@ export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    
+    if(!this.auth.token){
+      console.log(this.auth.token)
+      this.router.navigate ( [ 'authentication' ] );
+    }
     if (this.isOver()) {
       this._mode = 'over';
       this.isOpened = false;

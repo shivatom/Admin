@@ -17,6 +17,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { SharedModule } from './shared/shared.module';
 import { AlertComponent } from './components/alert/alert.component';
+import { AuthService } from './services/auth.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     SidebarModule.forRoot(),
     AgmCoreModule.forRoot({apiKey: 'YOURAPIKEY'})
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
   entryComponents:[AlertComponent]
 

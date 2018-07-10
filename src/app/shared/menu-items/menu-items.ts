@@ -25,62 +25,35 @@ const MENUITEMS = [
     state: '/',
     name: 'HOME',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'basic-home'
   },
   {
     state: 'products',
     name: 'Products',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'basic-webpage'
   },
   {
     state: 'order',
     name: 'Order',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'ecommerce-cart'
   },
   {
     state: 'customers',
     name: 'Customers',
     type: 'link',
     icon: 'basic-accelerator'
-  },
-  
-  {
+  },{
     state: 'category',
     name: 'Category',
     type: 'link',
     icon: 'basic-accelerator'
-  },
-  {
-    state: 'authentication',
-    name: 'AUTHENTICATION',
-    type: 'sub',
-    icon: 'basic-lock-open',
-    children: [
-      {
-        state: 'signin',
-        name: 'SIGNIN'
-      },
-      {
-        state: 'signup',
-        name: 'SIGNUP'
-      },
-      {
-        state: 'forgot',
-        name: 'FORGOT'
-      },
-      {
-        state: 'lockscreen',
-        name: 'LOCKSCREEN'
-      },
-    ]
-  },
-  {
-    state: 'docs',
-    name: 'DOCS',
+  },{
+    state: 'branch',
+    name: 'Branch',
     type: 'link',
-    icon: 'basic-sheet-txt'
+    icon: 'basic-accelerator'
   }
 ];
 

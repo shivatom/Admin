@@ -1,172 +1,228 @@
-<div class="card" >
+<div class="card m-0" *ngIf="product">
   <div class="row">
+    <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
+      <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+    </div>
     <div class="col-md-12">
       <ngb-tabset>
         <ngb-tab title="Inventory">
           <ng-template ngbTabContent>
-            <div class="form-inline col-md-5">
-              <input
-                type='text'
-                class="pull-left"
-                style='padding: 5px; margin: 10px 15px 10px 0px; width: 56%;'
-                placeholder='Type to filter the name column...'
-                (keyup)='updateFilter($event)'
-              />
-              <select class="form-control pull-left mr-3"  (change)='statusFilter($event)'>
-                <option value="Available">Available</option>
-                <option value="reserved">Reserved</option>
-                <option value="started">Started</option>
-                <option value="archived">Archived</option>
-              </select>
-              <label class="mt-3 mb-3"> Tags <i class="fa fa-plus-square tagBtn" [ngbPopover]="popContent"  #p="ngbPopover" placement="right" ></i>
-                <div class="tag">
-                  <a class="delete-tag icon-cross" ></a>
-                  <span >jkjk</span>
-                </div>
-                <div class="tag">
-                    <a class="delete-tag icon-cross" ></a>
-                    <span >jkjk</span>
-                  </div>
-                  <div class="tag">
-                      <a class="delete-tag icon-cross" ></a>
-                      <span >jkjk</span>
-                    </div>
-              </label>
-              <ng-template #popContent>
-                  <div class="form-inline">
-                    <div class="form-group col-sm-9">
-                      <label for="inputPassword2" class="sr-only">Add Tag</label>
-                      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary col-sm-3" (click)="p.close();">Add</button>
-                  </div>
-              </ng-template>
-              
-            </div>
-              <button class="btn btn-primary pull-right" (click)="addNewItem()">Add Stock Item</button>
-              <ngx-datatable 
-                class="material"
-                [columnMode]="'force'"
-                [headerHeight]="40"
-                [footerHeight]="40"
-                [rowHeight]="'auto'"
-                [rows]="rows">
-              
-                <ngx-datatable-column name="Identifier" prop="identifier">
-                  <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span
-                      *ngIf="!editing[rowIndex + '-identifier']">
-                      {{value}}
-                    </span>
-                    <input
-                      autofocus
-                      class="form-control"
-                      *ngIf="editing[rowIndex + '-identifier']"
-                      type="text"
-                      [value]="value"
-                    />
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Status" >
-                  <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                      <i class="fa fa-circle f12 {{value}}"  aria-hidden="true"></i> {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-               
-                <ngx-datatable-column name="Edit" >
-                  <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                      <span  class="fa fa-edit text-primary cursor-pointer" *ngIf="!editing[rowIndex + '-identifier']" (click)="rowEditMode(rowIndex,true)"></span>
-                     <div class="row" *ngIf="editing[rowIndex + '-identifier']">
-                      <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
-                      <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
-                    </div> 
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Delete" >
-                  <ng-template let-value="value"  ngx-datatable-cell-template>
-                    <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
-                  </ng-template>
-                </ngx-datatable-column>
-              </ngx-datatable>
+            <h6>{{product.productName}}</h6>
+            <app-edit-bulk *ngIf="product.productType=='bulk'" [product]="product"></app-edit-bulk>
+            <app-edit-track *ngIf="product.productType=='track'"  [product]="product"></app-edit-track>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
           <ng-template ngbTabTitle>Setting</ng-template>
           <ng-template ngbTabContent>
-            <div class="row">
-              <form class="p-3">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Name</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <form class="p-3" [formGroup]="settingForm">
+              <div class="row">
+                <div class="col-md-6">
+                    <fieldset >
+                      <div class="form-group">
+                        <label for="disabledTextInput">Product Name</label>
+                        <input type="text" formControlName="productName"  class="form-control" placeholder="Product Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="disabledSelect">Product Description </label>
+                        <textarea type="text" formControlName="description"  class="form-control" placeholder="Product Description"></textarea>
+                      </div>
+                      <div class="form-row align-items-center">
+                        <div class="form-group mr-4">
+                          <label for="disabledSelect">Category </label>
+                          <select class="form-control" formControlName="categoryId">
+                            <option *ngFor="let item of cat_list" [value]="item.id">{{item.categoryName}}</option>
+                          </select>
+                          
+                        </div>
+                        <div class="form-group">
+                          <label for="disabledSelect">Branch </label>
+                          <select class="form-control" formControlName="branchId">
+                            <option *ngFor="let item of branch_list" [value]="  item.id">{{item.branchName}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary" [disabled]="!settingForm.valid" (click)="updateProduct()"> Submit</button>
+                    </fieldset>
+                  
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Description </label>
-                  <textarea type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"> </textarea>
-                </div>
-                <div class="form-row align-items-center">
-                  <div class="form-group mr-4">
-                    <label for="disabledSelect">Category </label>
-                    <select class="form-control">
-                      <option>Project 1</option>
-                      <option>Project 2</option>
-                      <option>Project 3</option>
-                      <option>Project 4</option>
-                    </select>
-                    
+                <div class="col-md-4">
+                  <div class="img_wraper ml-2">
+                    <label >Product Image</label>
+                    <label for="file" class="img-hover">
+                      <div class="img-prop" *ngIf="image"  [ngStyle]="{'background': 'url('+image+')'  }"></div>
+                      <div class="img-prop" *ngIf="!image"  [ngStyle]="{'background': 'url(../assets/images/placeholder.png)'  }"></div>
+                    </label>
                   </div>
-                  <div class="form-group">
-                    <label for="disabledSelect">Branch </label>
-                    <select class="form-control" >
-                      <option>Group 1</option>
-                      <option>Group 2</option>
-                      <option>Group 3</option>
-                      <option>Group 4</option>
-                    </select>
-                  </div>
+                  <input type="file" accept="image/*" (change)="onSelectImage($event)"  name="file" class="form-control"  id="file">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
+              </div>
+            </form>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
           <ng-template ngbTabTitle>Pricing</ng-template>
           <ng-template ngbTabContent>
+          <form [formGroup]="pricingForm">
             <div class="row">
               <div class="d-flex flex-column col-md-4">
-                <div class="p-2">
-                  <label for="none" class="list-btn p-3">
-                    <input type="radio" id="none" name="price" value="None"/> <b>None</b>
-                    <small class="d-block pl-3">Do not use prices for this product.</small>
-                  </label>
+                <label for="basic-url">Price/hour</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Price/hour" formControlName="perHour" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
-                <div class="p-2">
-                  <label for="fixed" class="list-btn p-3">
-                    <input type="radio" id="fixed" name="price" value="None"/> <b>Fixed</b>
-                    <small class="d-block pl-3">Fixed pricing regardless of order duration.</small>
-                  </label>
+
+                <label for="basic-url">Price/day</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Price/day" formControlName="perDay" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
-                <div class="p-2">
-                  <label for="flat-free" class="list-btn p-3">
-                    <input type="radio" id="flat-free" name="price" value="None"/> <b>Flat-fee</b>
-                    <small class="d-block pl-3">Use a simple flat-fee price. For example $50 per day.</small>
-                  </label>
-                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!pricingForm.valid" (click)="updatePrice()"> Submit</button>
               </div>
               <div class="d-flex flex-column col-md-4">
-                  <label for="basic-url">Price</label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">$</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                  </div>
+                  
               </div>
             </div>
+          </form>
           </ng-template>
         </ngb-tab>
-        
+        <ngb-tab>
+            <ng-template ngbTabTitle>Calendar</ng-template>
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="d-flex flex-column col-md-12">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                          <div class="btn-group">
+                            <div
+                              class="btn btn-primary"
+                              mwlCalendarPreviousView
+                              [view]="view"
+                              [(viewDate)]="viewDate"
+                              (viewDateChange)="activeDayIsOpen = false">
+                              Previous
+                            </div>
+                            <div
+                              class="btn btn-outline-secondary"
+                              mwlCalendarToday
+                              [(viewDate)]="viewDate">
+                              Today
+                            </div>
+                            <div
+                              class="btn btn-primary"
+                              mwlCalendarNextView
+                              [view]="view"
+                              [(viewDate)]="viewDate"
+                              (viewDateChange)="activeDayIsOpen = false">
+                              Next
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <h3>{{ viewDate | date }}</h3>
+                        </div>
+                        <div class="col-md-4">
+                          
+                        </div>
+                      </div>
+                      
+                      
+                      <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                        <div class="cal-cell-top">
+                          <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+                          <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+                        </div>
+                        <small style="margin: 5px" *ngIf="day.events.length>0" >Price/Day :  ${{ day.events[0].title.split('|')[0] }}</small>
+                        <small style="margin: 5px" *ngIf="day.events.length>0" >Price/Hour :  ${{ day.events[0].title.split('|')[1] }}</small>
+                      </ng-template>
+                      
+                      <div [ngSwitch]="view">
+                        <mwl-calendar-month-view
+                          *ngSwitchCase="'month'"
+                          [viewDate]="viewDate"
+                          [events]="events"
+                          [refresh]="refresh"
+                          [activeDayIsOpen]="activeDayIsOpen"
+                          (dayClicked)="dayClicked($event.day)"
+                          (eventClicked)="handleEvent('Clicked', $event.event)"
+                          (eventTimesChanged)="eventTimesChanged($event)"
+                          [cellTemplate]="customCellTemplate">
+                        </mwl-calendar-month-view>
+                        <mwl-calendar-week-view
+                          *ngSwitchCase="'week'"
+                          [viewDate]="viewDate"
+                          [events]="events"
+                          [refresh]="refresh"
+                          (eventClicked)="handleEvent('Clicked', $event.event)"
+                          (eventTimesChanged)="eventTimesChanged($event)">
+                        </mwl-calendar-week-view>
+                        <mwl-calendar-day-view
+                          *ngSwitchCase="'day'"
+                          [viewDate]="viewDate"
+                          [events]="events"
+                          [refresh]="refresh"
+                          (eventClicked)="handleEvent('Clicked', $event.event)"
+                          (eventTimesChanged)="eventTimesChanged($event)">
+                        </mwl-calendar-day-view>
+                      </div>
+                      
+                      
+                      
+                      
+                      <ng-template #content let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                          <h6 class="modal-title" id="modal-basic-title">Book by day</h6>
+                          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          {{ bookprice.value | json}}
+                          <form [formGroup]="bookprice">
+                            <small class="text-info">Booking Price on : {{bookprice.get('day').value | date}}</small>
+                               
+                            <div class="form-group">
+                              <div class="input-group">
+                                <div class="input-group-append">
+                                  <label for="basic-url">Price/day</label>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                      </div>
+                                      <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_day" aria-label="Username" aria-describedby="basic-addon1">
+                                  </div>
+                      
+                      
+                                  <label for="basic-url">Price/hour</label>
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                      </div>
+                                      <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_hour"  aria-label="Username" aria-describedby="basic-addon1">
+                                  </div>
+                      
+                                  <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                                    <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-dark" (click)="bookSlot() ; c('Save click')">Save</button>
+                        </div>
+                      </ng-template>
+                       
+                 
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
       </ngb-tabset>
    </div>
   </div>

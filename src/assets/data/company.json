@@ -5,7 +5,8 @@
         "description": "male",
         "branch": "Corepan",
         "created": "12-03-2018",
-        "delete": "Delete"
+        "delete": "Delete",
+        "type":"bulk"
     },
     {
         "project": "Humphrey Curtis",
