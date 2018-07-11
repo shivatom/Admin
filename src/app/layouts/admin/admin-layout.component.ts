@@ -59,7 +59,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     
     if(!this.auth.token){
       console.log(this.auth.token)
-      this.router.navigate ( [ 'authentication' ] );
+      //this.router.navigate ( [ 'authentication' ] );
     }
     if (this.isOver()) {
       this._mode = 'over';

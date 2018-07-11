@@ -146,6 +146,7 @@ export class EditProductComponent implements OnInit {
       this.settingForm.get('categoryId').setValue(this.product.category.id);
       this.settingForm.get('branchId').setValue(this.product.branches.id);
       this.settingForm.get('imageFile').setValue(this.product.logo);
+      this.product.logo=this.product.logo.replace(" ",'');
       this.image=this.imageUrl+"product/images/"+this.product.logo;
       
       this.pricingForm.get('perHour').setValue(this.product.perHour);
