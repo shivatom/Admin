@@ -20,11 +20,21 @@ export class UsersListComponent implements OnInit {
   getUserList(){
     this.userService.get().subscribe(response=>{
       this.userList=response;
+      const temp = this.userList.filter(function(d) {
+        return d.roles.indexOf('ROLE_USER') == -1 ;
+      });
+      this.userList=temp;
     })
   }
 
+  editProduct(id){
+    this.router.navigate(['users/user-new/'+id],{skipLocationChange:true})
+  }
 
-  editProduct(){
-    this.router.navigate(['customers/customer-new'])
+
+  deleteUser(id){
+    this.userService.delete(id).subscribe(Response=>{
+      
+    })
   }
 }

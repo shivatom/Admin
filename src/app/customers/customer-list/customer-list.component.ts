@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -8,27 +9,32 @@ import { Router } from '@angular/router';
 })
 export class CustomerListComponent implements OnInit {
 
-  rows = [];
-  constructor(private router:Router) { 
-    this.fetch((data) => {
-      this.rows = data.splice(0, 5);
-    });
+  userList ;
+  constructor(private router:Router, private userService:UserService) { 
+    this.getUserList()
   }
 
   ngOnInit() {
   }
 
-  fetch(data){
-    //API Call
-    const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/company.json`);
-    req.onload = () => {
-      data(JSON.parse(req.response));
-    };
-    req.send();
-  } 
+  getUserList(){
+    this.userService.get().subscribe(response=>{
+      this.userList=response;
+      const temp = this.userList.filter(function(d) {
+        return d.roles.indexOf('ROLE_USER') != -1 ;
+      });
+      this.userList=temp;
+    })
+  }
 
-  editProduct(){
-    this.router.navigate(['customers/customer-new'])
+  editProduct(id){
+    this.router.navigate(['customers/customer-new/'+id],{skipLocationChange:true})
+  }
+
+
+  deleteUser(id){
+    this.userService.delete(id).subscribe(Response=>{
+      this.getUserList()
+    })
   }
 }

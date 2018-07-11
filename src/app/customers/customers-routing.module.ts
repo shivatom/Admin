@@ -5,7 +5,8 @@ import { CustomerNewComponent } from './customer-new/customer-new.component';
 
 const routes: Routes = [
   {path:"", component:CustomerListComponent},
-  {path:"customer-new", component:CustomerNewComponent}
+  {path:"customer-new", component:CustomerNewComponent},
+  {path:"customer-new/:id", component:CustomerNewComponent}
 ];
 
 @NgModule({
