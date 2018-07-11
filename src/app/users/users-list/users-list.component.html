@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
-   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="branch-new">
-     <span >+ New Branch</span>
+   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="user-new">
+     <span >+ New user</span>
     </button>
   </div>
 </div>
@@ -12,26 +12,30 @@
   [headerHeight]="40"
   [footerHeight]="40"
   [rowHeight]="'auto'"
-  [rows]="branchList">
-  <ngx-datatable-column name="Branch name" prop="branchName">
+  [rows]="userList">
+  <ngx-datatable-column name="User name" prop="fullName">
     <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Description" prop="branchDescription">
+  <ngx-datatable-column name="Mobile Number" prop="mobileNumber" >
     <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="Branch code" prop="branchCode" >
+  <ngx-datatable-column name="Email" prop="email" >
     <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
       {{value}}
     </ng-template>
   </ngx-datatable-column>
- 
+
   <ngx-datatable-column name="Edit" >
-    <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
+    <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct()"></span>
+      <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
+        <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
+        <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
+      </div> -->
     </ng-template>
   </ngx-datatable-column>
   <ngx-datatable-column name="Delete" >

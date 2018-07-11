@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-track',
@@ -11,10 +13,19 @@ export class EditTrackComponent implements OnInit {
   @ViewChild ('stock') stock;
   trackableProduct;
   editing={};
-  constructor(private productService:ProductService) { }
+  stockForm:FormGroup;
+  constructor(private productService:ProductService, private modalService:NgbModal, private fb:FormBuilder) { 
+    this.stockForm= fb.group({
+      id:[],
+      stock:['',Validators.required]
+    })
+  }
 
   ngOnInit() {
     this.trackableProduct=this.product.trackableProduct;
+    console.log(this.product);
+    
+    this.stockForm.get('id').setValue(this.product.id);
   }
 
   rowEditMode(index,status){
@@ -23,23 +34,57 @@ export class EditTrackComponent implements OnInit {
     }
    
     if(!status && this.trackableProduct[index].status=='new'){
-      console.log(index)
       this.trackableProduct.splice(index,1)
     }
   }
 
   addNewItem(){
-    this.trackableProduct.unshift({
-      "identifier": "Humphrey Curtis",
-      "status": "new"
-    })
-    this.editing[0 + '-identifier']=true;
+    this.productService.addTrackProductStock(this.stockForm.value).subscribe(response=>{
+       this.refreshProductList();
+       this.stockForm.reset();
+    });
   } 
 
-  addStock(index ,id){
-    console.log(this.stock)
+  deleteProp(id){
+    this.productService.productRemoveProperty(id).subscribe(response=>{
+      this.refreshProductList();
+      //this.stockForm.reset();
+   });
+  }
+
+  addProp(tag){
+    let form=new FormData();
+    form.append('id',this.product.id);
+    form.append('propertyKey',tag.value);
+    this.productService.productAddProperty(form).subscribe(response=>{
+      this.refreshProductList();
+    });
+  }
+
+  deleteStock(id){
+    this.productService.removeTrackProductStock(id).subscribe(response=>{
+      this.refreshProductList();
+   });
+  }
+
+  refreshProductList(){
+    this.productService.getProductById(this.product.id).subscribe(response=>{
+      let data=response as obj;
+      this.product=response;
+      this.trackableProduct=data.trackableProduct;
+    });
+    
+  }
+
+  addStock(){
+    
+   // console.log(this.stock)
     // this.productService.addTrackProductStock().subscribe(response=>{
     //   console.log(response);
     // })
   }
+}
+
+class obj{
+  trackableProduct
 }

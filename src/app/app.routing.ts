@@ -32,6 +32,9 @@ export const AppRoutes: Routes = [{
   },{
     path: 'products',
     loadChildren: './products/products.module#ProductsModule'
+  },{
+    path: 'users',
+    loadChildren: './users/users.module#UsersModule'
   }]
 }, {
   path: '',

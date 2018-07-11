@@ -10,10 +10,11 @@ import { AlertComponent } from './alert/alert.component';
 import { BranchService } from '../services/branch.service';
 import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective, AlertComponent ],
   exports:      [ AccordionAnchorDirective, NgbModule,   FormsModule,    ReactiveFormsModule, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
-  providers: 	[ MenuItems, BranchService, CategoryService,ProductService ]
+  providers: 	[ MenuItems, BranchService, CategoryService,ProductService,UserService ]
 })
 export class SharedModule { }
