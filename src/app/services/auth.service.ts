@@ -38,6 +38,8 @@ export class AuthService {
 
   login(credentials) { 
     // get users from api
+
+    //return this.http.post('http://127.0.0.1:8000/login-check', credentials);
     return this.http.post<Post>(this.apiUrl+'login-check', credentials).map(res => {
        console.log(res)
         if(res && res.token){

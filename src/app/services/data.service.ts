@@ -19,7 +19,7 @@ export class DataService {
   get(){
     console.log('- '+this.apiUrl+this.url)
     //return this.http.get(this.apiUrl+this.url,this.token);
-    return this.http.get(this.apiUrl+this.url);
+    return this.http.get(this.apiUrl+this.url,this.token);
   }
 
   create(formData){
