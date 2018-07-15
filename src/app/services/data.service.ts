@@ -8,15 +8,22 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class DataService {
   apiUrl:String =environment.apiUrl;
+  // let headers = new HttpHeaders().set('Content-Type', 'application/json');
+  // this.headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
   token= { headers: new HttpHeaders({'Authorization': 'Bearer ' + AuthService.getToken()})}
-  constructor(public http: HttpClient, public url) { }
+  constructor(public http: HttpClient, public url) { 
+    
+  }
 
   get(){
-    return this.http.get(this.apiUrl+this.url,this.token);
+    console.log('- '+this.apiUrl+this.url)
+    //return this.http.get(this.apiUrl+this.url,this.token);
+    return this.http.get(this.apiUrl+this.url);
   }
 
   create(formData){
-    return this.http.post<StatusResponse>(this.apiUrl+this.url, formData ,this.token);
+    return this.http.post<StatusResponse>(this.apiUrl+this.url, formData );
   }
 
   update(id,formData){
@@ -28,11 +35,11 @@ export class DataService {
   }
   
   getBy(id){
-    return this.http.get(this.apiUrl+this.url+"/"+id,this.token);
+    return this.http.get(this.apiUrl+this.url+"/"+id);
   }
 
   getByURL(url){
-    return this.http.get(this.apiUrl+url,this.token);
+    return this.http.get(this.apiUrl+url);
   }
   
   createFormData(object: Object, form?: FormData, namespace?: string): FormData {

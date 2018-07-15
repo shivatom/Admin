@@ -1,82 +1,62 @@
-<form [formGroup]="product">
-
-  <div class="card" >
+<div class="container">  
     <div class="row">
-      <div class="col-md-6">
-        <div class="card-header">
-          New Branch
-        </div>
-        <div class="card-body">
-          <div class="alert d-table" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
-              <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+      <div class="col-md-12">
+        <div class="card p-3">
+          <div class="card-header p-0 pb-2">
+              <i class="material-icons">group_add</i><p class="m-0 pl-1">New Branch</p>
           </div>
-
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
-            <fieldset >
-              <div class="form-row align-items-center">
-                <div class="form-group mr-4">
-                  <label for="disabledSelect">Branch Code </label>
-                  <input type="number" formControlName="branchCode"  class="form-control" placeholder="Branch Code">
+          <div class="card-body  p-0 pt-2 pb-2">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
+                
+            <form class="col-md-6" [formGroup]="product">
+                <div class="alert d-table" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
+                    <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <label for="disabledTextInput">Branch Name</label>
-                <input type="text" formControlName="branchName"  class="form-control" placeholder="Branch Name">
-              </div>
-
-              <div class="form-group">
-                <label for="disabledSelect">Branch Description </label>
-                <textarea type="text" formControlName="branchDescription"  class="form-control" placeholder="Branch Description"></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="disabledSelect"> Address </label>
-                <textarea type="text" formControlName="address"  class="form-control" placeholder=" Address"></textarea>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="disabledSelect"> latitude </label>
-                    <input type="text" formControlName="latitude"  class="form-control" placeholder=" latitude"  />
+                <fieldset >
+                  <div class="form-row align-items-center">
+                    <div class="form-group mr-4">
+                      <label for="disabledSelect">Branch Code </label>
+                      <input type="number" formControlName="branchCode"  class="form-control" >
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-6">
+
                   <div class="form-group">
-                    <label for="disabledSelect"> longitude </label>
-                    <input type="text" formControlName="longitude"  class="form-control" placeholder=" longitude" />
+                    <label for="disabledTextInput">Branch Name</label>
+                    <input type="text" formControlName="branchName"  class="form-control">
                   </div>
-                </div>
-              </div>
-              <!-- <div class="row">
-                <div class="col-md-3">
+
                   <div class="form-group">
-                      <label class="switch-light switch-material" onclick="">
-                          <input type="checkbox" formControlName="isActive"  >
-                        
-                          <strong>
-                            Status
-                          </strong>
-                        
-                          <span>
-                            <span>Off</span>
-                            <span>On</span>
-                            <a></a>
-                          </span>
-                        </label>
+                    <label for="disabledSelect">Branch Description </label>
+                    <textarea type="text" formControlName="branchDescription"  class="form-control" ></textarea>
                   </div>
-                </div>
-              </div> -->
-             
-          
-              <button type="submit" [disabled]="!product.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
-            </fieldset>
-          
+
+                  <div class="form-group">
+                    <label for="disabledSelect"> Address </label>
+                    <textarea type="text" formControlName="address"  class="form-control" ></textarea>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="disabledSelect"> latitude </label>
+                        <input type="text" formControlName="latitude"  class="form-control"  />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="disabledSelect"> longitude </label>
+                        <input type="text" formControlName="longitude"  class="form-control"  />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <button type="submit" [disabled]="!product.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
+                </fieldset>
+            </form>
+          </div>
         </div>
       </div>
     </div>
- 
-</div>
-</form>
-{{product.value | json}}
+  </div>
+    

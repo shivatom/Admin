@@ -1,34 +1,42 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="card p-3">  
-      <form class="col-md-6" [formGroup]="userForm">
-        <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
-          <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+<div class="container">  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card p-3">
+        <div class="card-header p-0 pb-2">
+            <i class="material-icons">person_add</i><p class="m-0 pl-1">New Customer</p>
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">User Name</label>
-          <input type="text" class="form-control" formControlName="fullName" aria-describedby="emailHelp" >
-        </div>
+        <div class="card-body  p-0 pt-2 pb-2">
+          <form class="col-md-6" [formGroup]="userForm">
+            <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
+              <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">User Name</label>
+              <input type="text" class="form-control" formControlName="fullName" aria-describedby="emailHelp" >
+            </div>
 
-        <div class="form-group">
-          <label for="exampleInputemail">Mobile Number</label>
-          <input type="number" formControlName="mobileNumber"  class="form-control">
-        </div>
+            <div class="form-group">
+              <label for="exampleInputemail">Mobile Number</label>
+              <input type="number" formControlName="mobileNumber"  class="form-control">
+            </div>
 
-        <div class="form-group">
-          <label for="exampleInputcontact">Email</label>
-          <input type="email" formControlName="email" class="form-control" >
-        </div>
+            <div class="form-group">
+              <label for="exampleInputcontact">Email</label>
+              <input type="email" formControlName="email" class="form-control" >
+            </div>
 
-        <div class="form-group">
-          <label for="exampleInputadd">Password</label>
-          <input type="password" formControlName="password"  class="form-control" >
-        </div>
+            <div class="form-group">
+              <label for="exampleInputadd">Password</label>
+              <input type="password" formControlName="password"  class="form-control" >
+            </div>
 
-     
-      
-        <button type="submit" [disabled]="userForm.invalid" (click)="addUser();" class="btn btn-primary">Submit</button>
-      </form>
+        
+          
+            <button type="submit" [disabled]="userForm.invalid" (click)="addUser();" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+  

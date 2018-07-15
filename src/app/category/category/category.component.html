@@ -1,48 +1,63 @@
-<div class="row">
-  <div class="col-md-12">
-   <button type="button" class="btn btn-primary pull-right mb-2" routerLink="new">
-     <span >+ New Category</span>
-    </button>
-  </div>
-</div>
-<div >
-<ngx-datatable 
-  class="material"
-  [columnMode]="'force'"
-  [headerHeight]="40"
-  [footerHeight]="40"
-  [rowHeight]="'auto'"
-  [rows]="categoryList">
-  <ngx-datatable-column name="Category Name" prop="categoryName">
-    <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-      {{value}}
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="Category Description" prop="categoryDescription" >
-    <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-      {{value}}
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="active"  prop="isActive">
-    <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-     <p  *ngIf="value"><i aria-hidden="true" class="fa fa-circle f12 Available"></i> Active</p> 
-     <p  *ngIf="!value"><i  aria-hidden="true" class="fa fa-circle f12 Archived"></i> Inactive </p> 
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="Edit" >
-    <ng-template let-value="value" let-row="row"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
-      <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
-        <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
-        <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
-      </div> -->
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="Delete" >
-    <ng-template let-value="value"  ngx-datatable-cell-template>
-      <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
-    </ng-template>
-  </ngx-datatable-column>
-</ngx-datatable>
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      <button type="button" class="btn btn-primary pull-right btn-round" routerLink="new">
+          <i class="material-icons">library_add</i>
+        </button>
+      </div>
     </div>
-     
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">library_books</i> 
+            <p class="m-0">Category List</p>
+          </div>
+          <div class="card-body p-0">
+            <ngx-datatable 
+              class="material"
+              [columnMode]="'force'"
+              [headerHeight]="40"
+              [footerHeight]="40"
+              [rowHeight]="'auto'"
+              [rows]="categoryList">
+              <ngx-datatable-column name="Category Name" prop="categoryName">
+                <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Category Description" prop="categoryDescription" >
+                <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="active"  prop="isActive">
+                <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                <p  *ngIf="value"><i aria-hidden="true" class="fa fa-circle f12 Available"></i> Active</p> 
+                <p  *ngIf="!value"><i  aria-hidden="true" class="fa fa-circle f12 Archived"></i> Inactive </p> 
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Edit" >
+                <ng-template let-value="value" let-row="row"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                  <span  class="fa fa-edit text-primary icon-btn cursor-pointer" (click)="editProduct(row)"></span>
+                  <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
+                    <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
+                    <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
+                  </div> -->
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Delete" >
+                <ng-template let-value="value"  ngx-datatable-cell-template>
+                  <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary icon-btn cursor-pointer"></i></button>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

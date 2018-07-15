@@ -1,10 +1,15 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="card p-3">  
+<div class="container">  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card p-3">
+          <div class="card-header p-0 pb-2">
+              <i class="material-icons">library_add</i><p class="m-0 pl-1">New Category</p>
+          </div>
+          <div class="card-body  p-0 pt-2 pb-2">
       <div class="alert d-table" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
           <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
       </div>
-      <form [formGroup]="categoryForm"> 
+      <form class="col-md-6" [formGroup]="categoryForm"> 
 
         <div class="form-group">
           <label for="exampleInputEmail1">Category Name</label>
@@ -19,11 +24,9 @@
         <div class="form-group col-md-3">
             <label class="switch-light switch-material" onclick="">
                 <input type="checkbox" formControlName="isActive"  >
-              
                 <strong>
                   Status
                 </strong>
-              
                 <span>
                   <span>Off</span>
                   <span>On</span>
@@ -38,5 +41,5 @@
     </div>
   </div>
 </div>
-
-{{categoryForm.value | json}}
+</div>
+</div>

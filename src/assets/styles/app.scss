@@ -7,6 +7,14 @@
 @import "scss/custom-bootstrap";
 @import "scss/core";
 @import "../../../node_modules/angular-calendar/scss/angular-calendar.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+$btn_primary:#f91942;
+
+body{
+    font-family: 'Roboto', sans-serif !important;
+}
 .transparentbtn{
     border: none;
     border-radius: 0px;
@@ -81,7 +89,7 @@ input[type="text"].ng-touched.ng-invalid,input[type="password"].ng-touched.ng-in
 }
 
 .reserved{
-    color: #003151;
+    color: #003151; 
 }
 
 .started{
@@ -89,5 +97,92 @@ input[type="text"].ng-touched.ng-invalid,input[type="password"].ng-touched.ng-in
 }
 
 .archived{
-    color: #bc2031;
+    color: #f91942;
+}
+
+.primary_bg{
+    background-color: $btn_primary;
+}
+
+.primary_color{
+    color: $btn_primary;
+}
+
+
+.pils{
+    background-color: #416b38;
+    color: #fff;
+    display: initial;
+    padding: 2px 7px;
+    border-radius: 11px;
+    font-size: 12px;
+}
+//Btn
+.btn-primary{
+    background-color: $btn_primary;
+    border-radius: 20px;
+    border-color: $btn_primary;
+    cursor: pointer;
+    box-shadow: 0px 2px 6px 1px rgba(27, 27, 27, 0.38);
+}
+
+.btn-primary:disabled{
+    background-color: $btn_primary;
+    border-color: $btn_primary;
+    opacity: 0.6;
+}
+.icon-btn{
+    color: $btn_primary !important;
+}
+
+.icon-btn:hover{
+    color: #f5607c !important;
+}
+
+
+.btn-primary:hover{
+    background-color: #f5284e;
+    border-color: #f5607c;
+}
+
+.btn-round{
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+}
+
+
+//Card
+.card{
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .1875rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.card-header{
+    border-bottom: #ccc solid 1px;
+    font-family: 'Roboto', sans-serif !important;
+}
+//fomr control
+
+.form-control {
+    background-clip: border-box;
+    border-radius: 0px;
+    border-width: 1px 0;
+    background-color: transparent !important;
+    border-top-color: transparent !important;
+    border-right-color: transparent !important;
+    border-left-color: transparent !important;
+    padding-left:0px !important;;
+}
+
+.form-control:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0 transparent, 0 1px 0 #009688;
+}
+
+label{
+    margin-bottom: 0px;
 }

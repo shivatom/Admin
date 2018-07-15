@@ -26,14 +26,8 @@ export class NewProductComponent implements OnInit {
        productName:['',Validators.required],
        description:['',Validators.required],
        categoryId:['',Validators.required],
-       branchId:['',Validators.required],
-       perHour:['',Validators.required],
-       perDay:['',Validators.required],
-       stock:['',Validators.required],
-       productType:['',Validators.required],
        imageFile:['']
-     }
-    );
+     });
   }
 
   ngOnInit() {

@@ -12,10 +12,11 @@ import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 import { FilterCustomerPipe } from './pipe/filter-customer.pipe';
+import { AccessoriesService } from '../services/accessories.service';
 
 @NgModule({
   declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective, AlertComponent, FilterCustomerPipe ],
   exports:      [ AccordionAnchorDirective, NgbModule,   FormsModule,    ReactiveFormsModule, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
-  providers: 	[ MenuItems, BranchService, CategoryService,ProductService,UserService ,FilterCustomerPipe]
+  providers: 	[ MenuItems, BranchService,AccessoriesService, CategoryService,ProductService,UserService ,FilterCustomerPipe]
 })
 export class SharedModule { }

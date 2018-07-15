@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
       <div class="col-md-12">
-      <button type="button" class="btn btn-primary pull-right btn-round" routerLink="new">
+      <button type="button" class="btn btn-primary pull-right btn-round" routerLink="acc-new">
           <i class="material-icons">group_add</i>
         </button>
       </div>
@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-header">
             <i class="material-icons">group</i> 
-            <p class="m-0">Branch List</p>
+            <p class="m-0">Accessories List</p>
           </div>
           <div class="card-body p-0">
             <ngx-datatable 
@@ -23,10 +23,10 @@
               [headerHeight]="40"
               [footerHeight]="40"
               [rowHeight]="'auto'"
-              [rows]="branchList">
-              <ngx-datatable-column name="Branch name" prop="branchName">
+              [rows]="accessoriesList">
+              <ngx-datatable-column name="Name" prop="branchName">
                 <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                  {{value}}
+                   {{value}}
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Description" prop="branchDescription">
@@ -34,9 +34,14 @@
                   {{value}}
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Branch code" prop="branchCode" >
+              <ngx-datatable-column name="Image" prop="image">
+                <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                  <div class="ProfilePic"></div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Stock" prop="branchCode" >
                 <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                  {{value}}
+                  <div class="pils">{{value}}</div>
                 </ng-template>
               </ngx-datatable-column>
             

@@ -35,7 +35,11 @@ export const AppRoutes: Routes = [{
   },{
     path: 'users',
     loadChildren: './users/users.module#UsersModule'
-  }]
+  },{
+    path: 'accessories',
+    loadChildren: './accessories/accessories.module#AccessoriesModule'
+  }
+]
 }, {
   path: '',
   component: AuthLayoutComponent,

@@ -31,7 +31,12 @@ const MENUITEMS = [
     state: 'products',
     name: 'Products',
     type: 'link',
-    icon: 'basic-webpage'
+    icon: 'basic-case'
+  },{
+    state: 'accessories',
+    name: 'Accessories',
+    type: 'link',
+    icon: 'basic-accelerator'
   },
   {
     state: 'order',
