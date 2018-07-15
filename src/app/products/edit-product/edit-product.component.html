@@ -1,5 +1,81 @@
+
+<div class="card m-0">
+  <div class="card-header">
+    Basic Setting
+  </div>
+  <div class="card-body">
+    <form class="p-3" [formGroup]="settingForm">
+        <div class="row">
+          <div class="col-md-6">
+              <fieldset >
+                <div class="form-group">
+                  <label for="disabledTextInput">Product Name</label>
+                  <input type="text" formControlName="productName"  class="form-control" placeholder="Product Name">
+                </div>
+                <div class="form-group">
+                  <label for="disabledSelect">Product Description </label>
+                  <textarea type="text" formControlName="description"  class="form-control" placeholder="Product Description"></textarea>
+                </div>
+                <div class="form-row align-items-center">
+                  <div class="form-group mr-4">
+                    <label for="disabledSelect">Category </label>
+                    <select class="form-control" formControlName="categoryId">
+                      <option *ngFor="let item of cat_list" [value]="item.id">{{item.categoryName}}</option>
+                    </select>
+                    
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!settingForm.valid" (click)="updateProduct()"> Update</button>
+              </fieldset>
+            
+          </div>
+          <div class="col-md-4">
+            <div class="img_wraper ml-2">
+              <label >Product Image</label>
+              <label for="file" class="img-hover">
+                <div class="img-prop" *ngIf="image"  [ngStyle]="{'background': 'url('+image+')'  }"></div>
+                <div class="img-prop" *ngIf="!image"  [ngStyle]="{'background': 'url(../assets/images/placeholder.png)'  }"></div>
+              </label>
+            </div>
+            <input type="file" accept="image/*" (change)="onSelectImage($event)"  name="file" class="form-control" hidden  id="file">
+          </div>
+        </div>
+      </form>
+  </div>
+
+  <ng-container *ngIf="product">
+    <label class="mt-3 mb-3"> Tags <i class="fa fa-plus-square tagBtn" [ngbPopover]="popContent"  #p="ngbPopover" placement="right" ></i>
+      <div class="tag" *ngFor="let prop of product.productProperties">
+        <a class="delete-tag icon-cross" (click)="deleteProp(prop.id)"></a>
+        <span >{{prop.propertyKey}}</span>
+      </div>
+      
+    </label>
+    
+    <ng-template #popContent>
+        <div class="form-inline">
+          <div class="form-group col-sm-9">
+            <label for="inputPassword2" class="sr-only">Add Tag</label>
+            <input type="text" class="form-control" #tag id="inputPassword2" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary col-sm-3" (click)="p.close(); addProp(tag);">Add</button>
+        </div>
+    </ng-template>  
+  </ng-container>
+</div>
+
 <div class="card m-0" *ngIf="product">
   <div class="row">
+      <h6>{{product.productName}}</h6>
+      <div class="form-group">
+        <label for="disabledTextInput">Select Branch</label>
+        <select class="form-control col-md-2" #group>
+          <option *ngFor="let product of branch_list" [value]="product.id">{{product.branchName}}</option>
+        </select>
+      </div>
+      
+      <button type="button" class="btn btn-primary" (click)="getBranchDetails(group);">Apply</button>
+     
     <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
       <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
     </div>
@@ -7,57 +83,13 @@
       <ngb-tabset>
         <ngb-tab title="Inventory">
           <ng-template ngbTabContent>
-            <h6>{{product.productName}}</h6>
-            <app-edit-bulk *ngIf="product.productType=='bulk'" [product]="product"></app-edit-bulk>
-            <app-edit-track *ngIf="product.productType=='track'"  [product]="product"></app-edit-track>
+            <app-edit-track *ngIf="branchDetails"  [product]="branchDetails"></app-edit-track>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
           <ng-template ngbTabTitle>Setting</ng-template>
           <ng-template ngbTabContent>
-            <form class="p-3" [formGroup]="settingForm">
-              <div class="row">
-                <div class="col-md-6">
-                    <fieldset >
-                      <div class="form-group">
-                        <label for="disabledTextInput">Product Name</label>
-                        <input type="text" formControlName="productName"  class="form-control" placeholder="Product Name">
-                      </div>
-                      <div class="form-group">
-                        <label for="disabledSelect">Product Description </label>
-                        <textarea type="text" formControlName="description"  class="form-control" placeholder="Product Description"></textarea>
-                      </div>
-                      <div class="form-row align-items-center">
-                        <div class="form-group mr-4">
-                          <label for="disabledSelect">Category </label>
-                          <select class="form-control" formControlName="categoryId">
-                            <option *ngFor="let item of cat_list" [value]="item.id">{{item.categoryName}}</option>
-                          </select>
-                          
-                        </div>
-                        <div class="form-group">
-                          <label for="disabledSelect">Branch </label>
-                          <select class="form-control" formControlName="branchId">
-                            <option *ngFor="let item of branch_list" [value]="  item.id">{{item.branchName}}</option>
-                          </select>
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-primary" [disabled]="!settingForm.valid" (click)="updateProduct()"> Submit</button>
-                    </fieldset>
-                  
-                </div>
-                <div class="col-md-4">
-                  <div class="img_wraper ml-2">
-                    <label >Product Image</label>
-                    <label for="file" class="img-hover">
-                      <div class="img-prop" *ngIf="image"  [ngStyle]="{'background': 'url('+image+')'  }"></div>
-                      <div class="img-prop" *ngIf="!image"  [ngStyle]="{'background': 'url(../assets/images/placeholder.png)'  }"></div>
-                    </label>
-                  </div>
-                  <input type="file" accept="image/*" (change)="onSelectImage($event)"  name="file" class="form-control"  id="file">
-                </div>
-              </div>
-            </form>
+            
           </ng-template>
         </ngb-tab>
         <ngb-tab>
@@ -181,7 +213,6 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          {{ bookprice.value | json}}
                           <form [formGroup]="bookprice">
                             <small class="text-info">Booking Price on : {{bookprice.get('day').value | date}}</small>
                                
@@ -195,7 +226,6 @@
                                       </div>
                                       <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_day" aria-label="Username" aria-describedby="basic-addon1">
                                   </div>
-                      
                       
                                   <label for="basic-url">Price/hour</label>
                                     <div class="input-group mb-3">

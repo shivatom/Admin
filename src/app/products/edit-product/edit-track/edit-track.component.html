@@ -12,23 +12,7 @@
       <option value="started">Started</option>
       <option value="archived">Archived</option>
     </select>
-    <label class="mt-3 mb-3"> Tags <i class="fa fa-plus-square tagBtn" [ngbPopover]="popContent"  #p="ngbPopover" placement="right" ></i>
-      <div class="tag" *ngFor="let prop of product.productProperties">
-        <a class="delete-tag icon-cross" (click)="deleteProp(prop.id)"></a>
-        <span >{{prop.propertyKey}}</span>
-      </div>
-      
-    </label>
-    
-    <ng-template #popContent>
-        <div class="form-inline">
-          <div class="form-group col-sm-9">
-            <label for="inputPassword2" class="sr-only">Add Tag</label>
-            <input type="text" class="form-control" #tag id="inputPassword2" placeholder="Password">
-          </div>
-          <button type="submit" class="btn btn-primary col-sm-3" (click)="p.close(); addProp(tag);">Add</button>
-        </div>
-    </ng-template>
+   
   </div>
 
   <button class="btn btn-primary pull-right" (click)="modalService.open(addStockModal)">Add Stock Item</button>

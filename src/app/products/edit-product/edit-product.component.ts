@@ -46,6 +46,8 @@ export class EditProductComponent implements OnInit {
   product_id;
   image;
   product;
+  trackableProduct;
+  branchDetails;
   cat_list;
   branch_list;
   viewDate: Date = new Date();
@@ -82,7 +84,6 @@ export class EditProductComponent implements OnInit {
       productName:['',Validators.required],
       description:['',Validators.required],
       categoryId:['',Validators.required],
-      branchId:['',Validators.required],
       imageFile:['']
     });
 
@@ -95,22 +96,58 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getProduct(this.product_id);
-      this.fetch((data) => {
-        this.temp =data;
-        this.rows = data;
-      });
+    this.getProduct(this.product_id);
+    this.fetch((data) => {
+      this.temp =data;
+      this.rows = data;
+    });
 
-      this.branchService.get().subscribe(response=>{
-        this.branch_list=response;
-      })
-  
-      this.catService.get().subscribe(response=>{
-        this.cat_list=response;
-      })
-      
+    this.branchService.get().subscribe(response=>{
+      this.branch_list=response;
+    })
+
+    this.catService.get().subscribe(response=>{
+      this.cat_list=response;
+    })
+  }
+  getBranchDetails(id){
+    let form=new FormData();
+    form.append('productId',this.product.id);
+    form.append('branchId',id.value);
+    
+    this.productService.productBranch(form).subscribe(response=>{
+      this.branchDetails=response;
+      console.log(this.branchDetails)
+    })
+    
   }
 
+  //Add Property to product
+  addProp(tag){
+    let form=new FormData();
+    form.append('id',this.product.id);
+    form.append('propertyKey',tag.value);
+    this.productService.productAddProperty(form).subscribe(response=>{
+      this.refreshProductList();
+    });
+  }
+
+  //Delete Property to product
+  deleteProp(id){
+    this.productService.productRemoveProperty(id).subscribe(response=>{
+      this.refreshProductList();
+      //this.stockForm.reset();
+   });
+  }
+
+
+  refreshProductList(){
+    this.productService.getProductById(this.product.id).subscribe(response=>{
+      let data=response as obj;
+      this.product=response;
+      this.trackableProduct=data.trackableProduct;
+    });
+  }
   updateProduct(){
     this.productservice.updateProduct(this.productservice.createFormData(this.settingForm.value)).subscribe(response=>{
       this.error.show=true;
@@ -144,9 +181,9 @@ export class EditProductComponent implements OnInit {
       this.settingForm.get('productName').setValue(this.product.productName);
       this.settingForm.get('description').setValue(this.product.description);
       this.settingForm.get('categoryId').setValue(this.product.category.id);
-      this.settingForm.get('branchId').setValue(this.product.branches.id);
       this.settingForm.get('imageFile').setValue(this.product.logo);
       this.product.logo=this.product.logo.replace(" ",'');
+      console.log( this.product.logo)
       this.image=this.imageUrl+"product/images/"+this.product.logo;
       
       this.pricingForm.get('perHour').setValue(this.product.perHour);
@@ -225,4 +262,8 @@ export class EditProductComponent implements OnInit {
     this.modalService.open(content);
   }
 
+}
+
+class obj{
+  trackableProduct
 }

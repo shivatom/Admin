@@ -1,63 +1,133 @@
-
+<!-- 
 <div class="container">
     <div class="row">
       <div class="col-md-12">
-      <button type="button" class="btn btn-primary pull-right btn-round" routerLink="acc-new">
-          <i class="material-icons">group_add</i>
-        </button>
+     
       </div>
     </div>
-</div>
+</div> -->
 <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <i class="material-icons">group</i> 
-            <p class="m-0">Accessories List</p>
-          </div>
-          <div class="card-body p-0">
-            <ngx-datatable 
-              class="material"
-              [columnMode]="'force'"
-              [headerHeight]="40"
-              [footerHeight]="40"
-              [rowHeight]="'auto'"
-              [rows]="accessoriesList">
-              <ngx-datatable-column name="Name" prop="branchName">
-                <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                   {{value}}
+        
+      <div class="card">
+          <ngb-tabset>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Accessories List</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-header d-block ">
+                            <div class="pull-left d-flex">
+                                <label >Filter By Category : </label>
+                                <select class="form-control">
+                                  <option>ere</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary  pull-right btn-round" routerLink="acc-new">
+                              <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                        <div class="card-body p-0">
+                          <ngx-datatable 
+                            class="material"
+                            [columnMode]="'force'"
+                            [headerHeight]="40"
+                            [footerHeight]="40"
+                            [rowHeight]="'auto'"
+                            [rows]="accessoriesList">
+                            <ngx-datatable-column name="Name" prop="branchName">
+                              <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                 {{value}}
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Description" prop="branchDescription">
+                              <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                                {{value}}
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Image" prop="image">
+                              <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                                <div class="ProfilePic"></div>
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Stock" prop="branchCode" >
+                              <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                <div class="pils">{{value}}</div>
+                              </ng-template>
+                            </ngx-datatable-column>
+                          
+                            <ngx-datatable-column name="Edit" >
+                              <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Delete" >
+                              <ng-template let-value="value"  ngx-datatable-cell-template>
+                                <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
+                              </ng-template>
+                            </ngx-datatable-column>
+                          </ngx-datatable>
+                        </div>
+                      </div>
                 </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Description" prop="branchDescription">
-                <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                  {{value}}
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Accessories Category</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="button" class="btn btn-primary d-inline pull-right btn-round" routerLink="acc-new">
+                              <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                        <div class="card-body p-0">
+                          <ngx-datatable 
+                            class="material"
+                            [columnMode]="'force'"
+                            [headerHeight]="40"
+                            [footerHeight]="40"
+                            [rowHeight]="'auto'"
+                            [rows]="accessoriesList">
+                            <ngx-datatable-column name="Name" prop="branchName">
+                              <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                 {{value}}
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Description" prop="branchDescription">
+                              <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                                {{value}}
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Image" prop="image">
+                              <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                                <div class="ProfilePic"></div>
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Stock" prop="branchCode" >
+                              <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                <div class="pils">{{value}}</div>
+                              </ng-template>
+                            </ngx-datatable-column>
+                          
+                            <ngx-datatable-column name="Edit" >
+                              <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Delete" >
+                              <ng-template let-value="value"  ngx-datatable-cell-template>
+                                <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
+                              </ng-template>
+                            </ngx-datatable-column>
+                          </ngx-datatable>
+                        </div>
+                      </div>
                 </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Image" prop="image">
-                <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                  <div class="ProfilePic"></div>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Stock" prop="branchCode" >
-                <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                  <div class="pils">{{value}}</div>
-                </ng-template>
-              </ngx-datatable-column>
-            
-              <ngx-datatable-column name="Edit" >
-                <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                  <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Delete" >
-                <ng-template let-value="value"  ngx-datatable-cell-template>
-                  <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
-                </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
-          </div>
-        </div>
+              </ngb-tab>
+              
+            </ngb-tabset>
+      </div>
+        
       </div>
     </div>
   </div>

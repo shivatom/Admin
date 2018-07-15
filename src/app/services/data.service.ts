@@ -8,18 +8,12 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class DataService {
   apiUrl:String =environment.apiUrl;
-  // let headers = new HttpHeaders().set('Content-Type', 'application/json');
-  // this.headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-
   token= { headers: new HttpHeaders({'Authorization': 'Bearer ' + AuthService.getToken()})}
-  constructor(public http: HttpClient, public url) { 
-    
-  }
+  constructor(public http: HttpClient, public url) { }
 
   get(){
     console.log('- '+this.apiUrl+this.url)
-    //return this.http.get(this.apiUrl+this.url,this.token);
-    return this.http.get(this.apiUrl+this.url,this.token);
+    return this.http.get(this.apiUrl+this.url);
   }
 
   create(formData){

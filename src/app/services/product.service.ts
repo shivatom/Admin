@@ -17,17 +17,21 @@ export class ProductService  extends DataService {
   }
 
   addTrackProductStock(formData){
-    return this.http.post(this.apiUrl+'product/track-product/add-stock',formData)
+    return this.http.post(this.apiUrl+'product/add-stock',formData)
   }
 
   removeTrackProductStock(id){
     return this.http.delete(this.apiUrl+'product/track-product/remove-stock/'+id)
   }
   productRemoveProperty(id){
-    return this.http.delete(this.apiUrl+'product/track-product/remove-property/'+id)
+    return this.http.delete(this.apiUrl+'product/remove-property/'+id)
   }
   productAddProperty(formData){
-    return this.http.post(this.apiUrl+'product/track-product/add-property',formData)
+    return this.http.post(this.apiUrl+'product/add-property',formData)
+  }
+
+  productBranch(formData){
+    return this.http.post(this.apiUrl+'product/branch-product',formData)
   }
   removeStock(formData){
     return this.http.post(this.apiUrl+'product/bulk-product/remove-stock',formData)
@@ -38,7 +42,7 @@ export class ProductService  extends DataService {
   }
 
   updatePrice(formData){
-    return this.http.post(this.apiUrl+"product/price-update", formData);
+    return this.http.post(this.apiUrl+"branch-product/price-update", formData);
   }
 
 }

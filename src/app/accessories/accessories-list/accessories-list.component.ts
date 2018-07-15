@@ -12,12 +12,15 @@ export class AccessoriesListComponent implements OnInit {
   constructor(private acc:AccessoriesService,private brachService:BranchService) { }
 
   ngOnInit() {
-    
     this.brachService.get().subscribe(response=>{
       this.accessoriesList = response;
     })
+    this.getCategoryList();
   }
 
+  getCategoryList(){
+    //this.acc.
+  }
 
   editProduct(row){
     //this.router.navigate(['branch/branch-edit' ,row.id ],{skipLocationChange:true})

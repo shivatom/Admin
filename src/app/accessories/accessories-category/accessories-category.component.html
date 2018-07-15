@@ -1,0 +1,45 @@
+<div class="container">  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card p-3">
+          <div class="card-header p-0 pb-2">
+              <i class="material-icons">person_add</i><p class="m-0 pl-1">New Category</p>
+          </div>
+          <div class="card-body  p-0 pt-2 pb-2"> 
+            <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"
+              role="alert">
+              <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i>
+              <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
+            </div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+            <form [formGroup]="accessoriesForm">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6">
+                    <fieldset>
+                      <div class="form-group">
+                        <label for="disabledTextInput">Category Name</label>
+                        <input type="text" formControlName="categoryName" class="form-control" >
+                      </div>
+      
+                      <div class="form-group">
+                        <label for="disabledSelect">Category Description </label>
+                        <textarea type="text" formControlName="description" class="form-control"></textarea>
+                      </div>
+                      
+                      
+                      <button type="submit" class="btn btn-primary" [disabled]="!accessoriesForm.valid" (click)="addCategory()"> Submit</button>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    

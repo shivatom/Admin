@@ -5,6 +5,7 @@ import { AccessoriesRoutingModule } from './accessories-routing.module';
 import { AccessoriesListComponent } from './accessories-list/accessories-list.component';
 import { AccessoriesNewComponent } from './accessories-new/accessories-new.component';
 import { SharedModule } from '../shared/shared.module';
+import { AccessoriesCategoryComponent } from './accessories-category/accessories-category.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     AccessoriesRoutingModule
   ],
-  declarations: [AccessoriesListComponent, AccessoriesNewComponent]
+  declarations: [AccessoriesListComponent, AccessoriesNewComponent, AccessoriesCategoryComponent]
 })
 export class AccessoriesModule { }

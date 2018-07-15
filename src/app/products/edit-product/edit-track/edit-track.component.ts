@@ -39,6 +39,7 @@ export class EditTrackComponent implements OnInit {
   }
 
   addNewItem(){
+    console.log(this.stockForm.value);
     this.productService.addTrackProductStock(this.stockForm.value).subscribe(response=>{
        this.refreshProductList();
        this.stockForm.reset();
