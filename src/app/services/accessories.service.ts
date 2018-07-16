@@ -11,7 +11,7 @@ export class AccessoriesService extends DataService{
    }
 
    createCategory(formData){
-      return this.http.post(this.apiUrl+'accessory-category',formData)
+      return this.http.post(this.apiUrl+'accessory-category',formData ,this.token)
    
    }
 

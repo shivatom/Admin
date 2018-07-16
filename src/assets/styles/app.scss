@@ -150,7 +150,11 @@ input[type="text"].ng-touched.ng-invalid,input[type="password"].ng-touched.ng-in
     height: 36px;
     padding: 5px;
 }
-
+.text-link{
+    color: #171717;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 //Card
 .card{
