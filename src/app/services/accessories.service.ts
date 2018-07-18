@@ -7,12 +7,15 @@ import { DataService } from './data.service';
 export class AccessoriesService extends DataService{
 
   constructor( http:HttpClient , private router:Router) {
-    super(http,'accessories')
+    super(http,'accessory')
    }
 
    createCategory(formData){
-      return this.http.post(this.apiUrl+'accessory-category',formData ,this.token)
-   
+      return this.http.post(this.apiUrl+'accessory-category',formData )
+   }
+
+   getCategory(){
+     
    }
 
 }

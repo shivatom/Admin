@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,13 +6,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edit-track',
   templateUrl: './edit-track.component.html',
-  styleUrls: ['./edit-track.component.scss']
+  styleUrls: ['./edit-track.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class EditTrackComponent implements OnInit {
   @Input() product;
+  @Input() branch;
   @ViewChild ('stock') stock;
   trackableProduct;
   editing={};
+  temp;
   stockForm:FormGroup;
   constructor(private productService:ProductService, private modalService:NgbModal, private fb:FormBuilder) { 
     this.stockForm= fb.group({
@@ -23,8 +26,7 @@ export class EditTrackComponent implements OnInit {
 
   ngOnInit() {
     this.trackableProduct=this.product.trackableProduct;
-    console.log(this.product);
-    
+    this.temp=this.product.trackableProduct;
     this.stockForm.get('id').setValue(this.product.id);
   }
 
@@ -69,12 +71,37 @@ export class EditTrackComponent implements OnInit {
   }
 
   refreshProductList(){
-    this.productService.getProductById(this.product.id).subscribe(response=>{
+    let form=new FormData();
+    form.append('productId',this.product.id);
+    form.append('branchId',this.branch);
+    this.productService.productBranch(form).subscribe(response=>{
       let data=response as obj;
-      this.product=response;
       this.trackableProduct=data.trackableProduct;
-    });
+      this.temp=data.trackableProduct;
+    })
+    // this.productService.getProductById(this.product.id).subscribe(response=>{
+    //   let data=response as obj;
+    //   this.product=response;
+    //   console.log(this.product);
+    //   this.trackableProduct=data.trackableProduct;
+    // });
     
+  }
+  
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    const temp = this.temp.filter(function(d) {
+      return d.stockId.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.trackableProduct = temp;
+  }
+
+  statusFilter(event){
+    const val = event.target.value.toLowerCase();
+    const temp = this.temp.filter(function(d) {
+      return d.status.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.trackableProduct = temp;
   }
 
   addStock(){

@@ -21,7 +21,7 @@ export class ProductService  extends DataService {
   }
 
   removeTrackProductStock(id){
-    return this.http.delete(this.apiUrl+'product/track-product/remove-stock/'+id)
+    return this.http.delete(this.apiUrl+'product/remove-stock/'+id)
   }
   productRemoveProperty(id){
     return this.http.delete(this.apiUrl+'product/remove-property/'+id)

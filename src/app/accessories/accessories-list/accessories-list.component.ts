@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccessoriesService } from '../../services/accessories.service';
 import { BranchService } from '../../services/branch.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accessories-list',
@@ -9,19 +10,35 @@ import { BranchService } from '../../services/branch.service';
 })
 export class AccessoriesListComponent implements OnInit {
   accessoriesList;
-  constructor(private acc:AccessoriesService,private brachService:BranchService) { }
+  accessoriesCategoryList;
+  selecetdCategory;
+  constructor(private acc:AccessoriesService, private router:Router, private brachService:BranchService) { }
 
   ngOnInit() {
-    this.brachService.get().subscribe(response=>{
-      this.accessoriesList = response;
-    })
+    this.getAccessoriesList();
     this.getCategoryList();
   }
 
-  getCategoryList(){
-    //this.acc.
+  getAccessoriesList(){
+    this.acc.get().subscribe(response=>{
+      this.accessoriesCategoryList = response;
+    })
   }
 
+  editCategoty(id){
+    this.router.navigate(['accessories/cat-new/'+id],{skipLocationChange:true})
+  }
+  getCategoryList(){
+    this.acc.get().subscribe(response=>{
+      this.accessoriesCategoryList = response;
+    })
+  }
+  addNewAccessory(){
+    this.router.navigate(['accessories/acc-new/'+this.selecetdCategory],{skipLocationChange:true})
+  }
+  selectedCategory(cat){
+    this.selecetdCategory=cat.value;
+  }
   editProduct(row){
     //this.router.navigate(['branch/branch-edit' ,row.id ],{skipLocationChange:true})
   }

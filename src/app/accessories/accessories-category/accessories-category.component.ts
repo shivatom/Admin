@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccessoriesService } from '../../services/accessories.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-accessories-category',
@@ -11,12 +12,14 @@ export class AccessoriesCategoryComponent implements OnInit {
 
   accessoriesForm:FormGroup;
   image;
+  id;
   error={
     show:false,
     text:"",
     status:""
   };
-  constructor(private fb:FormBuilder, private categoryService:AccessoriesService) { 
+  constructor(private fb:FormBuilder, private router:ActivatedRoute, private categoryService:AccessoriesService) { 
+    this.id=router.snapshot.paramMap.get('id');
     this.accessoriesForm= fb.group(
     {  
       id:[''],
@@ -26,6 +29,14 @@ export class AccessoriesCategoryComponent implements OnInit {
   }
   
   ngOnInit() {
+    if(this.id){
+      this.categoryService.getBy(this.id).subscribe(response=>{
+      console.log(response);
+      this.error.show=true;
+      this.error.status='success';
+      this.error.text="Product is updated successfully!!";
+    })
+    }
   }
 
   addCategory(){
@@ -36,4 +47,6 @@ export class AccessoriesCategoryComponent implements OnInit {
       this.error.text="Product is updated successfully!!";
     })
   }
+
+  
 }

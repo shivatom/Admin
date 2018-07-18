@@ -29,17 +29,17 @@
                     {{value}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Description"  [width]="400">
+                <ngx-datatable-column name="Description"  [width]="300">
                   <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
                     {{value}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Branches" prop="branches" [width]="50" >
+                <ngx-datatable-column name="Branches" prop="branches" [width]="100" >
                   <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
                     {{value.branchName}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Category" prop="category" [width]="50">
+                <ngx-datatable-column name="Category" prop="category" [width]="100">
                     <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
                       {{value.categoryName}}
                     </ng-template>

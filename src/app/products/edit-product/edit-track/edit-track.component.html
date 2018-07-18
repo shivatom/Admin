@@ -1,8 +1,9 @@
-<div class="form-inline col-md-5">
+
+<div class="form-inline col-md-12" *ngIf="product">
     <input
       type='text'
       class="pull-left"
-      style='padding: 5px; margin: 10px 15px 10px 0px; width: 56%;'
+      style='padding: 5px; margin: 10px 15px 10px 0px; width: 24%;'
       placeholder='Type to filter the name column...'
       (keyup)='updateFilter($event)'
     />
@@ -12,10 +13,16 @@
       <option value="started">Started</option>
       <option value="archived">Archived</option>
     </select>
-   
+
+    <div class="pull-left mr-3 midle"  >
+        <i class="material-icons text-success"> shopping_cart</i><span>TOTAL STOCK:<b>{{product.totalStock}}</b></span>
+    </div>
+    <div class=" pull-left mr-3 midle " >
+        <i class="material-icons text-success">verified_user</i> <span>AVAILABLE STOCK:<b>{{product.availableStock}}</b></span>
+    </div>
   </div>
 
-  <button class="btn btn-primary pull-right" (click)="modalService.open(addStockModal)">Add Stock Item</button>
+  <button class="btn btn-primary pull-right mb-1" (click)="modalService.open(addStockModal)">Add Stock Item</button>
     <ngx-datatable 
       *ngIf="trackableProduct"
       class="material"
@@ -38,20 +45,17 @@
             <i class="fa fa-circle f12 {{value}}"  aria-hidden="true"></i> {{value}}
         </ng-template>
       </ngx-datatable-column>
-      
-      <ngx-datatable-column *ngFor="let prop of product.productProperties; let i=index" name="{{prop.propertyKey}}" >
-        <ng-template let-value="value"  let-rowIndex="rowIndex" let-row="row"  ngx-datatable-cell-template>
-          <div class="tag" >
-            <span >{{product.productProperties[i].propertyKey}}</span>
-          </div>
-        </ng-template>
-      </ngx-datatable-column>
-
+     
       <ngx-datatable-column name="Delete" >
         <ng-template let-value="value" let-row="row"  ngx-datatable-cell-template>
           <button   (click)="deleteStock(row.id)" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
         </ng-template>
       </ngx-datatable-column>
+      <ngx-datatable-column name="add Property" >
+          <ng-template let-value="value" let-row="row"  ngx-datatable-cell-template>
+            <button   class="transparentbtn text-link">Add Propery</button>
+          </ng-template>
+        </ngx-datatable-column>
     </ngx-datatable>
 
     <ng-template #addStockModal let-c="close" let-d="dismiss">

@@ -117,7 +117,8 @@ export class EditProductComponent implements OnInit {
     
     this.productService.productBranch(form).subscribe(response=>{
       this.branchDetails=response;
-      console.log(this.branchDetails)
+      this.pricingForm.get('perHour').setValue(this.branchDetails.perHour);
+      this.pricingForm.get('perDay').setValue(this.branchDetails.perDay);
     })
     
   }
@@ -183,11 +184,7 @@ export class EditProductComponent implements OnInit {
       this.settingForm.get('categoryId').setValue(this.product.category.id);
       this.settingForm.get('imageFile').setValue(this.product.logo);
       this.product.logo=this.product.logo.replace(" ",'');
-      console.log( this.product.logo)
       this.image=this.imageUrl+"product/images/"+this.product.logo;
-      
-      this.pricingForm.get('perHour').setValue(this.product.perHour);
-      this.pricingForm.get('perDay').setValue(this.product.perDay);
      
     })
   }
@@ -210,22 +207,6 @@ export class EditProductComponent implements OnInit {
     };
     req.send();
   } 
-
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-    const temp = this.temp.filter(function(d) {
-      return d.identifier.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-  }
-
-  statusFilter(event){
-    const val = event.target.value.toLowerCase();
-    const temp = this.temp.filter(function(d) {
-      return d.status.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-  }
 
   
 

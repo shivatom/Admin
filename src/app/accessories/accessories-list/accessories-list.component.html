@@ -19,11 +19,11 @@
                         <div class="card-header d-block ">
                             <div class="pull-left d-flex">
                                 <label >Filter By Category : </label>
-                                <select class="form-control">
-                                  <option>ere</option>
+                                <select class="form-control" #filterCategory  (change)="selectedCategory(filterCategory)">
+                                  <option *ngFor="let item of accessoriesCategoryList" [value]="item.id">{{item.categoryName}}</option>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-primary  pull-right btn-round" routerLink="acc-new">
+                            <button type="button" class="btn btn-primary  pull-right btn-round" (click)="addNewAccessory()">
                               <i class="material-icons">add</i>
                             </button>
                         </div>
@@ -87,31 +87,21 @@
                             [headerHeight]="40"
                             [footerHeight]="40"
                             [rowHeight]="'auto'"
-                            [rows]="accessoriesList">
-                            <ngx-datatable-column name="Name" prop="branchName">
+                            [rows]="accessoriesCategoryList">
+                            <ngx-datatable-column name="Name" prop="categoryName">
                               <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
                                  {{value}}
                               </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Description" prop="branchDescription">
+                            <ngx-datatable-column name="Description" prop="description">
                               <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
                                 {{value}}
                               </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Image" prop="image">
-                              <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                                <div class="ProfilePic"></div>
-                              </ng-template>
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Stock" prop="branchCode" >
-                              <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                                <div class="pils">{{value}}</div>
-                              </ng-template>
-                            </ngx-datatable-column>
-                          
+                            
                             <ngx-datatable-column name="Edit" >
                               <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                                <span  class="fa fa-edit text-primary cursor-pointer" (click)="editProduct(row)"></span>
+                                <span  class="fa fa-edit text-primary cursor-pointer" (click)="editCategoty(row.id)"></span>
                               </ng-template>
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Delete" >
