@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AccessoriesService } from '../../services/accessories.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-accessories-new',
@@ -11,7 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 export class AccessoriesNewComponent implements OnInit {
   accessoriesForm:FormGroup;
   cat_id;
+  item_id;
+  acc_data;
   image;
+  imageUrl=environment.imageUrl;
   error={
     show:false,
     text:"",
@@ -19,6 +23,8 @@ export class AccessoriesNewComponent implements OnInit {
   };
   constructor(private fb:FormBuilder , private router:ActivatedRoute, private acc:AccessoriesService) { 
     this.cat_id=router.snapshot.paramMap.get('id');
+    this.item_id=router.snapshot.paramMap.get('itemid');
+    
     this.accessoriesForm= fb.group(
     {  
       id:[],
@@ -32,6 +38,29 @@ export class AccessoriesNewComponent implements OnInit {
   }
   
   ngOnInit() {
+    if(this.item_id){
+      this.acc.getAccessoryByCatId(this.item_id).subscribe(response=>{
+        this.acc_data=response;
+        this.accessoriesForm.setValue({
+          id:this.acc_data[0].id,
+          accessoryName:this.acc_data[0].accessoryName,
+          description:this.acc_data[0].description,
+          perHour:this.acc_data[0].perDay,
+          perDay:this.acc_data[0].perDay,
+          categoryId:this.acc_data[0].accessoriesCategory.id,
+          imageFile:''
+        })
+        
+       
+        // this.settingForm.get('categoryId').setValue(this.product.category.id);
+        // this.settingForm.get('imageFile').setValue(this.product.logo);
+        // this.product.logo=this.product.logo.replace(" ",'');
+        this.image=this.imageUrl+"accessories/images/"+this.acc_data[0].logo;
+
+      },error=>{
+        
+      })
+    }
   }
   onSelectImage(event){
     var myReader: FileReader = new FileReader();

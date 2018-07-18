@@ -13,6 +13,7 @@ export class AccessoriesCategoryComponent implements OnInit {
   accessoriesForm:FormGroup;
   image;
   id;
+  cat_list;
   error={
     show:false,
     text:"",
@@ -30,18 +31,24 @@ export class AccessoriesCategoryComponent implements OnInit {
   
   ngOnInit() {
     if(this.id){
-      this.categoryService.getBy(this.id).subscribe(response=>{
-      console.log(response);
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Product is updated successfully!!";
-    })
+      this.categoryService.getCategory(this.id).subscribe(response=>{
+        this.cat_list=response;
+        console.log(0);
+        
+        console.log(this.cat_list);
+        
+        this.accessoriesForm.setValue({
+          id:this.cat_list[0].id,
+          categoryName:this.cat_list[0].id,
+          description:this.cat_list[0].id
+        })
+        
+      })
     }
   }
 
   addCategory(){
     this.categoryService.createCategory(this.accessoriesForm.value).subscribe(response=>{
-      console.log(response);
       this.error.show=true;
       this.error.status='success';
       this.error.text="Product is updated successfully!!";

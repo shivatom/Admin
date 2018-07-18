@@ -20,7 +20,7 @@
                             <div class="pull-left d-flex">
                                 <label >Filter By Category : </label>
                                 <select class="form-control" #filterCategory  (change)="selectedCategory(filterCategory)">
-                                  <option *ngFor="let item of accessoriesCategoryList" [value]="item.id">{{item.categoryName}}</option>
+                                  <option *ngFor="let item of accessoriesCategoryList; let i=index;" [value]="i">{{item.categoryName}}</option>
                                 </select>
                             </div>
                             <button type="button" class="btn btn-primary  pull-right btn-round" (click)="addNewAccessory()">
@@ -35,26 +35,26 @@
                             [footerHeight]="40"
                             [rowHeight]="'auto'"
                             [rows]="accessoriesList">
-                            <ngx-datatable-column name="Name" prop="branchName">
+                            <ngx-datatable-column name="Name" prop="accessoryName">
                               <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
                                  {{value}}
                               </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Description" prop="branchDescription">
+                            <ngx-datatable-column name="Description" prop="description">
                               <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
                                 {{value}}
                               </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Image" prop="image">
+                            <ngx-datatable-column name="Image" prop="logo">
                               <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                                <div class="ProfilePic"></div>
+                                <div class="ProfilePic" [ngStyle]="{'background': 'url('+imageUrl+'accessories/images/'+value+')'  }"></div>
                               </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Stock" prop="branchCode" >
+                            <!-- <ngx-datatable-column name="Stock" prop="branchCode" >
                               <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
                                 <div class="pils">{{value}}</div>
                               </ng-template>
-                            </ngx-datatable-column>
+                            </ngx-datatable-column> -->
                           
                             <ngx-datatable-column name="Edit" >
                               <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>

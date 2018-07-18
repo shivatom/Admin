@@ -6,7 +6,7 @@ import { AccessoriesCategoryComponent } from './accessories-category/accessories
 
 const routes: Routes = [
   {path:"" , component:AccessoriesListComponent},
-  {path:"acc-new/:id" , component:AccessoriesNewComponent},
+  {path:"acc-new/:id/:itemid" , component:AccessoriesNewComponent},
   {path:"cat-new" , component:AccessoriesCategoryComponent},
   {path:"cat-new/:id" , component:AccessoriesCategoryComponent}
 ];

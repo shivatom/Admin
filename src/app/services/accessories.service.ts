@@ -14,8 +14,12 @@ export class AccessoriesService extends DataService{
       return this.http.post(this.apiUrl+'accessory-category',formData )
    }
 
-   getCategory(){
-     
+   getAccessoryByCatId(id){
+    return this.http.get(this.apiUrl+'accessory/'+id )
+   }
+
+   getCategory(id){
+    return this.http.get(this.apiUrl+'accessory-category/'+id )
    }
 
 }
