@@ -6,7 +6,7 @@
         <div class="card-header">
           Basic Setting
         </div>
-        <div class="card-body p-0">
+        <div class="card-body p-1">
           <form class="p-3" [formGroup]="settingForm">
             <div class="row">
               <div class="col-md-6">
@@ -46,28 +46,33 @@
           </form>
         </div>
 
-        <ng-container *ngIf="product">
-          <label class="mt-3 mb-3"> Tags
-            <i class="fa fa-plus-square tagBtn" [ngbPopover]="popContent" #p="ngbPopover" placement="right"></i>
-            <div class="tag" *ngFor="let prop of product.productProperties">
-              <a class="delete-tag icon-cross" (click)="deleteProp(prop.id)"></a>
-              <span>{{prop.propertyKey}}</span>
-            </div>
-
-          </label>
-
-          <ng-template #popContent>
-            <div class="form-inline">
-              <div class="form-group col-sm-9">
-                <label for="inputPassword2" class="sr-only">Add Tag</label>
-                <input type="text" class="form-control" #tag id="inputPassword2" placeholder="Password">
-              </div>
-              <button type="submit" class="btn btn-primary col-sm-3" (click)="p.close(); addProp(tag);">Add</button>
-            </div>
-          </ng-template>
-        </ng-container>
+        
       </div>
-
+      <div class="card m-0 p-0 mt-1">
+        <div class="card-header">
+          Add Property
+        </div>
+        <div class="card-body p-1">
+          <ng-container *ngIf="product">
+            <label class="mt-3 mb-3"> 
+              <i class="fa fa-plus-square tagBtn" [ngbPopover]="popContent" #p="ngbPopover" placement="right"></i>
+              <div class="tag" *ngFor="let prop of product.productProperties">
+                <a class="delete-tag icon-cross" (click)="deleteProp(prop.id)"></a>
+                <span>{{prop.propertyKey}}</span>
+              </div>
+            </label>
+            <ng-template #popContent>
+              <div class="form-inline">
+                <div class="form-group col-sm-9">
+                  <label for="inputPassword2" class="sr-only">Add Tag</label>
+                  <input type="text" class="form-control" #tag id="inputPassword2" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary col-sm-3" (click)="p.close(); addProp(tag);">Add</button>
+              </div>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
       <div class="card m-0 mt-1" *ngIf="product">
         <div class="row form-group align-items-baseline">
           <label for="disabledTextInput col-md-2 mr-1">Select Branch : </label>
@@ -77,7 +82,7 @@
           <button type="button" class="btn btn-primary col-md-1  mr-1" (click)="getBranchDetails(group);">Apply</button>
         </div>
 
-        <div class="row" *ngIf="branch_list">
+        <div class="row" *ngIf="branchDetails">
           <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"
             role="alert">
             <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i>

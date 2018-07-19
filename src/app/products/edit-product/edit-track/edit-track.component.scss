@@ -5,3 +5,27 @@
 .midle i{
     font-size: 20px;
 }
+
+.border-table{
+    border: #ccc solid 1px;
+}
+
+.datatable-body-row[ng-reflect-expanded=true],.datatable-body-row[ng-reflect-expanded=true]:hover{
+    background: #ececec !important;
+}
+
+.ngx-datatable .datatable-body .datatable-row-detail{
+    margin: 0px;
+    padding: 0px;
+    background: #fdfdfd;
+    border-bottom: 1px solid #ececec;
+}
+.ngx-datatable .datatable-body .datatable-row-detail input{
+    border: #ccc solid 1px;
+    background: #fff;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+.datatable-row-detail th{
+    font-weight: 500;
+}

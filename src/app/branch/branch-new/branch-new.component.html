@@ -50,7 +50,20 @@
                       </div>
                     </div>
                   </div>
-                  
+
+                  <div class="form-group">
+                    <label for="disabledSelect"> Tax Type </label>
+                    <select  class="form-control" formControlName="taxType">
+                      <option value="incl">incl</option>
+                      <option value="excl">excl</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="disabledSelect"> Tax Percent </label>
+                    <input type="text" formControlName="taxPercent"  class="form-control"  />
+                  </div>
+                
                   <button type="submit" [disabled]="!product.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
                 </fieldset>
             </form>

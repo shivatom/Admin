@@ -42,7 +42,7 @@ input[type="text"].ng-touched.ng-invalid,input[type="password"].ng-touched.ng-in
 
 .tagBtn{
     background-color: #ffffff;
-    color: #304ffe;
+    color: $btn_primary;
     font-size: 20px;
     margin-left: 3px;
 }

@@ -1,5 +1,6 @@
 
-<div class="form-inline col-md-12" *ngIf="product">
+
+<div class="form-inline col-md-12" >
     <input
       type='text'
       class="pull-left"
@@ -22,16 +23,48 @@
     </div>
   </div>
 
-  <button class="btn btn-primary pull-right mb-1" (click)="modalService.open(addStockModal)">Add Stock Item</button>
+  <button class="btn btn-primary pull-right mb-2" (click)="modalService.open(addStockModal)">Add Stock Item</button>
     <ngx-datatable 
       *ngIf="trackableProduct"
-      class="material"
+      #myTable
+      class="material expandable border-table"
       [columnMode]="'force'"
       [headerHeight]="40"
       [footerHeight]="40"
       [rowHeight]="'auto'"
       [rows]="trackableProduct">
-    
+      <!-- Row Detail Template -->
+      <ngx-datatable-row-detail [rowHeight]="auto" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+          <div class="col-md-4 p-0">
+              <table class="table m-0">
+                <tr ><th>Property</th><th>Value</th></tr>
+                <tr  *ngFor="let item of row.propertyValues ">
+                  <td>{{item.productProperties.propertyKey}}</td>
+                  <td><input type="input" class="" /></td>
+                </tr>
+              </table>
+              <button type="button" class="btn btn-primary ml-2 mb-2">Save</button>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+      <!-- Column Templates -->
+      <ngx-datatable-column
+        [width]="50"
+        [resizeable]="false"
+        [sortable]="false"
+        [draggable]="false"
+        [canAutoResize]="false">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+          <a
+            href="javascript:void(0)"
+            [class.datatable-icon-right]="!expanded"
+            [class.datatable-icon-down]="expanded"
+            title="Expand/Collapse Row"
+            (click)="toggleExpandRow(row)">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
       <ngx-datatable-column name="Identifier" prop="stockId">
         <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
           <span>

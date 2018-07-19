@@ -29,6 +29,8 @@ export class BranchNewComponent implements OnInit {
        address:['',Validators.required],
        latitude:['',Validators.required],
        longitude:['',Validators.required],
+       taxType:['',Validators.required],
+       taxPercent:['',Validators.required],
        isActive:[''],
      }
     );

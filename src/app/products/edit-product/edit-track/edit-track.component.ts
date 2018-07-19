@@ -13,6 +13,7 @@ export class EditTrackComponent implements OnInit {
   @Input() product;
   @Input() branch;
   @ViewChild ('stock') stock;
+  @ViewChild('myTable') table: any;
   trackableProduct;
   editing={};
   temp;
@@ -26,6 +27,8 @@ export class EditTrackComponent implements OnInit {
 
   ngOnInit() {
     this.trackableProduct=this.product.trackableProduct;
+    console.log(this.trackableProduct);
+    
     this.temp=this.product.trackableProduct;
     this.stockForm.get('id').setValue(this.product.id);
   }
@@ -110,6 +113,15 @@ export class EditTrackComponent implements OnInit {
     // this.productService.addTrackProductStock().subscribe(response=>{
     //   console.log(response);
     // })
+  }
+
+  toggleExpandRow(row) {
+    console.log('Toggled Expand Row!', row);
+    this.table.rowDetail.toggleExpandRow(row);
+  }
+
+  onDetailToggle(event) {
+    console.log('Detail Toggled', event);
   }
 }
 
