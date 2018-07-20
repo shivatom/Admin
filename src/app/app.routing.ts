@@ -38,6 +38,9 @@ export const AppRoutes: Routes = [{
   },{
     path: 'accessories',
     loadChildren: './accessories/accessories.module#AccessoriesModule'
+  },{
+    path: 'company',
+    loadChildren: './company/company.module#CompanyModule'
   }
 ]
 }, {

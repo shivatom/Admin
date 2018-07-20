@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" *ngIf="companayList">
+      <div class="card m-0">
+        <div class="card-header">
+          <i class="material-icons">account_balance</i> 
+          <p class="m-0">Company</p>
+        </div>
+        <div class="card-body p-3">
+          <div class="wraper_holder col-md-2" >
+              <div class="comp-logo" [ngStyle]="{'background': 'url('+imageUrl+'company/images/'+companayList.logo+')'  }"></div>
+            <h5 class="mt-1 text-center comp-name position-relative">Company Name <i class="material-icons icon-btn ic-btn" >edit</i></h5>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

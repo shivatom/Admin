@@ -14,14 +14,24 @@ export class EditTrackComponent implements OnInit {
   @Input() branch;
   @ViewChild ('stock') stock;
   @ViewChild('myTable') table: any;
+
+  //Variables
   trackableProduct;
   editing={};
   temp;
+  editMode=false;
+
+  //Form 
   stockForm:FormGroup;
+  propertyValueForm:FormGroup;
   constructor(private productService:ProductService, private modalService:NgbModal, private fb:FormBuilder) { 
     this.stockForm= fb.group({
       id:[],
       stock:['',Validators.required]
+    })
+
+    this.propertyValueForm=fb.group({
+
     })
   }
 
@@ -122,6 +132,25 @@ export class EditTrackComponent implements OnInit {
 
   onDetailToggle(event) {
     console.log('Detail Toggled', event);
+  }
+
+  toggleProperty(i){
+    this.editing[i  + '-id']=!this.editing[i  + '-id']; 
+  }
+  
+  saveProvertyValue(i,id,data){
+    this.editing[i  + '-id']=!this.editing[i  + '-id'];  
+    let propertyValue=[];
+    propertyValue[0]=id;
+    propertyValue[1]=data.value;
+     
+    let form=new FormData();
+    form.append('id',id);
+    form.append('propertyValue','');
+    this.productService.updatePropertyValue(35,propertyValue).subscribe(response=>{
+      console.log(response);
+      
+    })
   }
 }
 

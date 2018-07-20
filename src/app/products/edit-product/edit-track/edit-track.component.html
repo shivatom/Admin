@@ -37,14 +37,18 @@
       <ngx-datatable-row-detail [rowHeight]="auto" #myDetailRow (toggle)="onDetailToggle($event)">
         <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
           <div class="col-md-4 p-0">
-              <table class="table m-0">
+              <table class="table m-0" >
                 <tr ><th>Property</th><th>Value</th></tr>
-                <tr  *ngFor="let item of row.propertyValues ">
+                <tr  *ngFor="let item of row.propertyValues; let i=index ">
                   <td>{{item.productProperties.propertyKey}}</td>
-                  <td><input type="input" class="" /></td>
+                  <td><input type="input" class="" #value  [ngClass]="{'editMode': !editing[i  + '-id']}" /></td>
+                  <td>
+                    <i class="material-icons icon-btn" *ngIf="!editing[i  + '-id']"  (click)="toggleProperty(i)">edit</i>
+                    <i class="material-icons icon-btn" *ngIf="editing[i  + '-id']"  (click)="saveProvertyValue(i,item.id,value)">save</i>
+                  </td>
                 </tr>
               </table>
-              <button type="button" class="btn btn-primary ml-2 mb-2">Save</button>
+              
           </div>
         </ng-template>
       </ngx-datatable-row-detail>

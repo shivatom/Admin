@@ -50,6 +50,16 @@ const MENUITEMS = [
     type: 'link',
     icon: 'basic-accelerator'
   },{
+    state: 'users',
+    name: 'Users',
+    type: 'link',
+    icon: 'basic-accelerator'
+  },{
+    state: 'company',
+    name: 'Company',
+    type: 'link',
+    icon: 'basic-accelerator'
+  },{
     state: 'category',
     name: 'Category',
     type: 'link',
@@ -57,11 +67,6 @@ const MENUITEMS = [
   },{
     state: 'branch',
     name: 'Branch',
-    type: 'link',
-    icon: 'basic-accelerator'
-  },{
-    state: 'users',
-    name: 'Users',
     type: 'link',
     icon: 'basic-accelerator'
   }
