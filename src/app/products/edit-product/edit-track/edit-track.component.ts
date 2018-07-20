@@ -145,6 +145,21 @@ export class EditTrackComponent implements OnInit {
     propertyValue[1]=data.value;
      
     let form=new FormData();
+    let fm= this.fb.group({
+      propertyValue : this.fb.array([
+        this.fb.group({
+          id:[],
+          value:[],
+        }),
+        this.fb.group({
+          id:[],
+          value:[],
+        })
+      ])
+    })
+    
+    
+    
     form.append('id',id);
     form.append('propertyValue','');
     this.productService.updatePropertyValue(35,propertyValue).subscribe(response=>{
