@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormArray,FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-track',
@@ -31,14 +31,12 @@ export class EditTrackComponent implements OnInit {
     })
 
     this.propertyValueForm=fb.group({
-
+      propertyValue : this.fb.array([])
     })
   }
 
   ngOnInit() {
     this.trackableProduct=this.product.trackableProduct;
-    console.log(this.trackableProduct);
-    
     this.temp=this.product.trackableProduct;
     this.stockForm.get('id').setValue(this.product.id);
   }
@@ -92,13 +90,6 @@ export class EditTrackComponent implements OnInit {
       this.trackableProduct=data.trackableProduct;
       this.temp=data.trackableProduct;
     })
-    // this.productService.getProductById(this.product.id).subscribe(response=>{
-    //   let data=response as obj;
-    //   this.product=response;
-    //   console.log(this.product);
-    //   this.trackableProduct=data.trackableProduct;
-    // });
-    
   }
   
   updateFilter(event) {
@@ -117,17 +108,32 @@ export class EditTrackComponent implements OnInit {
     this.trackableProduct = temp;
   }
 
-  addStock(){
-    
-   // console.log(this.stock)
-    // this.productService.addTrackProductStock().subscribe(response=>{
-    //   console.log(response);
-    // })
+  get propertyValue(){
+    return this.propertyValueForm.get('propertyValue') as FormArray;
   }
 
   toggleExpandRow(row) {
-    console.log('Toggled Expand Row!', row);
+    row.propertyValues.forEach((propertyResponse,index) => {
+      this.propertyValue.push(this.propList(
+        propertyResponse.productProperties.id,
+        propertyResponse.productProperties.value
+      ));
+    });
     this.table.rowDetail.toggleExpandRow(row);
+  }
+
+  addPropertyValue(){
+    console.log(this.propertyValueForm.value)
+    this.productService.updatePropertyValue(3,this.propertyValueForm.value).subscribe(response=>{
+      console.log(response);
+    })
+  }
+
+  propList(id? , value?):FormGroup{
+    return this.fb.group({
+      id:[id],
+      value:[value],
+    })
   }
 
   onDetailToggle(event) {
@@ -139,33 +145,7 @@ export class EditTrackComponent implements OnInit {
   }
   
   saveProvertyValue(i,id,data){
-    this.editing[i  + '-id']=!this.editing[i  + '-id'];  
-    let propertyValue=[];
-    propertyValue[0]=id;
-    propertyValue[1]=data.value;
-     
-    let form=new FormData();
-    let fm= this.fb.group({
-      propertyValue : this.fb.array([
-        this.fb.group({
-          id:[],
-          value:[],
-        }),
-        this.fb.group({
-          id:[],
-          value:[],
-        })
-      ])
-    })
     
-    
-    
-    form.append('id',id);
-    form.append('propertyValue','');
-    this.productService.updatePropertyValue(35,propertyValue).subscribe(response=>{
-      console.log(response);
-      
-    })
   }
 }
 

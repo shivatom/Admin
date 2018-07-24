@@ -21,10 +21,6 @@ export class AccessoriesListComponent implements OnInit {
   }
 
   getAccessoriesList(id){
-    console.log(id);
-    
-    console.log(this.accessoriesCategoryList);
-    
     this.accessoriesList=this.accessoriesCategoryList[id].accessories;
   }
 

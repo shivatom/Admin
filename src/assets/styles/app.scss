@@ -11,7 +11,7 @@
 
 
 $btn_primary:#f91942;
-
+$secondary_color:#416b38;
 body{
     font-family: 'Roboto', sans-serif !important;
 }
@@ -139,6 +139,10 @@ input[type="text"].ng-touched.ng-invalid,input[type="password"].ng-touched.ng-in
     color: #f5607c !important;
 }
 
+.secondary_color{
+    background: $secondary_color;
+    color: #fff;
+}
 
 .btn-primary:hover{
     background-color: #f5284e;
@@ -189,4 +193,10 @@ input[type="text"].ng-touched.ng-invalid,input[type="password"].ng-touched.ng-in
 
 label{
     margin-bottom: 0px;
+}
+
+.input-border{
+    border: 1px #ccc solid !important;
+    border-left: none !important;
+    padding-left: 10px !important;
 }

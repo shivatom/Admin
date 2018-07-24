@@ -1,10 +1,23 @@
-<div class="card" >
+
+<div class="container">
   <div class="row">
     <div class="col-md-12">
-      <ngb-tabset>
-        <ngb-tab title="All">
-          <ng-template ngbTabContent>
-            <div class="form-inline col-md-12">
+    <button type="button" class="btn btn-primary pull-right btn-round"  (click)="addNewItem()">
+        <i class="material-icons">shopping_cart</i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="material-icons">group</i> 
+          <p class="m-0">Order List</p>
+        </div>
+        <div class="card-body p-0">
+            <div class="form-inline col-md-12 mb-3">
               <select class="form-control pull-left mr-3"  (change)='statusFilter($event)'>
                 <option value="Available">All</option>
                 <option value="reserved">Today</option>
@@ -17,85 +30,71 @@
                 <option value="started">Started</option>
                 <option value="archived">Archived</option>
               </select>
-              <i class="fa fa-file-excel-o tagBtn float-right" aria-hidden="true"></i>
             </div>
-              <button class="btn btn-primary pull-right" (click)="addNewItem()">Add new order</button>
-              <ngx-datatable 
-                class="material"
-                [columnMode]="'force'"
-                [headerHeight]="40"
-                [footerHeight]="40"
-                [rowHeight]="'auto'"
-                [rows]="rows">
-              
-                <ngx-datatable-column name="id" prop="id">
-                  <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Customer" prop="Customer">
-                  <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Status" >
-                  <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Pick up"   prop="pickup" >
-                  <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Return"  >
-                  <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Price"  >
-                  <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <!-- <ngx-datatable-column name="Edit" >
-                  <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                      <span  class="fa fa-edit text-primary cursor-pointer" *ngIf="!editing[rowIndex + '-identifier']" (click)="rowEditMode(rowIndex,true)"></span>
-                     <div class="row" *ngIf="editing[rowIndex + '-identifier']">
-                      <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
-                      <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
-                    </div> 
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Delete" >
-                  <ng-template let-value="value"  ngx-datatable-cell-template>
-                    <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
-                  </ng-template> 
-                </ngx-datatable-column>-->
-              </ngx-datatable>
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab>
-          <ng-template ngbTabTitle>Upcoming</ng-template>
-          <ng-template ngbTabContent>
-            
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab>
-          <ng-template ngbTabTitle>Overdue</ng-template>
-          <ng-template ngbTabContent>
-            
-          </ng-template>
-        </ngb-tab>
-      </ngb-tabset>
-   </div>
+                
+                <ngx-datatable 
+                  class="material"
+                  [columnMode]="'force'"
+                  [headerHeight]="40"
+                  [footerHeight]="40"
+                  [rowHeight]="'auto'"
+                  [rows]="orderlist">
+                
+                  <ngx-datatable-column name="id" prop="id">
+                    <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      {{value}}
+                    </ng-template>
+                  </ngx-datatable-column>
+  
+                  <ngx-datatable-column name="Customer" prop="user.fullName">
+                    <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      {{value}}
+                    </ng-template>
+                  </ngx-datatable-column>
+  
+                  <ngx-datatable-column name="Status"   >
+                    <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                        <span [ngClass]="{'tag bg-success':value=='reserved'}" >
+                            {{value}}
+                        </span>
+                    </ng-template>
+                  </ngx-datatable-column>
+  
+                  <ngx-datatable-column name="Pick up"   prop="fromTime" >
+                    <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                      {{value | date}}
+                    </ng-template>
+                  </ngx-datatable-column>
+  
+                  <ngx-datatable-column name="Return" prop="toTime"  >
+                    <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                      {{value  | date}}
+                    </ng-template>
+                  </ngx-datatable-column>
+  
+                  <ngx-datatable-column name="Total amount" prop="totalAmount"  >
+                    <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+                      {{value}}
+                    </ng-template>
+                  </ngx-datatable-column>
+  
+                  <!-- <ngx-datatable-column name="Edit" >
+                    <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                        <span  class="fa fa-edit text-primary cursor-pointer" *ngIf="!editing[rowIndex + '-identifier']" (click)="rowEditMode(rowIndex,true)"></span>
+                       <div class="row" *ngIf="editing[rowIndex + '-identifier']">
+                        <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
+                        <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
+                      </div> 
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Delete" >
+                    <ng-template let-value="value"  ngx-datatable-cell-template>
+                      <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
+                    </ng-template> 
+                  </ngx-datatable-column>-->
+                </ngx-datatable>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

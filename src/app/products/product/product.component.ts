@@ -19,8 +19,6 @@ export class ProductComponent implements OnInit {
   getProductList(){
     this.productService.getByURL('product/basic-list').subscribe(response=>{
       this.productList=response;
-      console.log(this.productList);
-      
     })
   }
 

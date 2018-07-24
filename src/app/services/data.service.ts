@@ -13,27 +13,27 @@ export class DataService {
 
   get(){
     console.log('- '+this.apiUrl+this.url)
-    return this.http.get(this.apiUrl+this.url);
+    return this.http.get(this.apiUrl+this.url,this.token);
   }
 
   create(formData){
-    return this.http.post<StatusResponse>(this.apiUrl+this.url, formData );
+    return this.http.post<StatusResponse>(this.apiUrl+this.url, formData ,this.token);
   }
 
   update(id,formData){
-    return this.http.put<StatusResponse>(this.apiUrl+this.url+"/"+id, formData);
+    return this.http.put<StatusResponse>(this.apiUrl+this.url+"/"+id, formData,this.token);
   }
 
   delete(id){
-    return this.http.delete<StatusResponse>(this.apiUrl+this.url+"/"+id);
+    return this.http.delete<StatusResponse>(this.apiUrl+this.url+"/"+id,this.token);
   }
   
   getBy(id){
-    return this.http.get(this.apiUrl+this.url+"/"+id);
+    return this.http.get(this.apiUrl+this.url+"/"+id,this.token);
   }
 
   getByURL(url){
-    return this.http.get(this.apiUrl+url);
+    return this.http.get(this.apiUrl+url,this.token);
   }
   
   createFormData(object: Object, form?: FormData, namespace?: string): FormData {

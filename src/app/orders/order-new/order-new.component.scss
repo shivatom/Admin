@@ -5,6 +5,14 @@
     border: #e2e2e2 solid 1px;
 }
 
+.p_text{
+  margin: 0px;
+    background-color: #cccc;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    text-align: center;
+}
 .custom-day {
     text-align: center;
     padding: 0.185rem 0.25rem;
@@ -22,3 +30,77 @@
   .custom-day.faded {
     background-color: rgba(2, 117, 216, 0.5);
   }
+  .item-wraper{
+    width: 150px;
+    border: 1px solid #dcdcdc;
+    padding: 5px;
+    word-wrap: break-word;
+    border-radius: 5px;
+    margin: 5px 15px;
+    box-shadow: 2px 2px 2px #afacac3d;
+    cursor: pointer;
+    min-height: 85px;
+    display: table;
+  }
+  input[type="radio"]:checked+label div{     
+    background: #00c853;
+    color: #fff; 
+  } 
+
+  input[type="checkbox"]:checked+label .acc_title:before {
+    font-family: FontAwesome;
+    content: "\F00C";
+    display: inline-block;
+    padding: 1px 0px 0px 1px;
+    vertical-align: middle;
+    background-color: #6ec829;
+    color: #fff;
+    right: -7px;
+    position: absolute;
+    font-size: 13px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    top: -7px;
+}
+.input{
+  display: none;
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  border: 1px solid #fff;
+  margin: 0px;
+}
+input[type="checkbox"]:checked+label div .input{
+  display: block;
+}
+  
+  .ProfilePic{
+    height: 80px;
+    width: 100px;
+    background-size: cover !important;
+    border: 1px solid #ccc;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    cursor: pointer;
+    position: relative;
+  }
+  .acc_title{
+    background-size: contain !important;
+    border: 1px solid #f5284e;
+    width: 72px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    background-color: #f5284e;
+    height: 80px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .input-border{
+    border: 1px #ccc solid !important;
+    border-left: auto !important;
+    padding-left: 10px !important;
+}

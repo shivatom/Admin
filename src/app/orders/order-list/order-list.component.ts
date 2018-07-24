@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-order-list',
@@ -7,30 +8,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
-  rows = [];
-  editing={}
+  orderlist;
   temp;
-  constructor(private router:Router) {
-    this.fetch((data) => {
-      this.temp =data;
-      this.rows = data;
-    });
-   }
-   fetch(data){
-    //API Call
-    const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/orders.json`);
-    req.onload = () => {
-      data(JSON.parse(req.response));
-    };
-    req.send();
-  } 
+  constructor(private router:Router , private orderService:OrderService) {
+  }
+
+  ngOnInit() {
+    this.orderService.get().subscribe(response=>{
+      this.orderlist=response;
+      console.log(this.orderlist);
+      
+    })
+  }
+
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function(d) {
       return d.identifier.toLowerCase().indexOf(val) !== -1 || !val;
     });
-    this.rows = temp;
+    this.orderlist = temp;
   }
 
   statusFilter(event){
@@ -38,25 +34,15 @@ export class OrderListComponent implements OnInit {
     const temp = this.temp.filter(function(d) {
       return d.status.toLowerCase().indexOf(val) !== -1 || !val;
     });
-    this.rows = temp;
+    this.orderlist = temp;
   }
 
-  rowEditMode(index,status){
-    for (var key in this.rows[0]) {
-      this.editing[index + '-'+key]=status;
-    }
-   
-    if(!status && this.rows[index].status=='new'){
-      console.log(index)
-      this.rows.splice(index,1)
-    }
-  }
+  
 
   addNewItem(){
     this.router.navigate(['order/new']);
   }
 
-  ngOnInit() {
-  }
+  
 
 }
