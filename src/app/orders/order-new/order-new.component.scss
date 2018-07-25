@@ -41,10 +41,14 @@
     cursor: pointer;
     min-height: 85px;
     display: table;
+    background-size: cover !important;
   }
-  input[type="radio"]:checked+label div{     
+  input[type="radio"]:checked+label .p_text{     
     background: #00c853;
     color: #fff; 
+  } 
+  input[type="radio"]:checked+label .item-wraper{     
+    border: 1px solid #00c853;
   } 
 
   input[type="checkbox"]:checked+label .acc_title:before {
@@ -103,4 +107,58 @@ input[type="checkbox"]:checked+label div .input{
     border: 1px #ccc solid !important;
     border-left: auto !important;
     padding-left: 10px !important;
+}
+
+
+// PROGRESS
+#progressbar {
+  overflow: hidden;
+  counter-reset: step;
+  z-index: 1;
+  width: 100%;
+  padding: 0px;
+  margin: 15px 0px;
+}
+#progressbar li {
+  list-style-type: none;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 12px;
+  width: 33.33%;
+  float: left;
+  position: relative;
+  letter-spacing: 1px;
+  text-align: center;
+}
+#progressbar li.active:before, #progressbar li.active:after {
+  background: #ee0979;
+  color: white;
+}
+#progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  display: block;
+  font-size: 12px;
+  color: #333;
+  background: #ccc;
+  border-radius: 25px;
+  margin: 0 auto 10px auto;
+  text-align: center;
+}
+#progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: #ccc;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1;
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
 }

@@ -124,12 +124,13 @@ export class OrderNewComponent implements OnInit {
     this.accessoryList=this.accessoryCategoryList[event.value].accessories;
   }
 
-  openPopUp(){
-    this.modalService.open(this.productModal, { size: 'lg' });
+  // openPopUp(){
+  //   this.modalService.open(this.productModal, { size: 'lg' });
     
-  }
+  // }
 
   onSelectProduct(){
+    console.log(this.filterForm.value)
     this.productService.productBranch(this.filterForm.value).subscribe(response=>{
       let data=response as obj;
       this.trackableProductList=data.trackableProduct;
