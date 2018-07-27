@@ -28,6 +28,12 @@ const MENUITEMS = [
     icon: 'basic-home'
   },
   {
+    state: 'order',
+    name: 'Order',
+    type: 'link',
+    icon: 'ecommerce-cart'
+  },
+  {
     state: 'products',
     name: 'Products',
     type: 'link',
@@ -39,12 +45,6 @@ const MENUITEMS = [
     icon: 'basic-accelerator'
   },
   {
-    state: 'order',
-    name: 'Order',
-    type: 'link',
-    icon: 'ecommerce-cart'
-  },
-  {
     state: 'customers',
     name: 'Customers',
     type: 'link',
@@ -52,11 +52,6 @@ const MENUITEMS = [
   },{
     state: 'users',
     name: 'Users',
-    type: 'link',
-    icon: 'basic-accelerator'
-  },{
-    state: 'company',
-    name: 'Company',
     type: 'link',
     icon: 'basic-accelerator'
   },{

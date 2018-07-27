@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit ,Input } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -11,7 +12,7 @@ export class EditBulkComponent implements OnInit {
   @Input() product;
   total_stock=0;
   productForm:FormGroup;
-  constructor(private productService:ProductService) {
+  constructor(private productService:ProductService, private toastr: ToastrService) {
     this.productForm=new FormGroup({
       id:new FormControl(),
       stock:new FormControl()

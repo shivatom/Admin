@@ -3,15 +3,13 @@
       <div class="col-md-12">
         <div class="card p-3">
           <div class="card-header p-0 pb-2">
-              <i class="material-icons">group_add</i><p class="m-0 pl-1">New Branch</p>
+              <i class="material-icons">group_add</i><p class="m-0 pl-1" *ngIf="!editMode"> New Branch</p><p class="m-0 pl-1" *ngIf="editMode"> Update Branch</p>
           </div>
           <div class="card-body  p-0 pt-2 pb-2">
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
                 
-            <form class="col-md-6" [formGroup]="product">
-                <div class="alert d-table" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"   role="alert">
-                    <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;" aria-hidden="true"></i> <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
-                </div>
+            <form class="col-md-6" [formGroup]="branch">
+                
 
                 <fieldset >
                   <div class="form-row align-items-center">
@@ -40,13 +38,13 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledSelect"> latitude </label>
-                        <input type="text" formControlName="latitude"  class="form-control"  />
+                        <input type="number" formControlName="latitude"  class="form-control"  />
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledSelect"> longitude </label>
-                        <input type="text" formControlName="longitude"  class="form-control"  />
+                        <input type="number" formControlName="longitude"  class="form-control"  />
                       </div>
                     </div>
                   </div>
@@ -54,17 +52,17 @@
                   <div class="form-group">
                     <label for="disabledSelect"> Tax Type </label>
                     <select  class="form-control" formControlName="taxType">
-                      <option value="incl">incl</option>
-                      <option value="excl">excl</option>
+                      <option value="incl">Inclusive TAX</option>
+                      <option value="excl">Exclusive TAX</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="disabledSelect"> Tax Percent </label>
-                    <input type="text" formControlName="taxPercent"  class="form-control"  />
+                    <input type="number" formControlName="taxPercent"  class="form-control" value="0" />
                   </div>
                 
-                  <button type="submit" [disabled]="!product.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
+                  <button type="submit" [disabled]="!branch.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
                 </fieldset>
             </form>
           </div>

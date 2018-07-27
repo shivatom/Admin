@@ -14,6 +14,7 @@ export class CustomerNewComponent implements OnInit {
 
   userForm:FormGroup;
   branchList;
+  editMode=false;
   productId;
   userDetails;
   error={
@@ -44,6 +45,7 @@ export class CustomerNewComponent implements OnInit {
 
   ngOnInit() {
     if(this.productId){
+      this.editMode=true;
       this.userService.getBy(this.productId).subscribe(response=>{
         this.userDetails =response;
         this.userForm.setValue({
@@ -68,8 +70,9 @@ export class CustomerNewComponent implements OnInit {
     this.userService.create(this.userForm.value).subscribe(response=>{
       this.error.show=true;
       this.error.status='success';
-      this.error.text="User is updated successfully!!";
-      this.userForm.reset();
+      this.error.text="Customer is updated successfully!!";
+      if(!this.editMode)
+        this.userForm.reset();
     },error=>{
       this.error.show=true;
       this.error.status='danger';

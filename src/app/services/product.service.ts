@@ -46,6 +46,10 @@ export class ProductService  extends DataService {
   }
 
   updatePropertyValue(id,formData){
+    console.log(id);
+    console.log(formData);
+    
+    
     return this.http.put(this.apiUrl+"track-product/update/"+id, formData);
   }
 

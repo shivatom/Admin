@@ -1,6 +1,7 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormArray,FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -11,6 +12,7 @@ import { FormGroup, FormArray,FormBuilder, Validators } from '@angular/forms';
 })
 export class EditTrackComponent implements OnInit {
   @Input() product;
+  @Input() productId;
   @Input() branch;
   @ViewChild ('stock') stock;
   @ViewChild('myTable') table: any;
@@ -20,13 +22,15 @@ export class EditTrackComponent implements OnInit {
   editing={};
   temp;
   editMode=false;
+  selectedRow;
+  openedModal;
 
   //Form 
   stockForm:FormGroup;
   propertyValueForm:FormGroup;
-  constructor(private productService:ProductService, private modalService:NgbModal, private fb:FormBuilder) { 
+  constructor(private productService:ProductService, private modalService:NgbModal, private fb:FormBuilder, private toastr: ToastrService) { 
     this.stockForm= fb.group({
-      id:[],
+      id:[''],
       stock:['',Validators.required]
     })
 
@@ -41,18 +45,9 @@ export class EditTrackComponent implements OnInit {
     this.stockForm.get('id').setValue(this.product.id);
   }
 
-  rowEditMode(index,status){
-    for (var key in this.trackableProduct[0]) {
-      this.editing[index + '-'+key]=status;
-    }
-   
-    if(!status && this.trackableProduct[index].status=='new'){
-      this.trackableProduct.splice(index,1)
-    }
-  }
 
   addNewItem(){
-    console.log(this.stockForm.value);
+    this.stockForm.get('id').setValue(this.product.id)
     this.productService.addTrackProductStock(this.stockForm.value).subscribe(response=>{
        this.refreshProductList();
        this.stockForm.reset();
@@ -81,14 +76,13 @@ export class EditTrackComponent implements OnInit {
    });
   }
 
-  refreshProductList(){
+  refreshProductList(){    
     let form=new FormData();
-    form.append('productId',this.product.id);
+    form.append('productId',this.productId);
     form.append('branchId',this.branch);
     this.productService.productBranch(form).subscribe(response=>{
       let data=response as obj;
-      this.trackableProduct=data.trackableProduct;
-      this.temp=data.trackableProduct;
+      this.product=data;
     })
   }
   
@@ -112,22 +106,7 @@ export class EditTrackComponent implements OnInit {
     return this.propertyValueForm.get('propertyValue') as FormArray;
   }
 
-  toggleExpandRow(row) {
-    row.propertyValues.forEach((propertyResponse,index) => {
-      this.propertyValue.push(this.propList(
-        propertyResponse.productProperties.id,
-        propertyResponse.productProperties.value
-      ));
-    });
-    this.table.rowDetail.toggleExpandRow(row);
-  }
 
-  addPropertyValue(){
-    console.log(this.propertyValueForm.value)
-    this.productService.updatePropertyValue(3,this.propertyValueForm.value).subscribe(response=>{
-      console.log(response);
-    })
-  }
 
   propList(id? , value?):FormGroup{
     return this.fb.group({
@@ -136,17 +115,33 @@ export class EditTrackComponent implements OnInit {
     })
   }
 
-  onDetailToggle(event) {
-    console.log('Detail Toggled', event);
+  updateProductPropertyValues(content, row){
+    this.selectedRow=row;
+    this.propertyValue.controls=[];
+    row.propertyValues.forEach((propertyResponse,index) => {
+      this.propertyValue.push(this.propList(
+        propertyResponse.id,
+        propertyResponse.value
+      ));
+    });
+    this.open(content);
   }
 
-  toggleProperty(i){
-    this.editing[i  + '-id']=!this.editing[i  + '-id']; 
+  updatePropertyValue(content){    
+    this.productService.updatePropertyValue(this.selectedRow.id ,this.propertyValueForm.value).subscribe(response=>{
+      this.refreshProductList();
+      this.close(content);
+    })
+  }
+
+  open(content) {
+    this.openedModal=this.modalService.open(content);
+  }
+
+  close(content){
+    this.openedModal.close();
   }
   
-  saveProvertyValue(i,id,data){
-    
-  }
 }
 
 class obj{

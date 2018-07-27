@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AccessoriesService } from '../../services/accessories.service';
@@ -16,12 +17,8 @@ export class AccessoriesNewComponent implements OnInit {
   acc_data;
   image;
   imageUrl=environment.imageUrl;
-  error={
-    show:false,
-    text:"",
-    status:""
-  };
-  constructor(private fb:FormBuilder , private router:ActivatedRoute, private acc:AccessoriesService) { 
+  editMode=false;
+  constructor(private fb:FormBuilder , private router:ActivatedRoute, private acc:AccessoriesService, private toastr: ToastrService) { 
     this.cat_id=router.snapshot.paramMap.get('id');
     this.item_id=router.snapshot.paramMap.get('itemid');
     
@@ -39,6 +36,7 @@ export class AccessoriesNewComponent implements OnInit {
   
   ngOnInit() {
     if(this.item_id){
+      this.editMode=true;
       this.acc.getAccessoryByCatId(this.item_id).subscribe(response=>{
         this.acc_data=response;
         this.accessoriesForm.setValue({
@@ -73,14 +71,11 @@ export class AccessoriesNewComponent implements OnInit {
 
   addAccessories(){
     this.acc.create(this.acc.createFormData(this.accessoriesForm.value)).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Product is updated successfully!!";
-      this.accessoriesForm.reset();
+      this.toastr.success('Accessory updated Successfully.');
+      if(!this.editMode)
+        this.accessoriesForm.reset();
     },error=>{
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Error in updating!!";
+      this.toastr.error('Some problem occured. Check your connection.');
     })
   }
 

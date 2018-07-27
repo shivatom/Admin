@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-header">
             <i class="material-icons">business_center</i> 
-            <p class="m-0">Product List</p>
+            <p class="m-0"> Product List</p>
           </div>
           <div class="card-body p-0">
               <ngx-datatable 
@@ -24,43 +24,25 @@
                 [footerHeight]="40"
                 [rowHeight]="'auto'"
                 [rows]="productList">
-                <ngx-datatable-column name="Product name" prop="productName" [width]="100">
+                <ngx-datatable-column name="Name" prop="productName">
                   <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     {{value}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Description"  [width]="300">
+                <ngx-datatable-column name="Description">
                   <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
                     {{value}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Branches" prop="branches" [width]="100" >
-                  <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                    {{value.branchName}}
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Category" prop="category" [width]="100">
+                <ngx-datatable-column name="Category" prop="category">
                     <ng-template let-value="value" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
                       {{value.categoryName}}
                     </ng-template>
                   </ngx-datatable-column>
-                <ngx-datatable-column name="Product Type" prop="productType" [width]="100">
-                  <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    {{value}}
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Edit" [width]="50">
+                <ngx-datatable-column name="Action"  [width]="100" >
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
                     <span  class="fa fa-edit text-primary icon-btn cursor-pointer" (click)="editProduct(row.id)"></span>
-                    <!-- <div class="row" *ngIf="editing[rowIndex + '-project']">
-                      <button class="btn mr-1 cursor-pointer" (click)="rowEditMode(rowIndex,false)">Cancel</button>
-                      <button class="btn btn-primary cursor-pointer" (click)="updateValue(rowIndex )">Save</button>
-                    </div> -->
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Delete" [width]="50">
-                  <ng-template let-value="value"  ngx-datatable-cell-template>
-                    <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary icon-btn cursor-pointer"></i></button>
+                    <!-- <button   (click)="deleteProject()" class="transparentbtn"><i class="fa fa-trash text-primary icon-btn cursor-pointer"></i></button> -->
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>

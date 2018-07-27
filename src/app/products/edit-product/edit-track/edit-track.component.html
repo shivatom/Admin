@@ -32,46 +32,7 @@
       [headerHeight]="40"
       [footerHeight]="40"
       [rowHeight]="'auto'"
-      [rows]="trackableProduct">
-      <!-- Row Detail Template -->
-      <ngx-datatable-row-detail [rowHeight]="auto" #myDetailRow (toggle)="onDetailToggle($event)">
-        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
-          <div class="col-md-4 p-0">
-            <form [formGroup]="propertyValueForm">
-              <table class="table m-0" formArrayName="propertyValue" >
-                <tr ><th>Property</th><th>Value</th></tr>
-                <tr  *ngFor="let item of row.propertyValues; let i=index ">
-                    <td>{{item.productProperties.propertyKey}}</td>
-                    <td [formGroupName]="i">
-                      <input type="input" formControlName="id" hidden class="editMode" />
-                      <input type="input" formControlName="value" class=""/>
-                    </td>
-                </tr>
-              </table>
-            </form>
-          </div>
-          <div class="col-md-8 p-0">
-            <button type="button" (click)="addPropertyValue()" class="btn btn-primary ml-3 mb-1">Save</button>
-          </div>
-        </ng-template>
-      </ngx-datatable-row-detail>
-      <!-- Column Templates -->
-      <ngx-datatable-column
-        [width]="50"
-        [resizeable]="false"
-        [sortable]="false"
-        [draggable]="false"
-        [canAutoResize]="false">
-        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-          <a
-            href="javascript:void(0)"
-            [class.datatable-icon-right]="!expanded"
-            [class.datatable-icon-down]="expanded"
-            title="Expand/Collapse Row"
-            (click)="toggleExpandRow(row)">
-          </a>
-        </ng-template>
-      </ngx-datatable-column>
+      [rows]="product.trackableProduct">
       <ngx-datatable-column name="Identifier" prop="stockId">
         <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
           <span>
@@ -80,7 +41,7 @@
         
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Status" >
+      <ngx-datatable-column name="Status" prop="status">
         <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
             <i class="fa fa-circle f12 {{value}}"  aria-hidden="true"></i> {{value}}
         </ng-template>
@@ -88,14 +49,10 @@
      
       <ngx-datatable-column name="Delete" >
         <ng-template let-value="value" let-row="row"  ngx-datatable-cell-template>
-          <button   (click)="deleteStock(row.id)" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
+          <button   (click)="updateProductPropertyValues(propertyUpdateModal, row)" class="transparentbtn"><i class="fa fa-edit text-primary cursor-pointer"></i> Edit Property</button>
+          <button   (click)="deleteStock(row.id)" class="transparentbtn"><i class="fa fa-trash text-danger cursor-pointer"></i></button>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="add Property" >
-          <ng-template let-value="value" let-row="row"  ngx-datatable-cell-template>
-            <button   class="transparentbtn text-link">Add Propery</button>
-          </ng-template>
-        </ngx-datatable-column>
     </ngx-datatable>
 
     <ng-template #addStockModal let-c="close" let-d="dismiss">
@@ -108,6 +65,7 @@
       <div class="modal-body">
         <form [formGroup]="stockForm">
           <div class="form-group">
+              <label for="">Enter Stock</label>
             <div class="input-group">
               <input type="number" formControlName="stock" class="form-control" #item>
             </div>
@@ -115,6 +73,35 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" [disabled]="stockForm.invalid" class="btn btn-outline-dark" (click)="c('Save click');addNewItem(item);">Save</button>
+        <button type="button" [disabled]="stockForm.invalid" class="btn btn-outline-dark" (click)="addNewItem(item);">Save</button>
+      </div>
+    </ng-template>
+
+
+    
+
+    <ng-template #propertyUpdateModal let-close="close" let-dis="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Properties</h4>
+        <button type="button" class="close" aria-label="Close" (click)="close(propertyUpdateModal)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="propertyValueForm">
+              <table class="table m-0" formArrayName="propertyValue" >
+                <tr ><th>Property</th><th>Value</th></tr>
+                <tr  *ngFor="let item of selectedRow.propertyValues; let i=index ">
+                    <td>{{item.productProperties.propertyKey}}</td>
+                    <td [formGroupName]="i">
+                      <input type="input" formControlName="id" hidden class="editMode" />
+                      <input type="input" formControlName="value" class=""/>
+                    </td>
+                </tr>
+              </table>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" [disabled]="propertyValueForm.invalid" class="btn btn-outline-dark" (click)="updatePropertyValue(propertyUpdateModal);">Update</button>
       </div>
     </ng-template>

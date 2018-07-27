@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BranchService } from '../../services/branch.service';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class NewProductComponent implements OnInit {
     text:"",
     status:""
   };
-  constructor(private fb:FormBuilder , private branchService:BranchService, private productservice:ProductService, private catService:CategoryService) { 
+  constructor(private fb:FormBuilder , private branchService:BranchService, private productservice:ProductService, private catService:CategoryService, private toastr: ToastrService) { 
     this.product= fb.group(
      {  
        productName:['',Validators.required],
@@ -43,14 +44,10 @@ export class NewProductComponent implements OnInit {
   addProduct(){
     console.log(this.productservice.createFormData(this.product.value))
     this.productservice.create(this.productservice.createFormData(this.product.value)).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Product is updated successfully!!";
+      this.toastr.success('Product is updated successfully!!');
       this.product.reset();
     },error=>{
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Error in updating!!";
+      this.toastr.error('Error in updating!!');
     })
   }
   

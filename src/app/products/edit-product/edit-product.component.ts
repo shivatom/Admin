@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -48,6 +49,7 @@ export class EditProductComponent implements OnInit {
   product;
   trackableProduct;
   branchDetails;
+  branchProductId;
   cat_list;
   branch_list;
   viewDate: Date = new Date();
@@ -67,7 +69,7 @@ export class EditProductComponent implements OnInit {
     private catService:CategoryService,
     private router:ActivatedRoute, 
     private productservice:ProductService,
-    private fb:FormBuilder) 
+    private fb:FormBuilder, private toastr: ToastrService) 
     {
     this.product_id=router.snapshot.paramMap.get('id');
     //Price book form
@@ -89,7 +91,7 @@ export class EditProductComponent implements OnInit {
 
     this.pricingForm = fb.group(
     {  
-      id:[this.product_id],
+      id:[''],
       perHour:['',Validators.required],
       perDay:['',Validators.required],
     });
@@ -110,17 +112,33 @@ export class EditProductComponent implements OnInit {
       this.cat_list=response;
     })
   }
+
   getBranchDetails(id){
     let form=new FormData();
     form.append('productId',this.product.id);
     form.append('branchId',id.value);
     
     this.productService.productBranch(form).subscribe(response=>{
-      this.branchDetails=response;
+      this.branchDetails=response as BranchProduct;
+      
+      this.pricingForm.get('id').setValue(this.branchDetails.id);
       this.pricingForm.get('perHour').setValue(this.branchDetails.perHour);
       this.pricingForm.get('perDay').setValue(this.branchDetails.perDay);
     })
     
+  }
+
+  updatePrice(){   
+    this.error.show=false; 
+    this.productservice.updatePrice(this.pricingForm.value).subscribe(response=>{
+      this.error.show=true;
+      this.error.status='success';
+      this.error.text="Updated successfully!!";
+    },error=>{
+      this.error.show=true;
+      this.error.status='danger';
+      this.error.text="Error";
+    })
   }
 
   //Add Property to product
@@ -163,19 +181,6 @@ export class EditProductComponent implements OnInit {
     })
   }
 
-  updatePrice(){
-    this.productservice.updatePrice(this.pricingForm.value).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Updated successfully!!";
-     
-    },error=>{
-      console.log(error)
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Error";
-    })
-  }
   getProduct(id){
     this.productService.getProductById(id).subscribe(Response=>{
       this.product=Response;
@@ -247,4 +252,15 @@ export class EditProductComponent implements OnInit {
 
 class obj{
   trackableProduct
+}
+
+class BranchProduct{
+  id:any;
+  perDay:any;
+  perHour:any;
+  rentedStock:any;
+  availableStock:any;
+  totalStock:any;
+  status:any;
+  trackableProduct:any;
 }

@@ -12,8 +12,9 @@ import { BranchService } from '../../services/branch.service';
 })
 export class UsersNewComponent implements OnInit {
   userForm:FormGroup;
+  editMode=false;
   branchList;
-  productId;
+  userId;
   userDetails;
   error={
     show:false,
@@ -30,13 +31,14 @@ export class UsersNewComponent implements OnInit {
       userType:['',Validators.required],
       branch_id:['']
     })
-    this.productId=route.snapshot.paramMap.get('id');
+    this.userId=route.snapshot.paramMap.get('id');
     this.getBranchList();
   }
 
   ngOnInit() {
-    if(this.productId){
-      this.userService.getBy(this.productId).subscribe(response=>{
+    if(this.userId){
+      this.editMode=true;
+      this.userService.getBy(this.userId).subscribe(response=>{
         this.userDetails =response;
         this.userForm.setValue({
           id:this.userDetails.id,
@@ -57,11 +59,13 @@ export class UsersNewComponent implements OnInit {
     })
   }
   addUser(){
+    this.error.show=false;
     this.userService.create(this.userForm.value).subscribe(response=>{
       this.error.show=true;
       this.error.status='success';
       this.error.text="User is updated successfully!!";
-      this.userForm.reset();
+      if(!this.editMode)
+        this.userForm.reset();
     },error=>{
       this.error.show=true;
       this.error.status='danger';
