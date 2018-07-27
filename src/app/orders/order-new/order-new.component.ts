@@ -27,6 +27,7 @@ export class OrderNewComponent implements OnInit {
   toTime;
   fromTime;
   totalStep=4;
+  dateError=""
   acc_array_list=[];
   trackableProductList;
   imageUrl=environment.imageUrl;
@@ -85,10 +86,6 @@ export class OrderNewComponent implements OnInit {
     this.getBranchList();
     this.getAccessory();
 
-    this.orderService.getBy(1).subscribe(response=>{
-      this.orderDetails=response;
-      console.log(response);
-    })
 
   }
 
@@ -157,6 +154,19 @@ export class OrderNewComponent implements OnInit {
   }
   showNextSetp(){
     if(this.currentStep<this.totalStep){
+      if(this.currentStep==1){
+        let fDate = new Date(this.fromDate.year, this.fromDate.month-1, this.fromDate.day+1);
+        let fromDate=this.format(fDate, 'dd-MM-yyyy')+" "+this.fromTime;
+
+        let tDate = new Date(this.toDate.year, this.toDate.month-1, this.toDate.day+1);
+        let  toDate=this.format(tDate, 'dd-MM-yyyy')+" "+this.toTime;
+        console.log(toDate+"<"+fromDate);
+        
+        if(toDate<fromDate){
+          this.dateError="Please enter a valid pick up date";
+          return;
+        }
+      }
       if(this.currentStep==2){
         this.filterForm.get('productId').setValue(this.productForm.get('productId').value);
         this.onSelectProduct();
@@ -170,7 +180,9 @@ export class OrderNewComponent implements OnInit {
 
     let tDate = new Date(this.toDate.year, this.toDate.month-1, this.toDate.day+1);
     let  toDate=this.format(tDate, 'dd-MM-yyyy')+" "+this.toTime;
-
+    if(toDate<fromDate){
+      this.dateError="Please enter a valid pick up date";
+    }
     this.orderForm.setValue(
       {
         customerId:this.filterForm.get('customerId').value,
@@ -202,6 +214,12 @@ export class OrderNewComponent implements OnInit {
         return x.getFullYear().toString().slice(-v.length)
     });
 }
+  get customer(){
+    return this.filterForm.get('customerId').value;
+  }
+  get branch(){
+    return this.filterForm.get('branchId').value;
+  }
 }
 
 class obj{

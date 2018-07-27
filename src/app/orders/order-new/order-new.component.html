@@ -12,7 +12,7 @@
                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                   </div>
                 </div>
-                <select class="form-control input-border" formControlName="customerId">
+                <select class="form-control input-border"  formControlName="customerId">
                   <option [ngValue]="null" selected>Select</option>
                   <option *ngFor="let customer of customerList" [ngValue]="customer.id">
                     <button class="dropdown-item">{{customer.fullName}}
@@ -25,8 +25,8 @@
               <div class="ml-3 mt-3" ngbDropdownMenu aria-labelledby="dropdownBasic1">
               </div>
             </div>
-            <div ngbDropdown class="col-md-3">
-              <label for="inlineFormInputGroup">Select Branch</label>
+            <div ngbDropdown class="col-md-3"  [ngClass]="{'disabled': !customer}"  >
+              <label for="inlineFormInputGroup" >Select Branch</label>
               <div class="input-group ">
                 <div class="input-group-prepend  pt-0 pb-2">
                   <div class="input-group-text">
@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <div class="card m-0 mt-2">
+    <div class="card m-0 mt-2" *ngIf="branch">
       <div class="card-header m-0 p-0">
         <ul id="progressbar">
           <li class="active">Order Pick Time</li>
@@ -90,6 +90,11 @@
         <div class="row">
           <div class="container-fluid">
             <div class="col-md-12" *ngIf="currentStep==1">
+               
+              <div *ngIf="dateError" class="alert alert-danger" role="alert">
+                {{dateError}}
+              </div>
+              
               <label>From Date</label>
               <div class="form-inline">
                 <div class="form-group">
@@ -137,6 +142,7 @@
                     </div>
                   </div>
                 </div>
+               
               </div>
             </div>
             <div class="col-md-12" *ngIf="currentStep==2">
@@ -211,56 +217,7 @@
       </div>
     </div>
 
-    <div class="card mt-2" *ngIf="orderDetails">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" width="300"></th>
-            <th scope="col">Available </th>
-            <th scope="col">Quantity</th>
-
-            <th scope="col">Total Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>{{orderDetails.product.productName}}</th>
-            <td>
-              <span class="tag bg-success">
-                {{orderDetails.status}}</span>
-            </td>
-            <td>
-              <p></p>
-            </td>
-
-            <td>₹{{orderDetails.actualAmount}}</td>
-          </tr>
-          <tr *ngFor="let acc of orderDetails.orderAccessories">
-            <th>{{acc.accessories.accessoryName}}</th>
-            <td>
-            </td>
-            <td>
-              {{acc.quantity}}
-            </td>
-
-            <td>₹{{acc.totalPrice}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row">
-        <div class="col align-self-end">
-          <div class="d-block text-right p-2">
-            <b>Total Amount : </b> ₹{{orderDetails.totalAmount}}
-          </div>
-          <div class="d-block  text-right p-2">
-            <b>Total {{orderDetails.taxType}}. taxes : </b> ₹{{orderDetails.taxAmount}}
-          </div>
-          <div class="d-block  text-right p-2">
-            <b>Total {{orderDetails.taxType}}. taxes percentage : </b> ₹{{orderDetails.taxPercent}}
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 </div>
 

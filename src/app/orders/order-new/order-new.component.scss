@@ -50,7 +50,10 @@
   input[type="radio"]:checked+label .item-wraper{     
     border: 1px solid #00c853;
   } 
-
+  .disabled{
+    opacity: 0.5;
+    pointer-events: none;
+  }
   input[type="checkbox"]:checked+label .acc_title:before {
     font-family: FontAwesome;
     content: "\F00C";

@@ -77,6 +77,11 @@
                       {{value}}
                     </ng-template>
                   </ngx-datatable-column>
+                  <ngx-datatable-column name="View"   >
+                      <ng-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-cell-template>
+                          <p class="m-0 pl-1 text-link" routerLink="view/{{row.id}}">View</p>
+                      </ng-template>
+                    </ngx-datatable-column>
   
                   <!-- <ngx-datatable-column name="Edit" >
                     <ng-template let-value="value"  let-rowIndex="rowIndex"  ngx-datatable-cell-template>
