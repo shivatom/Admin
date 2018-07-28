@@ -15,10 +15,11 @@ import { FilterCustomerPipe } from './pipe/filter-customer.pipe';
 import { AccessoriesService } from '../services/accessories.service';
 import { CompanyService } from '../services/company.service';
 import { OrderService } from '../services/order.service';
+import { CustomerService } from '../services/customer.service';
 
 @NgModule({
   declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective, AlertComponent, FilterCustomerPipe ],
   exports:      [ AccordionAnchorDirective, NgbModule,   FormsModule,    ReactiveFormsModule, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
-  providers: 	[ MenuItems,CompanyService, OrderService, BranchService,AccessoriesService, CategoryService,ProductService,UserService ,FilterCustomerPipe]
+  providers: 	[ MenuItems,CompanyService, CustomerService,OrderService, BranchService,AccessoriesService, CategoryService,ProductService,UserService ,FilterCustomerPipe]
 })
 export class SharedModule { }

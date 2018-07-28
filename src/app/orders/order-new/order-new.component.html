@@ -1,8 +1,13 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="card p-3">
+    
+    <div class="card">
+        <div class="card-header">
+        <i class="material-icons">group</i>  
+        <p class="m-0">New Order</p>
+      </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 p-3">
           <form class="d-flex" [formGroup]="filterForm">
             <div ngbDropdown class="col-md-3">
               <label for="inlineFormInputGroup">Select Customer</label>
@@ -81,9 +86,9 @@
     <div class="card m-0 mt-2" *ngIf="branch">
       <div class="card-header m-0 p-0">
         <ul id="progressbar">
-          <li class="active">Order Pick Time</li>
-          <li>Products</li>
-          <li>Accessory</li>
+          <li [ngClass]="{'active': currentStep>=1}">Order Pick Time</li>
+          <li  [ngClass]="{'active': currentStep>=2}">Products</li>
+          <li  [ngClass]="{'active': currentStep>=3}">Accessory</li>
         </ul>
       </div>
       <div class="card-body">
@@ -100,7 +105,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <input class="form-control input-border" style="width:107px; height: 35px;" placeholder="Pick up Date" name="dp" [(ngModel)]="fromDate"
-                      ngbDatepicker #fromDate1="ngbDatepicker">
+                      ngbDatepicker #fromDate1="ngbDatepicker"  (ngModelChange)="dateValidation()">
                     <div class="input-group-append">
                       <button class="btn mr-3" style="border-radius: 0px; box-shadow: none;" (click)="fromDate1.toggle()" type="button">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -110,7 +115,7 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="time" class="form-control  input-border" style="height: 34px;" [(ngModel)]="fromTime" placeholder="Pick up time" name="dp">
+                    <input type="time" class="form-control input-border"  (change)="dateValidation()" style="height: 34px;" [(ngModel)]="fromTime" placeholder="Pick up time" name="dp">
                     <div class="input-group-append">
                       <button class="btn " style="border-radius: 0px; font-size: 14px; box-shadow: none;" type="button">
                         <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -123,8 +128,8 @@
               <div class="form-inline">
                 <div class="form-group">
                   <div class="input-group">
-                    <input class="form-control input-border" style="width:107px; height: 34px;" placeholder="Pick up Date" name="dp" [(ngModel)]="toDate" ngbDatepicker
-                      #toDate1="ngbDatepicker">
+                    <input class="form-control input-border"   style="width:107px; height: 34px;" placeholder="Pick up Date" name="dp" [(ngModel)]="toDate" ngbDatepicker
+                      #toDate1="ngbDatepicker" (ngModelChange)="dateValidation()" >
                     <div class="input-group-append">
                       <button class="btn mr-3" style="border-radius: 0px; font-size: 14px; box-shadow: none;" (click)="toDate1.toggle()" type="button">
                           <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -134,7 +139,7 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="time" class="form-control input-border" style="height: 34px;" [(ngModel)]="toTime" placeholder="Pick up time" name="dp">
+                    <input type="time" class="form-control input-border"   (change)="dateValidation()" style="height: 34px;" [(ngModel)]="toTime" placeholder="Pick up time" name="dp">
                     <div class="input-group-append">
                       <button class="btn" style="border-radius: 0px; box-shadow: none;" type="button">
                           <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -148,7 +153,7 @@
             <div class="col-md-12" *ngIf="currentStep==2">
               <form [formGroup]="productForm" class="d-flex flex-wrap align-content-center">
                 <ng-container *ngFor="let item of productList; let i=index;">
-                  <input type="radio" formControlName="productId" [value]="item.id" [id]="i" hidden>
+                  <input type="radio" formControlName="productId" [value]="item.id" [id]="i" hidden (change)="isDisable=false">
                   <label [for]="i" class="radio_label">
                     <div class="item-wraper p-0 position-relative" [ngStyle]="{'background': 'url('+imageUrl+'product/images/'+item.logo+')'  }">
                       <p class="p_text">{{item.productName}}</p>
@@ -157,7 +162,7 @@
                 </ng-container>
               </form>
             </div>
-            <div class="col-md-12" *ngIf="currentStep==3">
+            <!-- <div class="col-md-12" *ngIf="currentStep==3">
               <form [formGroup]="trackableFrom" class="d-flex flex-wrap align-content-center">
                 <ng-container *ngFor="let item of trackableProductList; let i=index;">
                   <input type="radio" formControlName="trackableItem" [value]="item.id" [id]="i" hidden>
@@ -167,15 +172,13 @@
                       <small *ngFor="let prop of item.propertyValues">
                         {{prop.value}}
                       </small>
-                      <!-- {{item.status}} -->
-                      <!-- {{item.propertyValues}} -->
-                      <!-- sds productProperties  propertyKey -->
+                    
                     </div>
                   </label>
                 </ng-container>
               </form>
-            </div>
-            <div class="col-md-12" *ngIf="currentStep==4">
+            </div> -->
+            <div class="col-md-12" *ngIf="currentStep==3">
               <div class="input-group mb-2 col-md-4">
                 <div class="input-group-prepend pt-0 pb-2">
                   <div class="input-group-text">
@@ -193,7 +196,7 @@
               </div>
               <div class="d-flex flex-wrap align-content-center">
                 <div *ngFor="let item of accessoryList; let i=index;">
-                  <input type="checkbox" [checked]='false' [value]="item.id" [id]="i" hidden>
+                  <input type="checkbox" [checked]='false' [value]="item.id" [id]="i" (change)="isDisable=false" hidden>
                   <label [for]="i" class="radio_label d-flex mr-3" (click)="updateAccessory(item.id,value)">
                     <div class="ProfilePic" [ngStyle]="{'background': 'url('+imageUrl+'accessories/images/'+item.logo+')'  }">
 
@@ -210,8 +213,8 @@
         </div>
       </div>
       <div class="card-footer">
-        <button *ngIf="currentStep!=totalStep" type="button" class="btn btn-primary" (click)="showNextSetp()">Next</button>
-        <button *ngIf="currentStep==totalStep" type="button" class="btn btn-primary" (click)="placeOrder()">
+        <button *ngIf="currentStep!=totalStep" [disabled]="isDisable" type="button" class="btn btn-primary" (click)="showNextSetp()">Next</button>
+        <button *ngIf="currentStep==totalStep" [disabled]="isDisable" type="button" class="btn btn-primary" (click)="placeOrder()">
           Place Order
         </button>
       </div>

@@ -44,7 +44,7 @@ export class ProductService  extends DataService {
   updatePrice(formData){
     return this.http.post(this.apiUrl+"branch-product/price-update", formData);
   }
-
+  
   updatePropertyValue(id,formData){
     console.log(id);
     console.log(formData);

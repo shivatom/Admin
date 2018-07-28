@@ -18,11 +18,8 @@
         </div>
         <div class="card-body p-0">
             <div class="form-inline col-md-12 mb-3">
-              <select class="form-control pull-left mr-3"  (change)='statusFilter($event)'>
-                <option value="Available">All</option>
-                <option value="reserved">Today</option>
-                <option value="started">Tommorow</option>
-                <option value="archived">Next Week</option>
+              <select class="form-control pull-left mr-3"  (change)='updateFilter($event)'>
+                <option *ngFor="let customer of customerList" [value]="customer.fullName">{{customer.fullName}}</option>
               </select>
               <select class="form-control pull-left mr-3"  (change)='statusFilter($event)'>
                 <option value="Available">Available</option>

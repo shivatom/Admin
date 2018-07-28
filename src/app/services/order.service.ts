@@ -12,4 +12,8 @@ export class OrderService extends DataService {
   makeOrder(formData){
     return this.http.post(this.apiUrl+'orders/make-new-order', formData ,this.token);
   }
+
+  getProductList(formData){
+    return this.http.post(this.apiUrl+"order-list/get-product-list", formData,this.token);
+  }
 }

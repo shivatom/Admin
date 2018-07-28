@@ -74,9 +74,9 @@ export class AccessoriesNewComponent implements OnInit {
       this.toastr.success('Accessory updated Successfully.');
       if(!this.editMode)
         this.accessoriesForm.reset();
-    },error=>{
-      this.toastr.error('Some problem occured. Check your connection.');
-    })
+      },error=>{
+        this.toastr.error('Some problem occured. Check your connection.');
+      })
   }
 
   // getter

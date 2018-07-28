@@ -1,17 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Output } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ProductService } from '../../services/product.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BranchService } from '../../services/branch.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AccessoriesService } from '../../services/accessories.service';
 import { environment } from '../../../environments/environment';
 import { OrderService } from '../../services/order.service';
+import { EventEmitter } from 'events';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order-new',
   templateUrl: './order-new.component.html',
-  styleUrls: ['./order-new.component.scss']
+  styleUrls: ['./order-new.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class OrderNewComponent implements OnInit {
   customerList;
@@ -26,8 +29,9 @@ export class OrderNewComponent implements OnInit {
   toDate;
   toTime;
   fromTime;
-  totalStep=4;
-  dateError=""
+  totalStep=3;
+  dateError="";
+  isDisable=true;
   acc_array_list=[];
   trackableProductList;
   imageUrl=environment.imageUrl;
@@ -39,7 +43,7 @@ export class OrderNewComponent implements OnInit {
   dateForm:FormGroup;
   productForm:FormGroup;
   @ViewChild('productModal') productModal;
-
+  @Output() dateSelect = new EventEmitter();
   
   constructor(
     private customerService:UserService,
@@ -49,6 +53,7 @@ export class OrderNewComponent implements OnInit {
     private orderService:OrderService,
     private modalService:NgbModal,
     private fb:FormBuilder,
+    private toastr: ToastrService
   )
   {
     this.filterForm=fb.group({
@@ -74,21 +79,21 @@ export class OrderNewComponent implements OnInit {
       customerId:['',Validators.required],
       fromTime:['',Validators.required],
       toTime:['',Validators.required],
+      branchId:[],
       productId:['',Validators.required],
       trackableProductId:['',Validators.required],
       accesArray:['',Validators.required],
+      paymenType:'card',
+      deviceid:'admin'
     })
   }
 
   ngOnInit() {
     this.getUserList();
-    this.getProductList();
     this.getBranchList();
     this.getAccessory();
-
-
   }
-
+  
   getBranchList(){
     this.branchService.get().subscribe(response=>{
       this.branchList=response;
@@ -106,7 +111,12 @@ export class OrderNewComponent implements OnInit {
   }
 
   getProductList(){
-    this.productService.getByURL('product/basic-list').subscribe(response=>{
+    let formData=new FormData();
+    formData.append('fromTime',this.getFromDate);
+    formData.append('toTime',this.getToDate);
+    formData.append('branchId',this.branch);
+    console.log(formData)
+    this.orderService.getProductList(formData).subscribe(response=>{
       this.productList=response;
     })
   }
@@ -152,34 +162,44 @@ export class OrderNewComponent implements OnInit {
     console.log(this.acc_array_list);
     
   }
+  dateValidation(){
+    let fDate = new Date(this.fromDate.year, this.fromDate.month-1, this.fromDate.day+1);
+    let fromDate=this.format(fDate, 'dd-MM-yyyy')+" "+this.fromTime;
+
+    let tDate = new Date(this.toDate.year, this.toDate.month-1, this.toDate.day+1);
+    let  toDate=this.format(tDate, 'dd-MM-yyyy')+" "+this.toTime;
+
+    if(fDate &&  tDate && this.fromTime && this.toTime)
+    {
+      //console.log(this.toTime +""+(this.fromTime+4));
+      
+      // if(tDate==fDate && (this.toTime<=(this.fromTime+4))){
+      //   this.dateError="Pick up time should be more than 4 hour";
+      // }
+      if(tDate<fDate){
+        this.dateError="Please enter a valid pick up date";
+      }else{
+        this.dateError="";
+        this.isDisable=false;
+      }
+    }
+  }
   showNextSetp(){
     if(this.currentStep<this.totalStep){
       if(this.currentStep==1){
-        let fDate = new Date(this.fromDate.year, this.fromDate.month-1, this.fromDate.day+1);
-        let fromDate=this.format(fDate, 'dd-MM-yyyy')+" "+this.fromTime;
-
-        let tDate = new Date(this.toDate.year, this.toDate.month-1, this.toDate.day+1);
-        let  toDate=this.format(tDate, 'dd-MM-yyyy')+" "+this.toTime;
-        console.log(toDate+"<"+fromDate);
-        
-        if(toDate<fromDate){
-          this.dateError="Please enter a valid pick up date";
-          return;
-        }
+        this.getProductList();
       }
       if(this.currentStep==2){
         this.filterForm.get('productId').setValue(this.productForm.get('productId').value);
         this.onSelectProduct();
       }
       this.currentStep++;
+      this.isDisable=true;
     }
   }
   placeOrder(){
-    let fDate = new Date(this.fromDate.year, this.fromDate.month-1, this.fromDate.day+1);
-    let fromDate=this.format(fDate, 'dd-MM-yyyy')+" "+this.fromTime;
-
-    let tDate = new Date(this.toDate.year, this.toDate.month-1, this.toDate.day+1);
-    let  toDate=this.format(tDate, 'dd-MM-yyyy')+" "+this.toTime;
+    let fromDate=this.getFromDate;
+    let  toDate=this.getToDate;
     if(toDate<fromDate){
       this.dateError="Please enter a valid pick up date";
     }
@@ -188,14 +208,21 @@ export class OrderNewComponent implements OnInit {
         customerId:this.filterForm.get('customerId').value,
         fromTime:fromDate,
         toTime:toDate,
+        branchId:this.branch,
         productId:this.productForm.get('productId').value,
         trackableProductId:this.trackableFrom.get('trackableItem').value,
         accesArray:this.acc_array_list,
+        paymenType:'card',
+        deviceid:'admin'
       }
     )
-
+    this.isDisable=true;
+    console.log(this.orderForm.value);
+    
     this.orderService.makeOrder(this.orderForm.value).subscribe(response=>{
-      console.log(response);
+      this.toastr.success('Order Placed Successfully.');
+    },error=>{
+      this.toastr.error('Some problem occured. Check your connection.');
     })
   }
   format = function date2str(x, y) {
@@ -219,6 +246,18 @@ export class OrderNewComponent implements OnInit {
   }
   get branch(){
     return this.filterForm.get('branchId').value;
+  }
+
+  get getFromDate(){
+    let fDate = new Date(this.fromDate.year, this.fromDate.month-1, this.fromDate.day+1);
+    let fromDate=this.format(fDate, 'dd-MM-yyyy')+" "+this.fromTime;
+    return fromDate;
+  }
+
+  get getToDate(){
+    let tDate = new Date(this.toDate.year, this.toDate.month-1, this.toDate.day+1);
+    let  toDate=this.format(tDate, 'dd-MM-yyyy')+" "+this.toTime;
+    return toDate;
   }
 }
 

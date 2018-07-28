@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-new',
@@ -17,7 +18,7 @@ export class CategoryNewComponent implements OnInit {
     status:""
   }
   
-  constructor(private fb:FormBuilder , private route:ActivatedRoute , private categoryService:CategoryService) { 
+  constructor(private fb:FormBuilder , private toastr:ToastrService, private route:ActivatedRoute , private categoryService:CategoryService) { 
     this.category_id=route.snapshot.paramMap.get('id');
     this.categoryForm= fb.group(
       {  
@@ -37,13 +38,9 @@ export class CategoryNewComponent implements OnInit {
 
   saveCategory(){
     this.categoryService.create(this.categoryForm.value).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Category is updated successfully!!";
+      this.toastr.success('Category updated Successfully.');
     },error=>{
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Error in updating!!";
+      this.toastr.error('Some problem occured. Check your connection.');
     })
   }
 }

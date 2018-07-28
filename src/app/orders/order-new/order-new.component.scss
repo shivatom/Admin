@@ -112,7 +112,9 @@ input[type="checkbox"]:checked+label div .input{
     padding-left: 10px !important;
 }
 
-
+.dropdown-menu{
+  z-index: 99999 !important;
+}
 // PROGRESS
 #progressbar {
   overflow: hidden;

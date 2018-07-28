@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users-list',
@@ -10,7 +11,7 @@ import { UserService } from '../../services/user.service';
 export class UsersListComponent implements OnInit {
 
   userList ;
-  constructor(private router:Router, private userService:UserService) { 
+  constructor(private router:Router,private toastr: ToastrService, private userService:UserService) { 
     this.getUserList()
   }
 
@@ -33,8 +34,13 @@ export class UsersListComponent implements OnInit {
 
 
   deleteUser(id){
-    this.userService.delete(id).subscribe(Response=>{
-      
+    let status=confirm("Are you sure you want to delete this item?");
+    if(status)
+    this.userService.delete(id).subscribe(response=>{
+      this.toastr.success('User deleted Successfully.');
+      this.getUserList();
+    },error=>{
+      this.toastr.error('This Branch can not be deleted.');
     })
   }
 }
