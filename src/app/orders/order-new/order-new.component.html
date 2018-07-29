@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div class="card m-0 mt-2" *ngIf="branch">
+    <div class="card m-0 mt-2" style="margin-bottom:6rem !important" *ngIf="branch">
       <div class="card-header m-0 p-0">
         <ul id="progressbar">
           <li [ngClass]="{'active': currentStep>=1}">Order Pick Time</li>
@@ -152,9 +152,9 @@
             </div>
             <div class="col-md-12" *ngIf="currentStep==2">
               <form [formGroup]="productForm" class="d-flex flex-wrap align-content-center">
-                <ng-container *ngFor="let item of productList; let i=index;">
+                <ng-container *ngFor="let item of productList; let i=index;" >
                   <input type="radio" formControlName="productId" [value]="item.id" [id]="i" hidden (change)="isDisable=false">
-                  <label [for]="i" class="radio_label">
+                  <label [for]="i" class="radio_label" [ngClass]="{'disabledProduct':item.availableStock==0}">
                     <div class="item-wraper p-0 position-relative" [ngStyle]="{'background': 'url('+imageUrl+'product/images/'+item.logo+')'  }">
                       <p class="p_text">{{item.productName}}</p>
                     </div>
@@ -203,7 +203,7 @@
                     </div>
                     <div class="acc_title p-2">
                       <p class="m-0">{{item.accessoryName}}</p>
-                      <input type="number" value="" #value class="w-100 input" (blur)="updateAccessory(item.id,value)" placeholder="Qantity">
+                      <input type="number" value="1" #value class="w-100 input" (blur)="updateAccessory(item.id,value)" placeholder="Qantity">
                     </div>
                   </label>
                 </div>

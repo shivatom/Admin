@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { OrderService } from '../../services/order.service';
 import { EventEmitter } from 'events';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-new',
@@ -53,6 +54,7 @@ export class OrderNewComponent implements OnInit {
     private orderService:OrderService,
     private modalService:NgbModal,
     private fb:FormBuilder,
+    private router:Router,
     private toastr: ToastrService
   )
   {
@@ -115,9 +117,10 @@ export class OrderNewComponent implements OnInit {
     formData.append('fromTime',this.getFromDate);
     formData.append('toTime',this.getToDate);
     formData.append('branchId',this.branch);
-    console.log(formData)
     this.orderService.getProductList(formData).subscribe(response=>{
       this.productList=response;
+      console.log('---');
+      console.log( this.productList)
     })
   }
 
@@ -217,10 +220,10 @@ export class OrderNewComponent implements OnInit {
       }
     )
     this.isDisable=true;
-    console.log(this.orderForm.value);
     
     this.orderService.makeOrder(this.orderForm.value).subscribe(response=>{
       this.toastr.success('Order Placed Successfully.');
+      this.router.navigate(['order/view/1']);
     },error=>{
       this.toastr.error('Some problem occured. Check your connection.');
     })

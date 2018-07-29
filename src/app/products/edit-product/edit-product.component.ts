@@ -99,13 +99,15 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.getProduct(this.product_id);
-    this.fetch((data) => {
-      this.temp =data;
-      this.rows = data;
-    });
+    
 
     this.branchService.get().subscribe(response=>{
       this.branch_list=response;
+      console.log(this.branch_list[0].id);
+      
+      this.getBranchDetails(this.branch_list[0].id);
+     
+          
     })
 
     this.catService.get().subscribe(response=>{
@@ -114,9 +116,10 @@ export class EditProductComponent implements OnInit {
   }
 
   getBranchDetails(id){
+  
     let form=new FormData();
     form.append('productId',this.product.id);
-    form.append('branchId',id.value);
+    form.append('branchId',id );
     
     this.productService.productBranch(form).subscribe(response=>{
       this.branchDetails=response as BranchProduct;

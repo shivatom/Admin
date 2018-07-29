@@ -78,7 +78,7 @@
           <select class="form-control col-md-2 mr-1" #group>
             <option *ngFor="let branch of branch_list" [value]="branch.id">{{branch.branchName}}</option>
           </select>
-          <button type="button" class="btn btn-primary col-md-1  mr-1" (click)="getBranchDetails(group);">Apply</button>
+          <button type="button" class="btn btn-primary col-md-1  mr-1" (click)="getBranchDetails(group.value);">Apply</button>
         </div>
 
         <div class="row" *ngIf="branchDetails">

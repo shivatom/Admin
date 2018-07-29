@@ -48,11 +48,31 @@
     color: #fff; 
   } 
   input[type="radio"]:checked+label .item-wraper{     
-    border: 1px solid #00c853;
+    border: 2px solid #f91942;
+    box-shadow: 1px 4px 19px 2px rgba(50, 51, 51, 0.439);
   } 
   .disabled{
     opacity: 0.5;
     pointer-events: none;
+  }
+  .disabledProduct{
+    opacity: 0.8;
+    pointer-events: none;
+    position: relative;
+  }
+  .disabledProduct:before {
+    content: "\F071";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #ff0000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    z-index: 9999;
   }
   input[type="checkbox"]:checked+label .acc_title:before {
     font-family: FontAwesome;
@@ -136,7 +156,7 @@ input[type="checkbox"]:checked+label div .input{
   text-align: center;
 }
 #progressbar li.active:before, #progressbar li.active:after {
-  background: #ee0979;
+  background-color: #2e4d4f;
   color: white;
 }
 #progressbar li:before {
@@ -148,7 +168,7 @@ input[type="checkbox"]:checked+label div .input{
   display: block;
   font-size: 12px;
   color: #333;
-  background: #ccc;
+  background-color: #ccc;
   border-radius: 25px;
   margin: 0 auto 10px auto;
   text-align: center;
