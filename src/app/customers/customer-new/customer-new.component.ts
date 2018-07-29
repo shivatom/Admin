@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from 'ng2-validation';
 import { BranchService } from '../../services/branch.service';
 import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-new',
@@ -26,6 +27,7 @@ export class CustomerNewComponent implements OnInit {
     private router:Router, 
     private route:ActivatedRoute, 
     private fb:FormBuilder, 
+    private toastr: ToastrService,
     private brachService:BranchService, 
     private userService:UserService) { 
 
@@ -68,15 +70,11 @@ export class CustomerNewComponent implements OnInit {
   }
   addUser(){
     this.userService.create(this.userForm.value).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Customer is updated successfully!!";
+      this.toastr.success('Customer updated Successfully.');
       if(!this.editMode)
         this.userForm.reset();
     },error=>{
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Error in updating!!";
+      this.toastr.error('Some problem occured. Check your connection.');
     })
   }
 

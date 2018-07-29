@@ -47,4 +47,8 @@ export class AccessoriesListComponent implements OnInit {
   editProduct(row){
     this.router.navigate(['accessories/acc-new/'+this.selecetdCategory,row.id ],{skipLocationChange:true})
   }
+
+  deleteAccessory(){
+    
+  }
 }
