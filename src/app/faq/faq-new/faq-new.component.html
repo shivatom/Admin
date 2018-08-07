@@ -1,0 +1,33 @@
+<div class="container">  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card p-3">
+          <div class="card-header p-0 pb-2">
+              <i class="material-icons">group_add</i><p class="m-0 pl-1" *ngIf="!editMode"> New Faq</p><p class="m-0 pl-1" *ngIf="editMode"> Update Faq</p>
+          </div>
+          <div class="card-body  p-0 pt-2 pb-2">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
+                
+            <form class="col-md-12" [formGroup]="faq">
+                
+
+                <fieldset >
+                  <div class="form-group">
+                    <label for="disabledSelect">Question </label>
+                    <input type="text" formControlName="question"  class="form-control" >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="disabledSelect">Answer </label>
+                    <textarea type="text" formControlName="answer"  class="form-control" ></textarea>
+                  </div>
+                
+                  <button type="submit" [disabled]="!faq.valid" class="btn btn-primary" (click)="saveFaq()">Submit</button>
+                </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    

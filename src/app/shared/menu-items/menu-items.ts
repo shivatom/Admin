@@ -64,6 +64,11 @@ const MENUITEMS = [
     name: 'Branch',
     type: 'link',
     icon: 'basic-accelerator'
+  },{
+    state: 'faq',
+    name: 'FAQ',
+    type: 'link',
+    icon: 'basic-accelerator'
   }
 ];
 

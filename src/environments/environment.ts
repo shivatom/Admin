@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl:"http://api.godreamt.com/api/",
-  imageUrl:"http://api.godreamt.com/uploads/"
+  apiUrl:"http://api.rentrub.com/api/",
+  imageUrl:"http://api.rentrub.com/uploads/"
 };
