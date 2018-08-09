@@ -9,7 +9,8 @@ import { AlertComponent } from '../../components/alert/alert.component';
 export class ProjectComponent implements OnInit {
   editing = {};
   rows = [];
-  modalRef
+  modalRef;
+  addNewProject;
   constructor(private modalService: NgbModal) { 
     this.fetch((data) => {
       this.rows = data.splice(0, 5);

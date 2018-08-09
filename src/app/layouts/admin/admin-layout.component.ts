@@ -102,6 +102,10 @@ export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  logOut(){
+    this.auth.logout();
+  }
+
   setTitle( newTitle: string) {
     this.titleService.setTitle( 'Admin | ' + newTitle );
   }

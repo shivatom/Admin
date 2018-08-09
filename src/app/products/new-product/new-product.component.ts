@@ -21,7 +21,7 @@ export class NewProductComponent implements OnInit {
     text:"",
     status:""
   };
-  constructor(private fb:FormBuilder , private branchService:BranchService, private productservice:ProductService, private catService:CategoryService, private toastr: ToastrService) { 
+  constructor(private fb:FormBuilder ,  private branchService:BranchService, private productservice:ProductService, private catService:CategoryService, private toastr: ToastrService) { 
     this.product= fb.group(
      {  
        productName:['',Validators.required],

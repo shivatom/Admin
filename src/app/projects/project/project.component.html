@@ -17,7 +17,7 @@
         <ngx-datatable-column name="Project name" prop="project">
           <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <span
-              *ngIf="!    ">
+              *ngIf="!editing[rowIndex + '-name'] ">
               {{value}}
             </span>
 

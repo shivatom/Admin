@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-md-12">
-    
     <div class="card">
         <div class="card-header">
         <i class="material-icons">group</i>  
@@ -93,7 +92,7 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="container-fluid">
+          <div class="container-fluid-fluid">
             <div class="col-md-12" *ngIf="currentStep==1">
                
               <div *ngIf="dateError" class="alert alert-danger" role="alert">
@@ -164,7 +163,7 @@
             </div>
             <!-- <div class="col-md-12" *ngIf="currentStep==3">
               <form [formGroup]="trackableFrom" class="d-flex flex-wrap align-content-center">
-                <ng-container *ngFor="let item of trackableProductList; let i=index;">
+                <ng-container-fluid *ngFor="let item of trackableProductList; let i=index;">
                   <input type="radio" formControlName="trackableItem" [value]="item.id" [id]="i" hidden>
                   <label [for]="i" class="radio_label">
                     <div class="item-wraper">
@@ -175,7 +174,7 @@
                     
                     </div>
                   </label>
-                </ng-container>
+                </ng-container-fluid>
               </form>
             </div> -->
             <div class="col-md-12" *ngIf="currentStep==3">
@@ -213,7 +212,9 @@
         </div>
       </div>
       <div class="card-footer">
+          <button [ngClass]="{'disabledBtn':currentStep==1}"    type="button" class="btn btn-primary" (click)="showPrevSetp()">Previous</button>
         <button *ngIf="currentStep!=totalStep" [disabled]="isDisable" type="button" class="btn btn-primary" (click)="showNextSetp()">Next</button>
+        
         <button *ngIf="currentStep==totalStep" [disabled]="isDisable" type="button" class="btn btn-primary" (click)="placeOrder()">
           Place Order
         </button>

@@ -134,13 +134,9 @@ export class EditProductComponent implements OnInit {
   updatePrice(){   
     this.error.show=false; 
     this.productservice.updatePrice(this.pricingForm.value).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Updated successfully!!";
+      this.toastr.success('Product updated Successfully.');
     },error=>{
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Error";
+      this.toastr.error('Some problem occured. Check your connection.');
     })
   }
 
@@ -156,10 +152,14 @@ export class EditProductComponent implements OnInit {
 
   //Delete Property to product
   deleteProp(id){
-    this.productService.productRemoveProperty(id).subscribe(response=>{
+    let status=confirm("Are you sure you want to delete this item?");
+    if(status)
+    this.productService.delete(id).subscribe(response=>{
+      this.toastr.success('Product deleted Successfully.');
       this.refreshProductList();
-      //this.stockForm.reset();
-   });
+    },error=>{
+      this.toastr.error('This Product can not be deleted.');
+    })
   }
 
 

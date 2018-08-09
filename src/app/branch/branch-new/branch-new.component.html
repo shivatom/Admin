@@ -1,10 +1,18 @@
-<div class="container">  
+<div class="container-fluid">  
     <div class="row">
       <div class="col-md-12">
         <div class="card p-3">
-          <div class="card-header p-0 pb-2">
-              <i class="material-icons">group_add</i><p class="m-0 pl-1" *ngIf="!editMode"> New Branch</p><p class="m-0 pl-1" *ngIf="editMode"> Update Branch</p>
-          </div>
+            <div class="card-header p-0 pb-2 d-block">
+              <div class="d-flex pull-left ">
+                  <i class="material-icons">group_add</i><p class="m-0 pl-1" *ngIf="!editMode"> New Branch</p><p class="m-0 pl-1" *ngIf="editMode"> Update Branch</p></div>
+                <div class="pull-right d-flex">
+                  <i class="material-icons">
+                    keyboard_backspace
+                    </i>
+                    <p class="m-0 pl-1 text-link" routerLink="/branch">Backto list</p>
+                </div>
+            </div>
+         
           <div class="card-body  p-0 pt-2 pb-2">
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
                 

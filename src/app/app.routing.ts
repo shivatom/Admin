@@ -2,10 +2,12 @@ import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 export const AppRoutes: Routes = [{
   path: '',
   component: AdminLayoutComponent,
+  canActivate:[AuthGuardService],
   children: [{
     path: '',
     loadChildren: './dashboard/dashboard.module#DashboardModule'

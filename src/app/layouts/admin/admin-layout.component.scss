@@ -72,12 +72,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   background-position: center;
   width: 100%;
   .ProfilePic{
-    background: url(/assets/images/face4.jpg) no-repeat center;
+    background: url(/assets/images/face4.png) ;
     height: 97px;
     width: 97px;
     border-radius: 50%;
     background-size: contain;
     margin: 10px auto;
+    background-position: -1px 5px;
   }
   .profile_name{
     text-align: center;

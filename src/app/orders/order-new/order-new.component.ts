@@ -24,12 +24,13 @@ export class OrderNewComponent implements OnInit {
   accessoryCategoryList;
   accessoryList;
   orderDetails;
-
+  orderResponse;
   currentStep=1;
   fromDate;
   toDate;
   toTime;
   fromTime;
+  attempted=[];
   totalStep=3;
   dateError="";
   isDisable=true;
@@ -162,7 +163,6 @@ export class OrderNewComponent implements OnInit {
       this.acc_array_list.splice(isExits,1)
     } 
 
-    console.log(this.acc_array_list);
     
   }
   dateValidation(){
@@ -196,10 +196,21 @@ export class OrderNewComponent implements OnInit {
         this.filterForm.get('productId').setValue(this.productForm.get('productId').value);
         this.onSelectProduct();
       }
+      if(this.attempted[this.currentStep])
+      {
+        this.attempted[this.currentStep]=true;
+        this.isDisable=true;
+      }
+
       this.currentStep++;
-      this.isDisable=true;
     }
   }
+
+  showPrevSetp(){
+    this.currentStep--;
+    this.isDisable=false;
+  }
+
   placeOrder(){
     let fromDate=this.getFromDate;
     let  toDate=this.getToDate;
@@ -222,8 +233,10 @@ export class OrderNewComponent implements OnInit {
     this.isDisable=true;
     
     this.orderService.makeOrder(this.orderForm.value).subscribe(response=>{
+      
+      this.orderResponse=response;
       this.toastr.success('Order Placed Successfully.');
-      this.router.navigate(['order/view/1']);
+      this.router.navigate(['order/view/'+this.orderResponse.orderId]);
     },error=>{
       this.toastr.error('Some problem occured. Check your connection.');
     })

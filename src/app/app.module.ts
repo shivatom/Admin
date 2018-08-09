@@ -19,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
 import { AlertComponent } from './components/alert/alert.component';
 import { AuthService } from './services/auth.service';
 import { ToastrModule } from '../../node_modules/ngx-toastr';
+import { AuthGuardService } from './services/auth-guard.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,7 +51,7 @@ export function createTranslateLoader(http: HttpClient) {
     SidebarModule.forRoot(),
     AgmCoreModule.forRoot({apiKey: 'YOURAPIKEY'})
   ],
-  providers: [AuthService],
+  providers: [AuthService,AuthGuardService],
   bootstrap: [AppComponent],
   entryComponents:[AlertComponent]
 

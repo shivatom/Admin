@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="container">
+  <div class="container-fluid">
     <div class="col-md-12">
         <div class="card mt-2" *ngIf="orderDetails">
             <div class="card-header">
@@ -69,7 +69,7 @@
                     <tbody>
                         <tr *ngFor="let acc of orderDetails.orderAccessories">
                             <th>{{acc.accessories.accessoryName}}</th>
-                            <td><div class="item-wraper p-0 position-relative" [ngStyle]="{'background': 'url('+imageUrl+'product/images/'+acc.accessories.logo+')'  }"></div></td>
+                            <td><div class="item-wraper p-0 position-relative" [ngStyle]="{'background': 'url('+imageUrl+'accessories/images/'+acc.accessories.logo+')'  }"></div></td>
                             <td>
                             </td>
                             <td>

@@ -28,7 +28,7 @@ export class EditTrackComponent implements OnInit {
   //Form 
   stockForm:FormGroup;
   propertyValueForm:FormGroup;
-  constructor(private productService:ProductService, private modalService:NgbModal, private fb:FormBuilder, private toastr: ToastrService) { 
+  constructor(private productService:ProductService, public modalService:NgbModal, private fb:FormBuilder, private toastr: ToastrService) { 
     this.stockForm= fb.group({
       id:[''],
       stock:['',Validators.required]

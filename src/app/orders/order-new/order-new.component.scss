@@ -55,6 +55,11 @@
     opacity: 0.5;
     pointer-events: none;
   }
+  .disabledBtn{
+    opacity: 0.5;
+    pointer-events: none;
+    position: relative;
+  }
   .disabledProduct{
     opacity: 0.8;
     pointer-events: none;
