@@ -43,6 +43,9 @@ export const AppRoutes: Routes = [{
   },{
     path: 'company',
     loadChildren: './company/company.module#CompanyModule'
+  },{
+    path: 'faq',
+    loadChildren: './faq/faq.module#FaqModule'
   }
 ]
 }, {

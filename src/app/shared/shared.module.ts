@@ -1,3 +1,4 @@
+import { FaqService } from './../services/faq.service';
 import { NgModule } from '@angular/core';
 
 import { MenuItems } from './menu-items/menu-items';
@@ -19,7 +20,7 @@ import { CustomerService } from '../services/customer.service';
 
 @NgModule({
   declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective, AlertComponent, FilterCustomerPipe ],
-  exports:      [ AccordionAnchorDirective, NgbModule,   FormsModule,    ReactiveFormsModule, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
-  providers: 	[ MenuItems,CompanyService, CustomerService,OrderService, BranchService,AccessoriesService, CategoryService,ProductService,UserService ,FilterCustomerPipe]
+  exports:      [ AccordionAnchorDirective, NgbModule,   FormsModule,    ReactiveFormsModule, NgxDatatableModule , AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective],
+  providers: 	[ MenuItems,CompanyService, CustomerService,OrderService, BranchService,AccessoriesService, CategoryService,ProductService,UserService ,FilterCustomerPipe, FaqService]
 })
 export class SharedModule { }
