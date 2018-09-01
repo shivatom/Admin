@@ -1,8 +1,9 @@
+import { BranchService } from './../../services/branch.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AccessoriesService } from '../../services/accessories.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -16,11 +17,14 @@ export class AccessoriesNewComponent implements OnInit {
   item_id;
   acc_data;
   image;
+  branchList;
   imageUrl=environment.imageUrl;
   editMode=false;
-  constructor(private fb:FormBuilder , private router:ActivatedRoute, private acc:AccessoriesService, private toastr: ToastrService) { 
+  constructor(private fb:FormBuilder, private route:Router , private router:ActivatedRoute, private acc:AccessoriesService, private toastr: ToastrService,  private brachService:BranchService) { 
     this.cat_id=router.snapshot.paramMap.get('id');
     this.item_id=router.snapshot.paramMap.get('itemid');
+    if(!this.cat_id)
+      this.route.navigate(['/accessories']);
     
     this.accessoriesForm= fb.group(
     {  
@@ -29,12 +33,14 @@ export class AccessoriesNewComponent implements OnInit {
       description:['',Validators.required],
       perHour:['',Validators.required],
       perDay:['',Validators.required],
+      branchId:['',Validators.required],
       categoryId:[this.cat_id],
       imageFile:['']
     });
   }
   
   ngOnInit() {
+    this.getallBranch();
     if(this.item_id){
       this.editMode=true;
       this.acc.getAccessoryByCatId(this.item_id).subscribe(response=>{
@@ -45,6 +51,7 @@ export class AccessoriesNewComponent implements OnInit {
           description:this.acc_data[0].description,
           perHour:this.acc_data[0].perDay,
           perDay:this.acc_data[0].perDay,
+          branchId:this.acc_data[0].branches.id,
           categoryId:this.acc_data[0].accessoriesCategory.id,
           imageFile:''
         })
@@ -59,6 +66,12 @@ export class AccessoriesNewComponent implements OnInit {
         
       })
     }
+  }
+
+  getallBranch(){
+    this.brachService.get().subscribe(response=>{
+      this.branchList = response;
+    })
   }
   onSelectImage(event){
     var myReader: FileReader = new FileReader();

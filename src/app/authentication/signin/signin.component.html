@@ -6,6 +6,7 @@
         <img src="assets/images/logo.png" class="mb-1 ml-5" style="width: 204px;" alt="">
       </div>
       <p *ngIf="hasError" class="text-danger"> Invalid Username/Password</p>
+      <p *ngIf="hasError1" class="text-danger"> Access denied. Please try again.</p>
       <fieldset class="form-group" [ngClass]="{'has-danger': form.controls['_username'].hasError('required') && form.controls['_username'].touched}">
         <label for="username" class="form-control-label">
           Enter your username

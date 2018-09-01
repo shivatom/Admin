@@ -1,0 +1,50 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      <button type="button" class="btn btn-primary pull-right btn-round" routerLink="city-new">
+          <i class="material-icons">group_add</i>
+        </button>
+      </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">group</i> 
+            <p class="m-0">City List</p>
+          </div>
+          <div class="card-body p-0">
+            <ngx-datatable 
+              class="material"
+              [columnMode]="'force'"
+              [headerHeight]="40"
+              [footerHeight]="40"
+              [rowHeight]="'auto'"
+              [rows]="cityList">
+              <ngx-datatable-column name="City Name" prop="cityName">
+                <ng-template let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+            
+              <ngx-datatable-column name="Edit" >
+                <ng-template let-value="value"  let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                  <span  class="fa fa-edit text-primary cursor-pointer" (click)="editCity(row)"></span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Delete" >
+                <ng-template let-value="value" let-row="row"  ngx-datatable-cell-template>
+                  <button   (click)="deleteCity(row.id)" class="transparentbtn"><i class="fa fa-trash text-primary cursor-pointer"></i></button>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+     

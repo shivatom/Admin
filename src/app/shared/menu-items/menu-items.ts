@@ -65,6 +65,11 @@ const MENUITEMS = [
     type: 'link',
     icon: 'basic-accelerator'
   },{
+    state: 'city',
+    name: 'City',
+    type: 'link',
+    icon: 'basic-accelerator'
+  },{
     state: 'faq',
     name: 'FAQ',
     type: 'link',

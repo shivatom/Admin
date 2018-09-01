@@ -22,6 +22,7 @@ export class AccessoriesListComponent implements OnInit {
 
   getAccessoriesList(id){
     this.accessoriesList=this.accessoriesCategoryList[id].accessories;
+    this.selecetdCategory=this.accessoriesCategoryList[id].id;
   }
 
   editCategoty(id){
@@ -48,7 +49,9 @@ export class AccessoriesListComponent implements OnInit {
     this.router.navigate(['accessories/acc-new/'+this.selecetdCategory,row.id ],{skipLocationChange:true})
   }
 
-  deleteAccessory(){
-    
+  deleteAccessory(id){
+    this.acc.delete(id).subscribe(response=>{
+      this.getCategoryList();
+    })
   }
 }

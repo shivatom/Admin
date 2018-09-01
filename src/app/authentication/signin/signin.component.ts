@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -12,7 +13,8 @@ export class SigninComponent implements OnInit {
 
   public form: FormGroup;
   hasError=false;
-  constructor(private fb: FormBuilder, private router: Router, private auth:AuthService) {}
+  hasError1=false;
+  constructor(private fb: FormBuilder, private router: Router, private auth:AuthService, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.form = this.fb.group ( {
@@ -21,18 +23,20 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit() {
-    this.auth.login(this.form.value).subscribe(x=>{      
-      if(x){
-       this.router.navigate ( [ '/' ] );
+    this.hasError=false;
+    this.hasError1=false;
+    this.auth.login(this.form.value).subscribe(x=>{ 
+      let currentUser = localStorage.getItem('current-user-role');
+      if(currentUser == 'ROLE_ADMIN' || currentUser == 'ROLE_BRANCH'){
+        this.router.navigate ( [ '/' ] );
       }else{
-        this.hasError=true;
+        localStorage.removeItem('token');
+        this.hasError1=true;
       }
+      
+       //this.router.navigate ( [ '/' ] );
     },error=>{
-      console.log(error);
-       
-      if(error.code==402){
-        this.hasError=true;
-      }
+      this.hasError=true;
     })
     //
   }

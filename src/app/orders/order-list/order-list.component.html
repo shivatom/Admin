@@ -59,13 +59,13 @@
   
                   <ngx-datatable-column name="Pick up"   prop="fromTime" >
                     <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                      {{value | date}}
+                      {{value | date:'medium'}}
                     </ng-template>
                   </ngx-datatable-column>
   
                   <ngx-datatable-column name="Return" prop="toTime"  >
                     <ng-template let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
-                      {{value  | date}}
+                      {{value  | date:'medium'}}
                     </ng-template>
                   </ngx-datatable-column>
   

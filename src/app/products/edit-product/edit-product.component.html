@@ -82,11 +82,11 @@
         </div>
 
         <div class="row" *ngIf="branchDetails">
-          <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"
+          <!-- <div class="alert d-table w-40" *ngIf="error.show" [ngClass]="{'alert-danger':error.status=='danger' , 'alert-success':error.status=='success'}"
             role="alert">
             <i class="fa fa-check-circle d-table-cell" style="font-size: 30px;  width: 31px;" aria-hidden="true"></i>
             <span class=" d-table-cell pl-1" style=" vertical-align: middle;"> {{error.text}}</span>
-          </div>
+          </div> -->
           <div class="col-md-12">
             <ngb-tabset>
               <ngb-tab title="Inventory">
@@ -103,7 +103,7 @@
                         <label for="basic-url">Price/hour</label>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">$</span>
+                            <span class="input-group-text" id="basic-addon1">₹</span>
                           </div>
                           <input type="text" class="form-control" placeholder="Price/hour" formControlName="perHour" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
@@ -111,7 +111,7 @@
                         <label for="basic-url">Price/day</label>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">$</span>
+                            <span class="input-group-text" id="basic-addon1">₹</span>
                           </div>
                           <input type="text" class="form-control" placeholder="Price/day" formControlName="perDay" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
@@ -158,8 +158,8 @@
                           <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
                           <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
                         </div>
-                        <small style="margin: 5px" *ngIf="day.events.length>0">Price/Day : ${{ day.events[0].title.split('|')[0] }}</small>
-                        <small style="margin: 5px" *ngIf="day.events.length>0">Price/Hour : ${{ day.events[0].title.split('|')[1] }}</small>
+                        <small style="margin: 5px" *ngIf="day.events.length>0">Price/Day : ₹{{ day.events[0].title.split('|')[0] }}</small>
+                        <small style="margin: 5px" *ngIf="day.events.length>0">Price/Hour : ₹{{ day.events[0].title.split('|')[1] }}</small>
                       </ng-template>
 
                       <div [ngSwitch]="view">
@@ -195,7 +195,7 @@
                                   <label for="basic-url">Price/day</label>
                                   <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">$</span>
+                                      <span class="input-group-text" id="basic-addon1">₹</span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_day" aria-label="Username" aria-describedby="basic-addon1">
                                   </div>
@@ -203,7 +203,7 @@
                                   <label for="basic-url">Price/hour</label>
                                   <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">$</span>
+                                      <span class="input-group-text" id="basic-addon1">₹</span>
                                     </div>
                                     <input type="number" class="form-control" placeholder="Price/hour" formControlName="price_hour" aria-label="Username" aria-describedby="basic-addon1">
                                   </div>

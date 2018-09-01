@@ -69,7 +69,8 @@ export class EditProductComponent implements OnInit {
     private catService:CategoryService,
     private router:ActivatedRoute, 
     private productservice:ProductService,
-    private fb:FormBuilder, private toastr: ToastrService) 
+    private fb:FormBuilder, 
+    private toastr: ToastrService) 
     {
     this.product_id=router.snapshot.paramMap.get('id');
     //Price book form
@@ -103,7 +104,6 @@ export class EditProductComponent implements OnInit {
 
     this.branchService.get().subscribe(response=>{
       this.branch_list=response;
-      console.log(this.branch_list[0].id);
       
       this.getBranchDetails(this.branch_list[0].id);
      
@@ -172,15 +172,10 @@ export class EditProductComponent implements OnInit {
   }
   updateProduct(){
     this.productservice.updateProduct(this.productservice.createFormData(this.settingForm.value)).subscribe(response=>{
-      this.error.show=true;
-      this.error.status='success';
-      this.error.text="Product is updated successfully!!";
+      this.toastr.success('Product is updated successfully!!');
      
     },error=>{
-      console.log(error)
-      this.error.show=true;
-      this.error.status='danger';
-      this.error.text="Product name already exits";
+      this.toastr.error('Something went wrong. Please try again.');
     })
   }
 
@@ -243,7 +238,6 @@ export class EditProductComponent implements OnInit {
       color: colors.yellow,
     });
     this.refresh.next();
-    console.log( this.events)
   }
 
   // Modal

@@ -46,6 +46,9 @@ export const AppRoutes: Routes = [{
   },{
     path: 'faq',
     loadChildren: './faq/faq.module#FaqModule'
+  },{
+    path: 'city',
+    loadChildren: './city/city.module#CityModule'
   }
 ]
 }, {

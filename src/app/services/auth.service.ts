@@ -45,6 +45,8 @@ export class AuthService {
         if(res && res.token){
           localStorage.setItem('token', res.token);
           this.currentUser=jwt_decode(res.token);
+          localStorage.setItem('current-user-role',this.currentUser.roles);
+          
           return true;
         }else{
           return false;
