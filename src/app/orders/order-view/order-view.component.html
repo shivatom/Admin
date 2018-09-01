@@ -26,6 +26,9 @@
                     <p>Order Status :<b>{{orderDetails.status | uppercase }}</b></p>
                     <p>Pick up date: {{orderDetails.fromTime  | date:'medium'}}</p>
                     <p>Drop date: {{orderDetails.toTime | date:'medium'}}</p>
+                    <p *ngIf="orderDetails.startDate">Item Taken date: {{orderDetails.startDate  | date:'medium'}}</p>
+                    <p *ngIf="orderDetails.endDate">Item Returned date: {{orderDetails.endDate  | date:'medium'}}</p>
+
                   </div>
               </div>
               <div class="strip">
