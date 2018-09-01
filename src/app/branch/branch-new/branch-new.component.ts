@@ -1,3 +1,4 @@
+import { CityService } from './../../services/city.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -13,12 +14,13 @@ export class BranchNewComponent implements OnInit {
   branch:FormGroup;
   image;
   branch_id;
+  cityList;
   editMode=false;
-  constructor(private fb:FormBuilder, private brachService:BranchService, private route:ActivatedRoute, private toastr: ToastrService) { 
+  constructor(private fb:FormBuilder, private brachService:BranchService, private route:ActivatedRoute, private toastr: ToastrService,  private cityService:CityService) {
     this.branch_id=route.snapshot.paramMap.get('id');
-    
+
     this.branch= fb.group(
-     {  
+     {
        id:[''],
        branchCode:['',Validators.required],
        branchName:['',Validators.required],
@@ -28,14 +30,16 @@ export class BranchNewComponent implements OnInit {
        longitude:['',Validators.required],
        taxType:['',Validators.required],
        taxPercent:['',Validators.required],
+       cityId:['',Validators.required],
        isActive:[''],
      }
     );
   }
 
-  
+
 
   ngOnInit() {
+    this.getallCity();
     if(this.branch_id){
       this.editMode=true;
       this.brachService.getBy(this.branch_id).subscribe(response=>{
@@ -50,6 +54,7 @@ export class BranchNewComponent implements OnInit {
           longitude:data.longitude || '',
           taxType:data.taxType,
           taxPercent:data.taxPercent,
+          cityId:(data.cities)?data.cities.id:"",
           isActive:data.isActive,
         });
       })
@@ -66,6 +71,12 @@ export class BranchNewComponent implements OnInit {
     })
   }
 
+  getallCity(){
+    this.cityService.get().subscribe(response=>{
+      this.cityList = response;
+    })
+  }
+
   // getter
   get branchName(){
     return this.branch.get('group_name');
@@ -76,10 +87,10 @@ export class BranchNewComponent implements OnInit {
   get branchCategory(){
     return this.branch.get('group_code');
   }
-  
+
 }
 
-class BranchObject{  
+class BranchObject{
   id: any;
   branchCode:any;
   branchName:any;
@@ -90,4 +101,5 @@ class BranchObject{
   taxType:any;
   taxPercent:any;
   isActive:any;
+  cities:any;
 }

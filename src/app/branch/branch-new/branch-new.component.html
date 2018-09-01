@@ -1,4 +1,4 @@
-<div class="container-fluid">  
+<div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card p-3">
@@ -12,12 +12,12 @@
                     <p class="m-0 pl-1 text-link" routerLink="/branch">Back to list</p>
                 </div>
             </div>
-         
+
           <div class="card-body  p-0 pt-2 pb-2">
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
-                
+
             <form class="col-md-6" [formGroup]="branch">
-                
+
 
                 <fieldset >
                   <div class="form-row align-items-center">
@@ -35,6 +35,13 @@
                   <div class="form-group">
                     <label for="disabledSelect">Branch Description </label>
                     <textarea type="text" formControlName="branchDescription"  class="form-control" ></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="disabledSelect"> City </label>
+                    <select  class="form-control" formControlName="cityId">
+                        <option *ngFor="let item of cityList; let i=index;" [value]="item.id">{{item.cityName}}</option>
+                    </select>
                   </div>
 
                   <div class="form-group">
@@ -69,7 +76,7 @@
                     <label for="disabledSelect"> Tax Percent </label>
                     <input type="number" formControlName="taxPercent"  class="form-control" value="0" />
                   </div>
-                
+
                   <button type="submit" [disabled]="!branch.valid" class="btn btn-primary" (click)="saveBranch()">Submit</button>
                 </fieldset>
             </form>
@@ -78,4 +85,3 @@
       </div>
     </div>
   </div>
-    

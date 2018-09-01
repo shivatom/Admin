@@ -25,15 +25,17 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.hasError=false;
     this.hasError1=false;
-    this.auth.login(this.form.value).subscribe(x=>{ 
+    this.auth.login(this.form.value).subscribe(x=>{
       let currentUser = localStorage.getItem('current-user-role');
+      console.log("hello");
+
       if(currentUser == 'ROLE_ADMIN' || currentUser == 'ROLE_BRANCH'){
         this.router.navigate ( [ '/' ] );
       }else{
         localStorage.removeItem('token');
         this.hasError1=true;
       }
-      
+
        //this.router.navigate ( [ '/' ] );
     },error=>{
       this.hasError=true;

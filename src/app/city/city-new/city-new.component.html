@@ -1,4 +1,4 @@
-<div class="container">  
+<div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="card p-3">
@@ -7,38 +7,35 @@
           </div>
           <div class="card-body  p-0 pt-2 pb-2">
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </p>
-                
-            <form class="col-md-6" [formGroup]="city">
-                
-
-                <fieldset >
-                  <div class="form-group">
-                    <label for="disabledSelect">Question </label>
-                    <input type="text" formControlName="question"  class="form-control" >
+            <div class="row">
+              <form [formGroup]="city">
+                  <div class="">
+                    <div class="img_wraper ml-2 pull-right">
+                      <label class="d-block">Product Image</label>
+                      <label for="file" class="img-hover">
+                        <div class="img-prop" *ngIf="image" [ngStyle]="{'background': 'url('+image+')'  }"></div>
+                        <div class="img-prop" *ngIf="!image" [ngStyle]="{'background': 'url(../assets/images/placeholder.png)'  }"></div>
+                      </label>
+                    </div>
+                    <input type="file" accept="image/*" (change)="onSelectImage($event)" name="file" class="form-control" hidden id="file">
                   </div>
+                  <div class="">
+                    <div class="clearfix"></div>
+                    <fieldset >
+                      <div class="form-group">
+                        <label for="disabledSelect">City Name </label>
+                        <input type="text" formControlName="cityName"  class="form-control" >
+                      </div>
 
-                  <div class="form-group">
-                    <label for="disabledSelect">Answer </label>
-                    <textarea type="text" formControlName="answer"  class="form-control" ></textarea>
+                      <button type="submit" [disabled]="!city.valid" class="btn btn-primary" (click)="saveCity()">Submit</button>
+                    </fieldset>
                   </div>
-                
-                  <button type="submit" [disabled]="!city.valid" class="btn btn-primary" (click)="saveCity()">Submit</button>
-                </fieldset>
-            </form>
-            
-            <div class="col-md-6">
-              <div class="img_wraper ml-2 pull-right">
-                <label class="d-block">Product Image</label>
-                <label for="file" class="img-hover">
-                  <div class="img-prop" *ngIf="image" [ngStyle]="{'background': 'url('+image+')'  }"></div>
-                  <div class="img-prop" *ngIf="!image" [ngStyle]="{'background': 'url(../assets/images/placeholder.png)'  }"></div>
-                </label>
-              </div>
-              <input type="file" accept="image/*" (change)="onSelectImage($event)" name="file" class="form-control" hidden id="file">
+              </form>
             </div>
+
+
           </div>
         </div>
       </div>
     </div>
   </div>
-    
